@@ -129,16 +129,16 @@ const Container = styled.div`
         right: 0;
         width: 350px;
         @media only screen and (max-width: 800px) and (min-width: 430px){
-            width: 900px
+            width: 500px;
         }
         @media only screen and (max-width: 1050px) and (min-width: 800px){
             width: 500px;
         }
         @media only screen and (min-width: 1050px) and (max-width: 1400px){
-            width: 1250px;
+            width: 800px;
         }
         @media only screen and (min-width: 2000px){
-            width: 1800px;
+            width: 1400px;
         }
     }
     .bottom-quiz-wave{
@@ -148,16 +148,16 @@ const Container = styled.div`
         right: 0;
         z-index: 0;
         @media only screen and (max-width: 800px) and (min-width: 430px){
-            width: 380px;
-        }s
+            width: 250px;
+        }
         @media only screen and (max-width: 1050px) and (min-width: 800px){
             width: 300px;
         }
         @media only screen and (min-width: 1050px) and (max-width: 1400px){
-            width: 600px;   
+            width: 300px;   
         }
         @media only screen and (min-width: 2000px){
-            width: 800px;
+            width: 600px;
         }
     }
 `
@@ -183,9 +183,9 @@ const ButtonContainer = styled.div`
         transition: .5s all;
         width: 100%;
         &:nth-child(1){
-            background: #43f443;
+            background: #52ec52;
             &:hover{
-                background: #3be23b;
+                background: #31d331;
             }
         }
         &:nth-child(2){
@@ -212,7 +212,13 @@ const ButtonContainer = styled.div`
             padding: 50px;
         }
     }
-    @media only screen and (max-width: 850px){
+    @media only screen and (max-width: 425px){
+        width: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 60%;
+    }
+    @media only screen and (max-width: 850px) and (min-width: 425px){
         top: 54%;
         width: 44%;
         left: 50%;

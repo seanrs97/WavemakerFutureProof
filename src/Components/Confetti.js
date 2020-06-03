@@ -21,24 +21,34 @@ class Confetti extends React.Component {
     return random;
   }
   randomColourGenerator = () => {
-    let colour1 = this.randomNumberGenerator(30, 50);
-    let colour2 = this.randomNumberGenerator(180, 210);
-    let colour3 = this.randomNumberGenerator(220, 248);
 
-    let colour4 = this.randomNumberGenerator(230, 248);
-    let colour5 = this.randomNumberGenerator(57, 75);
-    let colour6 = this.randomNumberGenerator(57, 75);
+    // BLUE COLOUR
+    let colour1 = this.randomNumberGenerator(60, 100);
+    let colour2 = this.randomNumberGenerator(48, 87);
+    let colour3 = this.randomNumberGenerator(180, 248);
 
-    let colour7 = this.randomNumberGenerator(236, 250);
-    let colour8 = this.randomNumberGenerator(230, 250);
-    let colour9 = this.randomNumberGenerator(240, 250);
+    // GREEN COLOUR
+    let colour4 = this.randomNumberGenerator(90, 138);
+    let colour5 = this.randomNumberGenerator(180, 230);
+    let colour6 = this.randomNumberGenerator(30, 70);
+
+    // YELLOW / ORANGE COLOUR
+    let colour7 = this.randomNumberGenerator(192, 235);
+    let colour8 = this.randomNumberGenerator(192, 250);
+    let colour9 = this.randomNumberGenerator(16, 75);
+
+    // RED COLOUR
+    let colour10 = this.randomNumberGenerator(209, 245);
+    let colour11 = this.randomNumberGenerator(40, 90);
+    let colour12 = this.randomNumberGenerator(20, 70);
 
     let finalColour = `rgb(${colour1}, ${colour2}, ${colour3})`;
     let finalColour2 = `rgb(${colour4}, ${colour5}, ${colour6})`;
-    let finalColour3 = `rgb(${colour7}, ${colour7}, ${colour9})`;
+    let finalColour3 = `rgb(${colour7}, ${colour8}, ${colour9})`;
+    let finalColour4 = `rgb(${colour10}, ${colour11}, ${colour12})`;
 
     let colours = []
-    colours.push(finalColour, finalColour2, finalColour3);
+    colours.push(finalColour, finalColour2, finalColour3, finalColour4);
 
     let realFinalColour = colours[Math.floor(Math.random() * colours.length)];
 
@@ -52,7 +62,7 @@ class Confetti extends React.Component {
   }
   componentDidMount(){
     this.setState({
-      width: window.innerWidth + "px"
+      width: window.innerWidth
     })
   }
   render(){
@@ -65,25 +75,33 @@ class Confetti extends React.Component {
     let topAtt2;
     let confettiNumber;
 
-    if(this.state.width >= "0px" && this.state.width <= "1200px"){
-      leftAtt1 = -500;
-      leftAtt2 = 700;
+    if(this.state.width >= 0 && this.state.width <= 500){
+      leftAtt1 = -300;
+      leftAtt2 = 800;
       topAtt1 = -340;
       topAtt2 = -40;
-      confettiNumber = 160;
-    } else if (this.state.width >= "1200px") {
-      leftAtt1 = -1900;
-      leftAtt2 = 2200;
+      confettiNumber = 200;
+    } else if (this.state.width > 500 && this.state.width <= 1200) {
+      leftAtt1 = -300;
+      leftAtt2 = 1900;
+      topAtt1 = -340;
+      topAtt2 = 1340;
+      confettiNumber = 350;
+    } else if (this.state.width > 1200 && this.state.width <= 1900){
+      leftAtt1 = -300;
+      leftAtt2 = 2400;
       topAtt1 = -340;
       topAtt2 = 1340;
       confettiNumber = 400;
     } else {
-      leftAtt1 = 50;
-      leftAtt2 = 500;
-      topAtt1 = 0;
-      topAtt2 = 50;
-      confettiNumber = 400
+      leftAtt1 = -600;
+      leftAtt2 = 3000;
+      topAtt1 = -300;
+      topAtt2 = 450;
+      confettiNumber = 500
     }
+
+    console.log(this.state.width, confettiNumber);
     // if(this.state.width >= "770px" && this.state.width <= "1399px") { 
     //   console.log("really nice job")
     //   leftAtt1 = -1400;

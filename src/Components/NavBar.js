@@ -41,7 +41,7 @@ class NavBar extends React.Component{
     render(){
         return(
             <div>
-                <MenuContainer onClick = {this.handleClickOutside} style = {{position: "fixed", zIndex: "1000000000000000000"}}>
+                <MenuContainer onClick = {this.handleClickOutside}>
                     <ContentContainer>
                         <NavImgContainer>
                             <Link to = "/"><NavImg src = {logo} /></Link>
@@ -77,16 +77,27 @@ class NavBar extends React.Component{
 const MenuContainer = styled.div`
     background: black;
     width: 100%;
+    position: fixed;
+    z-index: 1000000000000000000;
+    @media only screen and (max-width: 825px) and (max-height: 420px){
+        position: initial;
+    }
 `
 const ContentContainer = styled.nav`
     margin: 0 auto;
     background: black;
     color: white;
     padding: 16px 0;
-    width: 74%;
+    width: 90%;
     display: grid;
     grid-template-areas: "grid-img grid-img grid-img grid-img grid-img grid-img grid-list grid-list";
     position: relative;
+    @media only screen and (min-width: 2000px){
+        width: 70%;
+    }
+    @media only screen and (min-width: 1350px) and (max-width: 2000px){
+        width: 78%;
+    }
     @media only screen and (max-width: 700px){
         width: 100%;
         grid-template-areas: "nothing";

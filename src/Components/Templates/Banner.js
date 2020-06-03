@@ -10,20 +10,24 @@ class Banner extends React.Component {
     }
     render(){
         return (
-            <HalfwayBanner>
+            <div>
                 {!!this.props.bannerOne && this.props.bannerOne.map((banner) =>
-                    <div style = {{background: banner.colour}} key = {banner.id}>
-                        <h1> {banner.text} </h1>
-                        <p> {banner.desc} </p>
-                    </div>
+                    <HalfwayBanner style = {{background: banner.colour}}>
+                        <div key = {banner.id}>
+                            <h1> {banner.text} </h1>
+                            <p> {banner.desc} </p>
+                        </div>
+                    </HalfwayBanner>
                 )}
                 {!!this.props.bannerTwo && this.props.bannerTwo.map((banner) =>
-                    <div style = {{background: banner.colour}} key = {banner.id}>
-                        <h1> {banner.text} </h1>
-                        <p> {banner.desc} </p>
-                    </div>
+                    <HalfwayBanner style = {{background: banner.colour}}>
+                        <div key = {banner.id}>
+                            <h1> {banner.text} </h1>
+                            <p> {banner.desc} </p>
+                        </div>
+                    </HalfwayBanner>
                 )}
-            </HalfwayBanner>
+            </div>
         )
     }
 }
@@ -31,23 +35,28 @@ const HalfwayBanner = styled.div`
     width: 100%;
     margin-bottom: 20px;
     position: relative;
+
+    
     div{
-        padding: 30px 40px;
-        @media only screen and (min-width: 1900px) and (max-width: 2350px){
-            padding: 40px 50px;
+        padding: 30px 0;
+        width: 90%;
+        margin: 0 auto;
+        @media only screen and (max-width: 2000px) and (min-width: 1280px){
+            width: 78%;
+            padding: 40px 0;
         }
-        @media only screen and (min-width: 2350px){
-            padding: 50px 60px;
+        @media only screen and (min-width: 2000px){
+            width: 70%;
+            padding: 50px 0;
         }
-    }
     h1{
-        width: 100%;
         font-size: 4em;
         line-height: 1.2em;
         color: white;
         font-weight: 800;
-        width: 90%;
+        width: 100%;
         margin-bottom: 12px;
+        margin: 0 auto;
         @media only screen and (min-width: 1900px) and (max-width: 2350px){
             font-size: 7em;
         }
@@ -63,19 +72,26 @@ const HalfwayBanner = styled.div`
         @media only screen and (max-width: 400px){
             font-size: 2.4em;
         }
+        @media only screen and (max-width: 750px){
+            width: 100%;
+        }
     }
     p{
-        color: white;
+        color: white;   
         font-size: 1em;
         width: 70%;
+        padding-left: 10px
+        @media only screen and (min-width: 2350px){
+            font-size: 1.75em;
+        }
         @media only screen and (min-width: 1900px) and (max-width: 2350px){
             font-size: 1.5em;
         }
         @media only screen and (min-width: 2350px){
             font-size: 1.7em;
         }
-        @media only screen and (max-width: 600px){
-            width: 88%;
+        @media only screen and (max-width: 750px){
+            width: 90%;
         }
     }
 `

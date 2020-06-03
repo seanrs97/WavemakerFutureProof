@@ -26,8 +26,10 @@ class Resources extends React.Component {
                 {!!this.props.resources && this.props.resources.map((resource) =>
                     <ContentContainer>
                         <Header key = {resource.title}>
-                            <h1 className = "content-text">{resource.title}</h1>
-                            <p> {resource.text} </p>
+                            <div>
+                                <h1 className = "content-text">{resource.title}</h1>
+                                <p> {resource.text} </p>
+                            </div>
                         </Header>
                         <MainContentContainer>
                             <WatchAndLearn>
@@ -113,51 +115,64 @@ const ContentContainer = styled.div`
 const Header = styled.div`
     background: linear-gradient(90deg,rgb(11,146,191), rgb(42,181,227));
     color: white;
-    padding: 30px 40px;
-    h1{
-        line-height: 1em;
-        font-size: 6.8em;
-        padding-bottom: 20px;
-        color: white;
-        @media only screen and (min-width: 1900px) and (max-width: 2350px){
-            font-size: 8em;
+    div{
+        padding: 30px 40px;
+        margin: 0 auto;
+        h1{
+            font-size: 4em;
+            line-height: 1.2em;
+            color: white;
+            font-weight: 800;
+            width: 100%;
+            margin-bottom: 12px;
+            margin: 0 auto;
+            @media only screen and (min-width: 1900px) and (max-width: 2350px){
+                font-size: 7em;
+            }
+            @media only screen and (min-width: 2350px){
+                font-size: 6em;
+            }
+            @media only screen and (max-width: 600px) and (min-width: 500px){
+                font-size: 3.6em;
+            }
+            @media only screen and (max-width: 500px) and (min-width: 400px){
+                font-size: 3.4em;
+            }
+            @media only screen and (max-width: 400px){
+                font-size: 2.4em;
+            }
+            @media only screen and (max-width: 750px){
+                width: 100%;
+            }
         }
-        @media only screen and (min-width: 2350px){
-            font-size: 9em;
+        p{
+            color: white;
+            font-size: 1em;
+            width: 70%;
+            padding-left: 10px
+            @media only screen and (min-width: 2350px){
+                font-size: 1.75em;
+            }
+            @media only screen and (min-width: 1900px) and (max-width: 2350px){
+                font-size: 1.5em;
+            }
+            @media only screen and (min-width: 2350px){
+                font-size: 1.7em;
+            }
+            @media only screen and (max-width: 750px){
+                width: 90%;
+            }
         }
-        @media only screen and (max-width: 600px) and (min-width: 500px){
-            font-size: 6em;
+        @media only screen and (min-width: 2000px){
+            width: 70%;
+            padding: 50px 0;
+            margin: 0 auto;
         }
-        @media only screen and (max-width: 500px) and (min-width: 400px){
-            font-size: 4.8em;
+        @media only screen and (min-width: 1350px) and (max-width: 2000px){
+            width: 78%;
+            padding: 40px 0;
+            margin: 0 auto;
         }
-        @media only screen and (max-width: 400px) and (min-width: 350px){
-            font-size: 3.6em;
-        }
-        @media only screen and (max-width: 350px){
-            font-size: 3.3em;
-        }
-    }
-    p{
-        color: white;
-        width: 70%;
-        font-size: 1em;
-        line-height: 1.8em;
-        @media only screen and (min-width: 1900px) and (max-width: 2350px){
-            font-size: 1.5em;
-        }
-        @media only screen and (min-width: 2350px){
-            font-size: 1.7em;
-        }
-        @media only screen and (max-width: 600px){
-            width: 88%;
-        }
-    }
-    @media only screen and (min-width: 1900px) and (max-width: 2350px){
-        padding: 40px 50px;
-    }
-    @media only screen and (min-width: 2350px){
-        padding: 50px 60px;
     }
     @media only screen and (max-width: 600px){
 
@@ -165,13 +180,15 @@ const Header = styled.div`
 `
 const MainContentContainer = styled.div`
     div{
-        width: 84%;
+        width: 90%;
         margin: 0 auto;
         h2{
             font-size: 4.4em;
             line-height: 1.2em;
             @media only screen and (max-width: 560px){
-                text-align: center;
+                text-align: left;
+                margin: 0 auto;
+                width: 80%; 
                 font-size: 3.6em;
             }
             @media only screen and (min-width: 1900px) and (max-width: 2350px){
@@ -196,11 +213,11 @@ const MainContentContainer = styled.div`
                 font-size: 1.8em;
             }
         }
-        @media only screen and (min-width: 1900px) and (max-width: 2350px){
-            width: 75%;
-        }
-        @media only screen and (min-width: 2350px){
+        @media only screen and (min-width: 2000px){
             width: 70%;
+        }
+        @media only screen and (min-width: 1350px) and (max-width: 2000px){
+            width: 78%;
         }
     }
 `
@@ -245,10 +262,10 @@ const WatchAndLearn = styled.div`
                 text-transform: uppercase;
                 color: white;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                    font-size: 2.6em;
+                    font-size: 2.8em;
                 }
                 @media only screen and (min-width: 2350px){
-                    font-size: 3em;
+                    font-size: 3.2em;
                 }
             }
             p{
@@ -259,10 +276,10 @@ const WatchAndLearn = styled.div`
                 padding-bottom: 50px;
                 font-weight: 600;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                    font-size: 1.3em;
+                    font-size: 1.5em;
                 }
                 @media only screen and (min-width: 2350px){
-                    font-size: 1.5em;
+                    font-size: 1.65em;
                 }
             }
             .link{
@@ -276,10 +293,10 @@ const WatchAndLearn = styled.div`
                 color: white;
                 font-weight: 600;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                    font-size: 1.4em;
+                    font-size: 1.5em;
                 }
                 @media only screen and (min-width: 2350px){
-                    font-size: 1.6em;
+                    font-size: 1.7em;
                 }
             }
             &:nth-child(1n){
@@ -373,24 +390,24 @@ const UsefulLinks = styled.div`
                 text-transform: uppercase;
                 color: white;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                    font-size: 2.6em;
+                    font-size: 2.8em;
                 }
                 @media only screen and (min-width: 2350px){
-                    font-size: 3em;
+                    font-size: 3.2em;
                 }
             }
             p{
+                color: white;
                 font-size: 0.9em;
                 padding: 0 16px;
                 margin-left: 4px;
                 padding-bottom: 50px;
                 font-weight: 600;
-                color: white;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                    font-size: 1.3em;
+                    font-size: 1.5em;
                 }
                 @media only screen and (min-width: 2350px){
-                    font-size: 1.5em;
+                    font-size: 1.65em;
                 }
             }
             .link{
@@ -404,10 +421,10 @@ const UsefulLinks = styled.div`
                 color: white;
                 font-weight: 600;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                    font-size: 1.4em;
+                    font-size: 1.5em;
                 }
                 @media only screen and (min-width: 2350px){
-                    font-size: 1.6em;
+                    font-size: 1.7em;
                 }
             }
             &:nth-child(1n){
@@ -461,9 +478,21 @@ const CareerPathways = styled.div`
             }
             &:nth-child(1){
                 background: none;
+                h5{
+                    color: #4d4d4d;
+                }
+                p{
+                    color: #4d4d4d;
+                }
             }
             &:nth-child(2){
                 background: none;
+                h5{
+                    color: #4d4d4d;
+                }
+                p{
+                    color: #4d4d4d;
+                }
             }
             &:nth-child(1n){
                 flex-grow: 0.1;
@@ -484,25 +513,26 @@ const CareerPathways = styled.div`
                 font-family: Dosis;
                 line-height: 1.4em;
                 text-transform: uppercase;
-                color: #4d4d4d;
+                color: white;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                    font-size: 2.6em;
+                    font-size: 2.8em;
                 }
                 @media only screen and (min-width: 2350px){
-                    font-size: 3em;
+                    font-size: 3.2em;
                 }
             }
             p{
+                color: white;
                 font-size: 0.9em;
                 padding: 0 16px;
                 margin-left: 4px;
                 padding-bottom: 50px;
                 font-weight: 600;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                    font-size: 1.3em;
+                    font-size: 1.5em;
                 }
                 @media only screen and (min-width: 2350px){
-                    font-size: 1.5em;
+                    font-size: 1.65em;
                 }
             }
             .link{
@@ -516,10 +546,10 @@ const CareerPathways = styled.div`
                 color: #4d4d4d;
                 font-weight: 600;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                    font-size: 1.4em;
+                    font-size: 1.5em;
                 }
                 @media only screen and (min-width: 2350px){
-                    font-size: 1.6em;
+                    font-size: 1.7em;
                 }
             }
             &:nth-child(3n){

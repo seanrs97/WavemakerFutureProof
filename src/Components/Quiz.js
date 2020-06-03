@@ -66,7 +66,10 @@ class Quiz extends React.Component {
 
              showMainOverlay: "none",
              overlayOpacity: "0",
-             overlayVisibility: "hidden"    
+             overlayVisibility: "hidden",  
+
+
+             entireQuizVisibility: ""
         }
         this.interval = null
         this.targetElement = null;
@@ -112,41 +115,53 @@ class Quiz extends React.Component {
         console.log(params.get("page"));
         if (params.get("page")===null) {
           myURL = `${baseURL}404.json`;
+          console.log("this is a dead page");
         } else {
           myURL = `${baseURL}${params.get("page")}.json`;
         }
-        const self = this;
-        fetch(myURL).then(response => {
-          if(response.ok){
-            response.json().then(data => {
-              self.setState({
-                jsonData: data[0].quiz[0],
-                questions: data[0].quiz[0].questions,
-              });
-              console.log("OK", this.state.jsonData);
-              if(this.state.currentQuestionIndex !== 0){
-                this.setState({
-                    currentQuestionIndex: 0,
-                    score: 0
-                });
-                this.showOptions();
-            }
-            this.displayQuestions(
-                this.state.questions,
-                this.state.currentQuestion,
-                this.state.nextQuestion,
-                this.state.previousQuestion
-            )
-            if(this.state.showSummary !== "dissapear .6s linear forwards"){
-                this.setState({
-                    showSummary: "dissapear .6s linear forwards"
+        console.log(myURL)
+        if(myURL !== "https://seanrs97.github.io/jsonData/404.json"){
+            const self = this;
+            fetch(myURL).then(response => {
+                if(response.ok && response){
+                  response.json().then(data => {
+                    self.setState({
+                      jsonData: data[0].quiz[0],
+                      questions: data[0].quiz[0].questions,
+                    });
+                    console.log("OK", this.state.jsonData);
+                    if(this.state.currentQuestionIndex !== 0){
+                      this.setState({
+                          currentQuestionIndex: 0,
+                          score: 0
+                      });
+                      this.showOptions();
+                  }
+                  this.displayQuestions(
+                      this.state.questions,
+                      this.state.currentQuestion,
+                      this.state.nextQuestion,
+                      this.state.previousQuestion
+                  )
+                  if(this.state.showSummary !== "dissapear .6s linear forwards"){
+                      this.setState({
+                          showSummary: "dissapear .6s linear forwards"
+                      })
+                  }
+                  })
+                } else {
+                  console.log("error fetching file");
+                  this.setState({
+                    entireQuizVisibility: "none"
                 })
-            }
+                }
+              });
+        } else {
+            console.log("quiz does not exist here");
+            this.setState({
+                entireQuizVisibility: "none"
             })
-          } else {
-            console.log("error fetching file");
-          }
-        });
+        }
     }
     componentWillUnmount(){
         clearInterval(this.interval);
@@ -514,13 +529,16 @@ class Quiz extends React.Component {
                     visibility: this.state.overlayVisibility,
                     opacity: this.state.overlayOpacity
                 }}></div>
-                <ContentWrapper onScroll = {this.handleScroll} style = {{animation: this.state.doesQuizExist}}>
+                <ContentWrapper onScroll = {this.handleScroll} style = {{animation: this.state.doesQuizExist, display:this.state.entireQuizVisibility}}>
                     <Home style = {{animation: this.state.homeAppear, background: this.props.quizColour}}>
                         <div className = "content-container">
                             <h1> Quiz </h1>
                             <div className = "button-container">
                                 <button onClick = {this.startQuiz}>Start</button> 
                             </div>
+                        </div>
+                        <div className = "quiz-description">
+                            <p> Test you're knowledge on what you've learnt already and take the quiz to move on to the next section! </p>
                         </div>
                         <img src = {QuizImage1} className = "top-quiz-wave" />
                         <img src = {QuizImage2} className = "bottom-quiz-wave"/>
@@ -615,35 +633,40 @@ const Home = styled.div`
     .content-container{
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
         h1{
-            font-size: 4.5em;
-            font-weight: 800;
-            text-align: left;
-            font-family: dosis;
+            font-size: 9em;
+            line-height: 1.2em;
             color: white;
-            width: 40%;
+            font-weight: 800;
+            width: 100%;
+            margin-bottom: 12px;
             margin: 0 auto;
-            @media only screen and (max-width: 430px){
-                font-size: 7em;
-                font-weight: 800;
-                width: 100%;
-                text-align: center;
-                line-height: 1.2em;
+            margin-left: -15px;
+            @media only screen and (min-width: 2350px){
+                font-size: 14em;
             }
-            @media only screen and (max-width: 800px) and (min-width: 430px){
-                font-size: 8em;
-                text-align: center;
-                width: 100%;
-                line-height: 1.2em;
-            }
-            @media only screen and (max-width: 1400px) and (min-width: 800px){
-                font-size: 10em;
-            }
-            @media only screen and (min-width: 1400px) and (max-width: 2000px){
+            @media only screen and (min-width: 1900px) and (max-width: 2350px){
                 font-size: 12em;
             }
-            @media only screen and (min-width: 2000px){
-                font-size: 14em;
+            @media only screen and (max-width: 600px) and (min-width: 500px){
+                font-size: 3.6em;
+            }
+            @media only screen and (max-width: 500px) and (min-width: 400px){
+                font-size: 3.4em;
+            }
+            @media only screen and (max-width: 400px){
+                font-size: 4em;
+            }
+            @media only screen and (max-width: 560px){
+                text-align: center;
+                font-size: 6em;
+                margin-left: 0;
+            }
+            @media only screen and (max-width: 750px){
+                width: 100%;
             }
         }
         .button-container{
@@ -670,6 +693,7 @@ const Home = styled.div`
                     font-size: 2.2em;
                     margin-top: 14px;  
                     width: 100%;
+                    padding: 14px;
                 }
                 @media only screen and (max-width: 1400px) and (min-width: 800px){
                     font-size: 2.8em;
@@ -677,21 +701,25 @@ const Home = styled.div`
                 }
                 @media only screen and (min-width: 1400px) and (max-width: 2000px){
                     font-size: 3.6em;
-                    margin-top: 50px;
                 }
                 @media only screen and (min-width: 2000px){
                     font-size: 4.8em;
-                    margin-top: 80px;
                     padding: 60px 140px;
                 }
             }
-            @media only screen and (max-width: 580px){
+            @media only screen and (max-width: 800px){
                 margin: 0 auto;
-                padding: 26px 0;
+                padding: 30px;
             }
         }
-        @media only screen and (max-width: 1400px) and (min-width: 430px){
-            width: 100%;
+        @media only screen and (min-width: 2000px){
+            width: 70%;
+        }
+        @media only screen and (min-width: 1350px) and (max-width: 2000px){
+            width: 78%;
+        }
+        @media only screen and (max-width: 1350px) and (min-width: 430px){
+            width: 90%;
         }
         @media only screen and (max-width: 560px) and (min-width: 430px){
             display: block;
@@ -699,6 +727,34 @@ const Home = styled.div`
         @media only screen and (max-width: 430px){
             display: block;
             // height: 60vh;
+        }
+    }
+    .quiz-description{
+        width: 90%;
+        margin: 0 auto;
+        p{
+            color: white;
+            width: 70%;
+            @media only screen and (max-width: 580px){
+                width: 100%;
+            }
+            @media only screen and (min-width: 1900px) and (max-width: 2350px){
+                font-size: 1.5em;
+            }
+            @media only screen and (min-width: 2350px){
+                font-size: 1.7em;
+            }
+        }
+        @media only screen and (max-width: 580px){
+            width: 90%;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+        @media only screen and (min-width: 1350px) and (max-width: 2000px){
+            width: 78%;
+        }
+        @media only screen and (min-width: 2000px){
+            width: 70%;
         }
     }
     .top-quiz-wave{
@@ -791,7 +847,7 @@ const Container = styled.div`
 
 
     .main-content-container{
-        top: 30%;
+        top: 38%;
         position: absolute;
         transform: translateY(-30%);
         @media only screen and (max-width: 574px){
@@ -834,9 +890,9 @@ const Container = styled.div`
         font-weight: 800;
         color: white;
         position: absolute;
-        top: 12px;
-        left: 12px;
-        font-size: 1.7em;
+        top: 0;
+        left: 6px;
+        font-size: 1.5em;
         cursor: pointer;
         z-index:
         @media only screen and (max-width: 800px) and (min-width: 574px){
@@ -874,6 +930,13 @@ const Container = styled.div`
         .qNumber{
             color: white;
             font-weight: 100;
+            @media only screen and (max-width: 574px){
+                font-size: 1em;
+                position: absolute;
+                top: -30px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
             @media only screen and (max-width: 1050px) and (min-width: 574px){
                 font-size: 1em;
             }
@@ -990,6 +1053,7 @@ const LifelineContainer = styled.div`
         margin: 0 8px;
         border-radius: 4px;
         margin: 0 auto;
+        font-size: 1.1em;
         span{
             color: white;
             &:nth-child(1){
@@ -1040,6 +1104,9 @@ const LifelineContainer = styled.div`
             padding: 30px 50px;
         }
     }
+    @media only screen and (max-width: 574px){
+        margin-top: 10px;
+    }
     @media only screen and (max-width: 800px) and (min-width: 574px){
         width: 60%;
         margin-top: 20px;
@@ -1062,14 +1129,14 @@ const LifelineContainer = styled.div`
     }
 `
 const H5 = styled.h5`
-    font-size: 2em;
-    margin-bottom: 20px;
+    font-size: 1.5em;
+    margin-bottom: 5px;
     line-height: 1.35em;
     text-align: center;
     padding: 0 20px;
     transition: 1s all;
     color: white;
-    margin-top: 20px;
+    margin-top: 5px;
     @media only screen and (max-width: 800px) and (min-width: 574px){
         font-size: 1.85em;
         margin-top: 30px;
@@ -1109,12 +1176,16 @@ const OptionsContainer = styled.div`
         color: white;
         cursor: pointer;
         margin: 10px;
-        padding: 10px;
+        padding: 10px 20px;
         transition: .3s linear all;
         transition: .3s all;
-        font-size: 1.4em;
+        font-size: 1.2em;
         &:hover{
             background: rgba(71, 187, 230, 1);
+        }
+        @media only screen and (max-width: 425px){
+            padding: 16px 0;
+            font-size: 1.1em;
         }
         @media only screen and (max-width: 1050px) and (min-width: 574px){
             padding: 10px;
@@ -1133,7 +1204,12 @@ const OptionsContainer = styled.div`
             padding: 40px;
         }
     }
-    @media only screen and (max-width: 574px){
+    @media only screen and (max-width: 425px){
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+    @media only screen and (max-width: 574px) and (min-width: 425px){
         display: block;
         text-align: center;
     }
@@ -1163,7 +1239,7 @@ const TimeMessage = styled.div`
     transition: .3s all;
     h1{
         font-weight: 800;
-        font-size: 2.8em;
+        font-size: 2em;
     }
 `
 

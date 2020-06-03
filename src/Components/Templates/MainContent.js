@@ -21,7 +21,6 @@ class MainContent extends React.Component {
             <ContentContainer>
                 {!!this.props.content && this.props.content.map((cont) =>
                     <div className = "contentContainer contentContainerComplex" key = {cont.id}>
-                        <p className = "content-text">{cont.text}</p>
                         <img 
                             src = {cont.image} alt = {cont.id}
                             data-sal = "zoom-in"
@@ -29,11 +28,11 @@ class MainContent extends React.Component {
                             data-sal-duration = "1300"
                             data-sal-delay = "200"
                         />
+                        <p className = "content-text">{cont.text}</p>
                     </div>
                 )}
                 {!!this.props.content2 && this.props.content2.map((cont) =>
                     <div className = "contentContainer contentContainerComplex" key = {cont.id}>
-                        <p className = "content-text">{cont.text}</p>
                         <img
                             src = {cont.image} alt = {cont.id}
                             data-sal = "zoom-in"
@@ -41,6 +40,7 @@ class MainContent extends React.Component {
                             data-sal-duration = "1300"
                             data-sal-delay = "200"
                         />
+                        <p className = "content-text">{cont.text}</p>
                     </div>
                 )}
                 {!!this.props.content3 && this.props.content3.map((cont) =>
@@ -89,13 +89,13 @@ const ContentContainer = styled.div`
         margin: 0 auto;
         padding: 25px 0;
         min-height: 30vh;
-        padding: 50px 0;
+        padding: 86px 0;
         &:nth-of-type(even){
             min-height: 30vh;
             flex-direction: row-reverse;
             @media only screen and (max-width: 770px){
                 min-height: 30vh;
-                padding: 50px 0;
+                padding: 86px 0;
             }
             img{
                 @media only screen and(max-width: 770px){
@@ -127,11 +127,30 @@ const ContentContainer = styled.div`
             }
         }
         .wrapper{
+            justify-content: center;
             p{
                 display: inline-block;
                 font-size: 0.85em;
                 @media only screen and (max-width: 480px){
                     display: block;
+                }
+            }
+            .firstTextContainer{
+                text-align: left;
+                @media only screen and (max-width: 480px){
+                    text-align: center;
+                }
+            }
+            .secondTextContainer{
+                text-align: left;
+                @media only screen and (max-width: 480px){
+                    text-align: center;
+                }
+            }
+            .thirdTextContainer{
+                text-align: left;
+                @media only screen and (max-width: 480px){
+                    text-align: center;
                 }
             }
         }
@@ -143,8 +162,15 @@ const ContentContainer = styled.div`
             width: 100%;
             align-items: center;
             justify-content: left;
-            @media only screen and (min-width: 1900px){
+            @media only screen and (min-width: 2200px){
+                font-size: 2em;
+            }
+            @media only screen and (min-width: 1900px) and (max-width: 2200px){
                 font-size: 1.8em;
+                text-align: center;
+            }
+            @media only screen and (min-width: 1500px) and (max-width: 1900px){
+                font-size: 1.6em;
             }
             @media only screen and (max-width: 480px){
                 padding-bottom: 20px;
@@ -161,25 +187,36 @@ const ContentContainer = styled.div`
             margin-right: auto;
             @media only screen and (max-width: 480px){
                 padding-bottom: 50px;
+            }
+            @media only screen and (min-width: 2000px){
+                max-width: 38%;
             }    
         }
         @media only screen and (max-width: 770px){
             padding: 50px 0;
         }
         @media only screen and (max-width: 480px){
-            width: 95%;
+            width: 85%;
             display: block !important;
             text-align: center;
         }
         &:nth-of-type(even){
             .content-text{
                 padding-right: 6px;
+                justify-content: center;
             }
         }
         &:nth-of-type(odd){
             .content-text{
                 padding-left: 6px;
+                justify-content: center;
             }
+        }
+        @media only screen and (min-width: 1280px) and (max-width: 2000px){
+            width: 78%;
+        }
+        @media only screen and (min-width: 2000px){
+            width: 70%;
         }
     }
 `
