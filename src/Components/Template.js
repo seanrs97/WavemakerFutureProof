@@ -9,9 +9,6 @@ import sal from "sal.js";
 import '../../node_modules/sal.js/dist/sal.css';
 
 class Template extends React.Component {
-    constructor(props){
-        super(props);
-    }
     componentDidUpdate(){
         sal({
             once: false

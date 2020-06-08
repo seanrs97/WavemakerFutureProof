@@ -32,6 +32,7 @@ const HeaderImage = styled.div`
     position: relative;
     min-height: 70vh;
     max-height: 90vh;
+    padding: 40px 0;
     background: ${props => props.headerColour};
     // background: url(${props => props.headerImageDesk});
     // background-repeat: no-repeat;
@@ -66,11 +67,39 @@ const ImageTextContainer = styled.div`
     }
     // text-shadow: 5px 5px 5px #545454;
     color: white;
-    width: 50%;
-    position: absolute;
-    left: 6.5%;
-    bottom: 3%;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 30%;
     animation: slideIn 2s linear;
+    @media only screen and (min-width: 2000px){
+        width: 70%;
+        padding-top: 30%;
+    }
+    @media only screen and (min-width: 1700px) and (max-width: 2000px){
+        width: 78%;
+        padding-top: 40%;
+    }
+    @media only screen and (min-width: 1400px) and (max-width: 1700px){
+        padding-top: 50%;
+    }
+    @media only screen and (min-width: 1400px) and (max-width: 1700px) and (max-height: 900px){
+        padding-top: 35%;
+    }
+    @media only screen and (max-width: 850px) and (min-width: 600px){
+        padding-top: 100%;
+    }
+    @media only screen and (max-width: 1050px) and (min-width: 600px) and (max-height: 800px){
+        padding-top: 55%;
+    }
+    @media only screen and (max-width: 600px){
+        padding-top: 100%;
+    }
+    @media only screen and (min-width: 600px) and (max-width: 1050px) and (min-height: 800px) and (max-height: 1400px){
+        padding-top: 85%;
+    }
+    @media only screen and (min-height: 300px) and (max-height: 420px){
+        padding-top: 30%;
+    }
     -webkit-animation: slideIn 2s linear;
     h1{
         font-size: 3.4em;
@@ -92,7 +121,6 @@ const ImageTextContainer = styled.div`
         }
     }
     @media only screen and (min-width: 2000px){
-        left: 22%;
         h1{
             font-size: 8em;
         }
@@ -101,7 +129,6 @@ const ImageTextContainer = styled.div`
         }
     }
     @media only screen and (min-width: 1350px) and (max-width: 2000px){
-        left: 14%;
         h1{
             font-size: 6em;
         }
@@ -110,7 +137,7 @@ const ImageTextContainer = styled.div`
         }
     }
     @media only screen and (max-width: 760px){
-        width: 65%;
+        width: 90%;
     }
     @media only screen and (max-width: 500px){
         width: 80%;

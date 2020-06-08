@@ -3,10 +3,6 @@ import styled from "styled-components";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import StaffsUni from "../Images/footerImages/staffs-uni.png";
-import Erasmus from "../Images/footerImages/erasmus.svg";
-import Unitemps from "../Images/footerImages/unitemps.png";
-
 import logo from "../Images/logo.svg";
 import StaffsUniImage from "../Images/footerImages/connected_university.jpg";
 import EuropeanUnionImage from "../Images/footerImages/european_union.png";
@@ -62,11 +58,17 @@ const FooterContainer = styled.div`
     // padding: 2.5% 5%;
 `
 const ContentContainer = styled.div`
-    width: 80% !important;
+    width: 90% !important;
     margin: 0 auto;
     margin-top: 20px;
     display: flex;
     flex-direction: row;
+    @media only screen and (min-width: 2000px){
+        width: 70% !important;
+    }
+    @media only screen and (min-width: 1350px) and (max-width: 2000px){
+        width: 78% !important;
+    }
     @media only screen and (max-width: 600px) and (min-width: 450px){
         display: block;
     }
@@ -221,7 +223,7 @@ const Copyright = styled.div`
     }
 `
 const Bottom = styled.div`
-    width: 80%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     margin: 0 auto;
@@ -229,6 +231,12 @@ const Bottom = styled.div`
     padding-bottom: 10px;
     border-top: 1px solid white;
     justify-content: space-between;
+    @media only screen and (min-width: 1350px) and (max-width: 2000px){
+        width: 78% !important;
+    }
+    @media only screen and (min-width: 2000px){
+        width: 70% !important;
+    }
 
 `
 export default Footer;

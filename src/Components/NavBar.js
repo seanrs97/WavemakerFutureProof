@@ -23,7 +23,7 @@ class NavBar extends React.Component{
     }
     showMenu = () => {
         this.setState({
-            displayMenu: "88px",
+            displayMenu: "180px",
             crossShow: "translateX(0)",
             hamburgerShow: "-600px"
         })
@@ -89,11 +89,13 @@ const ContentContainer = styled.nav`
     color: white;
     padding: 16px 0;
     width: 90%;
-    display: grid;
-    grid-template-areas: "grid-img grid-img grid-img grid-img grid-img grid-img grid-list grid-list";
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: relative;
     @media only screen and (min-width: 2000px){
         width: 70%;
+        padding: 24px 0;
     }
     @media only screen and (min-width: 1350px) and (max-width: 2000px){
         width: 78%;
@@ -102,44 +104,44 @@ const ContentContainer = styled.nav`
         width: 100%;
         grid-template-areas: "nothing";
     }
-    @media only screen and (max-width: 530px){
+    @media only screen and (max-width: 700px){
         width: 100%;
+        display: flex;
+        justify-content: space-around;
     }
 `
 const NavImgContainer = styled.div`
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    @media only screen and (min-width: 700px) and (max-width: 1200px){
+        margin-left: 0;
+    }
     @media only screen and (max-width: 700px){
         text-align: center;
+        margin-left: 0;
     }
 `
 const NavImg = styled.img`
-    grid-area: grid-img;
     height: auto;
     width: 210px;
-    margin-left: 6%;
     filter: invert(102%) sepia(103%) saturate(1352%) hue-rotate(87deg) brightness(11119%) contrast(119%);
-    @media only screen and (min-width: 2450px){
+    @media only screen and (min-width: 2000px){
         width: 320px;
     }
-    @media only screen and (min-width: 1650px) and (max-width: 2200px){
-        width: 240px;
+    @media only screen and (min-width: 1650px) and (max-width: 2000px){
+        width: 255px;
     }
     @media only screen and (max-width: 530px){
 
     }
 `
 const MenuList = styled.ul`
-    grid-area: grid-list;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-gap: 25px;
     list-style: none;
     text-align: center;
     vertical-align: middle;
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
     transition: 1s all;
     margin: 0;
     a{
@@ -153,12 +155,15 @@ const MenuList = styled.ul`
     li img{
         height: auto;
         width: 50px;
-        @media only screen and (min-width: 2450px){
+        @media only screen and (min-width: 2000px){
             width: 110px;
         }
-        @media only screen and (min-width: 1650px) amd (max-width: 2200px){
-            width: 70px;
+        @media only screen and (min-width: 1650px) and (max-width: 2000px){
+            width: 84px;
         }
+    }
+    @media only screen and (min-width: 2000px){
+        grid-gap: 36px;
     }
     @media only screen and (max-width: 700px){
         display: none;
@@ -235,6 +240,7 @@ const Cross = styled.div`
     left: 4%;
     transition: .8s all;
     transform: translateY(-50%);
+
     h1{
         font-size: 3.4em;
     }

@@ -30,8 +30,8 @@ class Summary extends React.Component {
                         {/* <p> {this.props.successMessage} </p> */}
                     </SuccessContainer>
                 </div>
-                <img src = {QuizImage1} className = "top-quiz-wave" />
-                <img src = {QuizImage2} className = "bottom-quiz-wave"/>
+                <img alt = "background of wave" src = {QuizImage1} className = "top-quiz-wave" />
+                <img alt = "background of wave" src = {QuizImage2} className = "bottom-quiz-wave"/>
                 <ButtonContainer>
                     <button onClick = {this.props.playAgain}> Play again </button>
                     <button onClick = {this.props.homeReturn}> Move on! </button>

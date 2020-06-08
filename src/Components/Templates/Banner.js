@@ -58,10 +58,10 @@ const HalfwayBanner = styled.div`
         margin-bottom: 12px;
         margin: 0 auto;
         @media only screen and (min-width: 1900px) and (max-width: 2350px){
-            font-size: 7em;
+            font-size: 6em;
         }
         @media only screen and (min-width: 2350px){
-            font-size: 6em;
+            font-size: 7em;
         }
         @media only screen and (max-width: 600px) and (min-width: 500px){
             font-size: 3.6em;

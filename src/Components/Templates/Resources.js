@@ -33,7 +33,7 @@ class Resources extends React.Component {
                         </Header>
                         <MainContentContainer>
                             <WatchAndLearn>
-                                <h2> Watch and Learn </h2>
+                                <h1 className = "mainHeading"> Watch and Learn </h1>
                                 <p> We've scoured the interet to find the most helpful videos, games, quizzes, websites and everything in between! We hope these will help you in your educational journey!</p>
                                 <div className = "links-wrapper">
                                     {!!resource.watch_and_learn && resource.watch_and_learn.map((link) =>
@@ -45,7 +45,7 @@ class Resources extends React.Component {
                                                 backgroundSize: "cover",
                                                 backgroundPosition: "center"
                                             }}>
-                                            <h5> {link.text} </h5>
+                                            <h2> {link.text} </h2>
                                             <p> {link.desc} </p>
                                             <a href = {link.link} className = "link"> Visit Link  &rarr; </a>
                                             {/* <img style = {{
@@ -61,7 +61,7 @@ class Resources extends React.Component {
                                 </div>
                             </WatchAndLearn>
                             <UsefulLinks>
-                                <h2> Useful Links </h2>
+                                <h1 className = "mainHeading"> Useful Links </h1>
                                 <p> We've collected the most useful links we could find to help you in your educational journey!  </p>
                                 <div className  = "links-wrapper2">
                                 {!!resource.useful_links && resource.useful_links.map((link) =>
@@ -72,7 +72,7 @@ class Resources extends React.Component {
                                             backgroundSize: "cover",
                                             backgroundPosition: "center bottom"
                                         }}>
-                                            <h5> {link.text} </h5>
+                                            <h2> {link.text} </h2>
                                             <p> {link.desc} </p>
                                             <a href = {link.link} className = "link"> Visit Link  &rarr; </a>
                                         </div>
@@ -80,7 +80,7 @@ class Resources extends React.Component {
                                 </div>
                             </UsefulLinks>
                             <CareerPathways>
-                                <h2> Career Pathways </h2>
+                                <h1 className = "mainHeading"> Career Pathways </h1>
                                 <p> Take a look at some of the career pathways that are available to you right now!</p>
                                 <div className  = "links-wrapper3">
                                 {!!resource.careers && resource.careers.map((link) =>
@@ -91,7 +91,7 @@ class Resources extends React.Component {
                                         backgroundSize: "cover",
                                         backgroundPosition: "right top"
                                     }}>
-                                        <h5> {link.text} </h5>
+                                        <h2> {link.text} </h2>
                                         <p> {link.desc} </p>
                                         <a href = {link.link} className = "link"> Visit Link  &rarr; </a>
                                     </div>
@@ -116,7 +116,8 @@ const Header = styled.div`
     background: linear-gradient(90deg,rgb(11,146,191), rgb(42,181,227));
     color: white;
     div{
-        padding: 30px 40px;
+        width: 90%;
+        padding: 30px 0;
         margin: 0 auto;
         h1{
             font-size: 4em;
@@ -126,10 +127,10 @@ const Header = styled.div`
             width: 100%;
             margin-bottom: 12px;
             margin: 0 auto;
-            @media only screen and (min-width: 1900px) and (max-width: 2350px){
+            @media only screen and (min-width: 2350px){
                 font-size: 7em;
             }
-            @media only screen and (min-width: 2350px){
+            @media only screen and (min-width: 1900px) and (max-width: 2350px){
                 font-size: 6em;
             }
             @media only screen and (max-width: 600px) and (min-width: 500px){
@@ -182,13 +183,34 @@ const MainContentContainer = styled.div`
     div{
         width: 90%;
         margin: 0 auto;
+        .mainHeading{
+            line-height: 1.5em;
+            font-size: 4em;
+            @media only screen and (min-width: 1900px) and (max-width: 2350px){
+                font-size: 6em;
+            }
+            @media only screen and (min-width: 2350px){
+                font-size: 7em;
+            }
+            @media only screen and (max-width: 600px) and (min-width: 500px){
+                font-size: 3.6em;
+            }
+            @media only screen and (max-width: 500px) and (min-width: 400px){
+                font-size: 3.4em;
+            }
+            @media only screen and (max-width: 400px){
+                font-size: 2.4em;
+            }
+            @media only screen and (max-width: 750px){
+                width: 100%;
+            }
+        }
         h2{
             font-size: 4.4em;
             line-height: 1.2em;
             @media only screen and (max-width: 560px){
                 text-align: left;
-                margin: 0 auto;
-                width: 80%; 
+                width: 100%; 
                 font-size: 3.6em;
             }
             @media only screen and (min-width: 1900px) and (max-width: 2350px){
@@ -204,7 +226,7 @@ const MainContentContainer = styled.div`
             width: 70%;
             @media only screen and (max-width: 560px){
                 margin: 0 auto;
-                width: 80%;
+                width: 100%;
             }
             @media only screen and (min-width: 1900px) and (max-width: 2350px){
                 font-size: 1.4em;
@@ -253,7 +275,7 @@ const WatchAndLearn = styled.div`
             @media only screen and (max-width: 600px){
                 min-height: 20vh;
             }
-            h5{
+            h2{
                 font-size: 1.5em;
                 padding: 16px;
                 font-weight: 800;
@@ -272,7 +294,7 @@ const WatchAndLearn = styled.div`
                 color: white;
                 font-size: 0.9em;
                 padding: 0 16px;
-                margin-left: 4px;
+                margin-left: 0;
                 padding-bottom: 50px;
                 font-weight: 600;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
@@ -325,14 +347,18 @@ const WatchAndLearn = styled.div`
     }
 `
 const UsefulLinks = styled.div`
-    margin-top: 100px !important;
+    margin-top: 40px !important;
     .links-wrapper2{
         display: flex;
         width: 100%;
         flex-wrap: wrap;
         flex-direction: row;
-        margin-left: -10px;
-        margin: 0 auto;
+        margin: auto 0 auto -10px;
+        @media only screen and (min-width: 600px) and (max-width: 1000px){
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+        }
         .link-wrapper{
             flex-grow: 0.5;
             width: 40%;
@@ -344,13 +370,16 @@ const UsefulLinks = styled.div`
             min-height: 35vh;
             justify-content: space-between;
             margin: 10px;
+            &:nth-of-type(even){
+                margin-right: -10px;
+            }
 
             @media only screen and (max-width: 1200px) and (min-width: 1000px){
                 min-height: 28vh;
             }
             @media only screen and (max-width: 1000px) and (min-width: 600px){
                 min-height: 25vh;
-                width: 45%;
+                width: 100%;
             }
             @media only screen and (max-width: 600px){
                 width: 100%;
@@ -381,7 +410,7 @@ const UsefulLinks = styled.div`
                 }
             }
 
-            h5{
+            h2{
                 font-size: 1.5em;
                 padding: 16px;
                 font-weight: 800;
@@ -400,7 +429,7 @@ const UsefulLinks = styled.div`
                 color: white;
                 font-size: 0.9em;
                 padding: 0 16px;
-                margin-left: 4px;
+                margin-left: 0;
                 padding-bottom: 50px;
                 font-weight: 600;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
@@ -439,19 +468,30 @@ const UsefulLinks = styled.div`
             &:nth-child(4n){
                 background: #0B92BF;
             }
+            @media only screen and (max-width: 600px){
+                margin: 10px 0;
+            }
+        }
+        @media only screen and (max-width: 600px){
+            margin: 0;
         }
     }
 
 `
 const CareerPathways = styled.div`
-    margin-top: 100px !important;
+    margin-top: 40px !important;
     .links-wrapper3{
         display: flex;
         width: 100%;
         flex-wrap: wrap;
         flex-direction: row;
-        margin-left: -10px;
-        margin: 0 auto;
+        padding-bottom: 10px;
+        margin: auto 0 auto -10px;
+        @media only screen and (min-width: 600px) and (max-width: 1000px){
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+        }
         .link-wrapper{
             flex-grow: 0.5;
             width: 40%;
@@ -462,6 +502,10 @@ const CareerPathways = styled.div`
             overflow: hidden;
             min-height: 35vh;
 
+            &:nth-of-type(even){
+                margin-right: -10px;
+            }
+
             justify-content: space-between;
             margin: 10px;
 
@@ -470,7 +514,8 @@ const CareerPathways = styled.div`
             }
             @media only screen and (max-width: 1000px) and (min-width: 600px){
                 min-height: 25vh;
-                width: 45%;
+                // width: 48%;
+                width: 100%;
             }
             @media only screen and (max-width: 600px){
                 width: 100%;
@@ -478,7 +523,7 @@ const CareerPathways = styled.div`
             }
             &:nth-child(1){
                 background: none;
-                h5{
+                h2{
                     color: #4d4d4d;
                 }
                 p{
@@ -487,7 +532,7 @@ const CareerPathways = styled.div`
             }
             &:nth-child(2){
                 background: none;
-                h5{
+                h2{
                     color: #4d4d4d;
                 }
                 p{
@@ -506,7 +551,7 @@ const CareerPathways = styled.div`
                     flex-grow: 0;
                 }
             }
-            h5{
+            h2{
                 font-size: 1.5em;
                 padding: 16px;
                 font-weight: 800;
@@ -525,7 +570,7 @@ const CareerPathways = styled.div`
                 color: white;
                 font-size: 0.9em;
                 padding: 0 16px;
-                margin-left: 4px;
+                margin-left: 0;
                 padding-bottom: 50px;
                 font-weight: 600;
                 @media only screen and (min-width: 1900px) and (max-width: 2350px){
@@ -554,7 +599,7 @@ const CareerPathways = styled.div`
             }
             &:nth-child(3n){
                 background: #2AB5E3;
-                h5{
+                h2{
                     color: white;
                 }
                 p{
@@ -566,7 +611,7 @@ const CareerPathways = styled.div`
             }
             &:nth-child(4n){
                 background: #20A9D7;
-                h5{
+                h2{
                     color: white;
                 }
                 p{
@@ -576,6 +621,13 @@ const CareerPathways = styled.div`
                     color: white;
                 }
             }
+            @media only screen and (max-width: 600px){
+                margin: 10px 0;
+            }
         }
+        @media only screen and (max-width: 600px){
+            margin: 0;
+        }
+    }
 `
 export default Resources

@@ -16,7 +16,7 @@ import styled from "styled-components";
 import IsEmpty from "./IsEmpty";
 import Summary from "./Summary";
 
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 import QuizImage1 from "../Images/SVG/quiz-wave-1.svg";
 import QuizImage2 from "../Images/SVG/quiz-wave-2.svg";
@@ -259,7 +259,9 @@ class Quiz extends React.Component {
         console.log(window.innerWidth);
         if(window.innerWidth < 580){
             quizScaleSize = "100%"
-        } else {
+        } else if(window.innerWidth >= 580 && window.innerWidth <= 1400) {
+            quizScaleSize = "94%"
+        }else {
             quizScaleSize = "88%"
         }
         setTimeout(() => {
@@ -386,7 +388,7 @@ class Quiz extends React.Component {
                 this.setState({
                     showConfetti: "block"
                 });
-            }, 2400)
+            }, 800)
         }
         this.setState({
             endScore: playerStats.score,
@@ -540,8 +542,8 @@ class Quiz extends React.Component {
                         <div className = "quiz-description">
                             <p> Test you're knowledge on what you've learnt already and take the quiz to move on to the next section! </p>
                         </div>
-                        <img src = {QuizImage1} className = "top-quiz-wave" />
-                        <img src = {QuizImage2} className = "bottom-quiz-wave"/>
+                        <img alt = "background of wave" src = {QuizImage1} className = "top-quiz-wave" />
+                        <img alt = "background of wave" src = {QuizImage2} className = "bottom-quiz-wave"/>
                     </Home>
                     <QuizAndSummaryContainer id = "quizAndSummary" style = {{height: this.state.quizScale}}>
                         <QuizContainer>
@@ -623,11 +625,14 @@ const Home = styled.div`
     overflow: hidden;
     transition: 1.6s;
     // padding: 30px 40px;
+    @media only screen and (min-width: 600px) and (max-width: 1900px){
+        padding: 30px 0;
+    }
     @media only screen and (min-width: 1900px) and (max-width: 2350px){
-        padding: 40px 50px;
+        padding: 40px 0;
     }
     @media only screen and (min-width: 2350px){
-        padding: 50px 60px;
+        padding: 50px 0;
     }
 
     .content-container{
@@ -637,28 +642,24 @@ const Home = styled.div`
         width: 90%;
         margin: 0 auto;
         h1{
-            font-size: 9em;
+            font-size: 4em;
             line-height: 1.2em;
             color: white;
             font-weight: 800;
             width: 100%;
             margin-bottom: 12px;
             margin: 0 auto;
-            margin-left: -15px;
-            @media only screen and (min-width: 2350px){
-                font-size: 14em;
-            }
             @media only screen and (min-width: 1900px) and (max-width: 2350px){
-                font-size: 12em;
+                font-size: 6em;
+            }
+            @media only screen and (min-width: 2350px){
+                font-size: 7em;
             }
             @media only screen and (max-width: 600px) and (min-width: 500px){
                 font-size: 3.6em;
             }
             @media only screen and (max-width: 500px) and (min-width: 400px){
                 font-size: 3.4em;
-            }
-            @media only screen and (max-width: 400px){
-                font-size: 4em;
             }
             @media only screen and (max-width: 560px){
                 text-align: center;
@@ -689,7 +690,7 @@ const Home = styled.div`
                     width: 100%;
                     padding: 14px;
                 }
-                @media only screen and (max-width: 800px) and (min-width: 430px){
+                @media only screen and (max-width: 700px) and (min-width: 430px){
                     font-size: 2.2em;
                     margin-top: 14px;  
                     width: 100%;
@@ -697,19 +698,23 @@ const Home = styled.div`
                 }
                 @media only screen and (max-width: 1400px) and (min-width: 800px){
                     font-size: 2.8em;
-                    margin-top: 30px;
+                    padding: 15px 36px;
                 }
                 @media only screen and (min-width: 1400px) and (max-width: 2000px){
                     font-size: 3.6em;
+                    padding: 20px 50px;
                 }
                 @media only screen and (min-width: 2000px){
-                    font-size: 4.8em;
-                    padding: 60px 140px;
+                    font-size: 4.2em;
+                    padding: 30px 100px;
                 }
             }
             @media only screen and (max-width: 800px){
                 margin: 0 auto;
                 padding: 30px;
+            }
+            @media only screen and (min-width: 2000px){
+                width: 25%;
             }
         }
         @media only screen and (min-width: 2000px){
@@ -718,7 +723,7 @@ const Home = styled.div`
         @media only screen and (min-width: 1350px) and (max-width: 2000px){
             width: 78%;
         }
-        @media only screen and (max-width: 1350px) and (min-width: 430px){
+        @media only screen and (max-width: 1350px) and (min-width: 700px){
             width: 90%;
         }
         @media only screen and (max-width: 560px) and (min-width: 430px){
@@ -730,6 +735,9 @@ const Home = styled.div`
         }
     }
     .quiz-description{
+        @media only screen and (min-width: 700px) and (max-width: 1350px){
+            width: 90%;
+        }
         width: 90%;
         margin: 0 auto;
         p{
@@ -803,7 +811,7 @@ const Home = styled.div`
 `
 const QuizAndSummaryContainer = styled.div`
     position: fixed;
-    height: 82vh;
+    height: 90vh;
     width: 88%;
     top: 50%;
     left: 50%;
@@ -814,6 +822,10 @@ const QuizAndSummaryContainer = styled.div`
     // display: none;
     transition: .7s all;
     overflow: hidden;
+    @media only screen and (min-width: 576px) and (max-width: 1400px){
+        height: 92vh;
+        width: 92%;
+    }
     @media only screen and (max-width: 576px){
         width: 100%;
         height: 100vh;
@@ -832,13 +844,19 @@ const QuizContainer = styled.div`
     z-index: 999999999999999999999999999;
 `
 const Container = styled.div`
-    width: 97.15%;
+    width: 100%;
     padding: 14px;
     transition: 1.2s all;
     color: white;
-    height: 82vh;
+    height: 90vh;
     z-index: 100000;
     position: relative;
+    @media only screen and (min-width: 2000px){
+        height: 94vh;
+    }
+    @media only screen and (min-width: 580px) and (max-width: 1400px){
+        height: 92vh;
+    }
     @media only screen and (max-width: 580px){
         height: 100vh;
         padding: 0;
@@ -882,7 +900,7 @@ const Container = styled.div`
         @media only screen and (min-width: 2000px){
             top: 40%;
             left: 50%;
-            width: 68%;
+            width: 78%;
             transform: translate(-50%, -50%);
         }
     }
@@ -1128,8 +1146,8 @@ const LifelineContainer = styled.div`
         margin-top: 40px;
     }
 `
-const H5 = styled.h5`
-    font-size: 1.5em;
+const H5 = styled.h1`
+    font-size: 1.5em !important;
     margin-bottom: 5px;
     line-height: 1.35em;
     text-align: center;
@@ -1138,23 +1156,23 @@ const H5 = styled.h5`
     color: white;
     margin-top: 5px;
     @media only screen and (max-width: 800px) and (min-width: 574px){
-        font-size: 1.85em;
+        font-size: 1.85em !important;
         margin-top: 30px;
     }
     @media only screen and (max-width: 1050px) and (min-width: 800px){
-        font-size: 2.1em;
+        font-size: 2.1em !important;
         margin-top: 20px;
     }
     @media only screen and (min-width: 1050px) and (max-width: 1500px){
-        font-size: 2.5em;   
+        font-size: 2.5em !important;   
         margin-top: 20px;
     }
     @media only screen and (min-width: 1500px) and (max-width: 2000px){
-        font-size: 2.9em;
+        font-size: 2.9em !important;
         margin-top: 10px;
     }
     @media only screen and (min-width: 2000px){
-        font-size: 4.2em;
+        font-size: 4.2em !important;
         margin-top: 20px;
     }
 `

@@ -5,9 +5,6 @@ import Wave from "../Images/SVG/quiz-wave-2.svg";
 import Wave2 from "../Images/SVG/quiz-wave-1.svg";
 
 class Template404 extends React.Component {
-    constructor(){
-        super();
-    }
     render(){
         return(
             <Template style = {{display: this.props.display404}}> 
@@ -15,8 +12,8 @@ class Template404 extends React.Component {
                     <h1> 404 PAGE </h1>
                     <p>Oops, something went wrong here</p>
                 </div>
-                <img className = "image1" src = {Wave} alt = "background image"/>
-                <img className = "image2" src = {Wave2} alt = "background image 2"/>
+                {/* <img className = "image1" src = {Wave} alt = "background of wave"/> */}
+                <img className = "image2" src = {Wave2} alt = "background of wave"/>
             </Template>
         )
     }
@@ -28,11 +25,16 @@ const Template = styled.div`
     position: fixed;
     left: 0;
     top: 0;
-    background: black;
+    background: white;
     z-index: 100;
     .message{
-        margin-top: 100px;
+        // margin-top: 100px;
         text-align: center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
         h1{
             color: #bfbfbf;
             line-height: 1.2em;
@@ -65,18 +67,18 @@ const Template = styled.div`
                 font-size: 1.2em;
             }
         }
-        @media only screen and (min-width: 2100px){
-            margin-top: 250px;
-        }
-        @media only screen an (min-width: 1400px) and (max-width: 2100px){
-            margin-top: 300px;
-        }
-        @media only screen and (max-width: 900px) and (min-width: 500px){
-            margin-top: 200px;
-        }
-        @media only screen and (max-width: 500px){
-            margin-top: 300px;
-        }
+        // @media only screen and (min-width: 2100px){
+        //     margin-top: 250px;
+        // }
+        // @media only screen an (min-width: 1400px) and (max-width: 2100px){
+        //     margin-top: 300px;
+        // }
+        // @media only screen and (max-width: 900px) and (min-width: 500px){
+        //     margin-top: 200px;
+        // }   
+        // @media only screen and (max-width: 500px){
+        //     margin-top: 300px;
+        // }
     }
     .image1{
         position: absolute;
@@ -96,6 +98,7 @@ const Template = styled.div`
         left: -100px;
         height: 500px;
         transform: rotate(170deg);
+        filter: invert(102%) sepia(103%) saturate(1212%) hue-rotate(27deg) brightness(119%) contrast(19%);
         @media only screen and (max-width: 1200px) and (min-width: 600px){
             height: 400px;
         }
