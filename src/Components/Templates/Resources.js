@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
 import QuizImage1 from "../../Images/SVG/quiz-wave-1.svg";
-
+import {uid} from 'react-uid';
 
 class Resources extends React.Component {
     constructor(props){
@@ -20,11 +19,10 @@ class Resources extends React.Component {
         return random;
     }
     render(){
-        console.log(this.props.resources)
         return (
             <Container>
                 {!!this.props.resources && this.props.resources.map((resource) =>
-                    <ContentContainer>
+                    <ContentContainer key={uid(resource)}>
                         <Header key = {resource.title}>
                             <div>
                                 <h1 className = "content-text">{resource.title}</h1>
@@ -38,6 +36,7 @@ class Resources extends React.Component {
                                 <div className = "links-wrapper">
                                     {!!resource.watch_and_learn && resource.watch_and_learn.map((link) =>
                                         <div className = "link-wrapper" 
+                                            key = {link.text}
                                             style = {
                                                 {backgroundImage: `url(${QuizImage1})` ,
                                                 backgroundRepeat: "no-repeat",
@@ -48,14 +47,6 @@ class Resources extends React.Component {
                                             <h2> {link.text} </h2>
                                             <p> {link.desc} </p>
                                             <a href = {link.link} className = "link"> Visit Link  &rarr; </a>
-                                            {/* <img style = {{
-                                                height:  `${this.randomNumberGenerator(200, 400)}px`, 
-                                                top: `${this.randomNumberGenerator(-50, 50)}px`, 
-                                                left: `${this.randomNumberGenerator(-50, 50)}px`}}
-                                                src = {QuizImage1} 
-                                                alt = "back-image"
-                                            /> */}
-                                            {/* <img src = {QuizImage1} alt = "img"/> */}
                                         </div>
                                     )}
                                 </div>
@@ -65,13 +56,15 @@ class Resources extends React.Component {
                                 <p> We've collected the most useful links we could find to help you in your educational journey!  </p>
                                 <div className  = "links-wrapper2">
                                 {!!resource.useful_links && resource.useful_links.map((link) =>
-                                        <div className = "link-wrapper" style = {
-                                            {backgroundImage: `url(${QuizImage1})` ,
-                                            backgroundRepeat: "no-repeat",
-                                            backgroundAttachment: "fixed",
-                                            backgroundSize: "cover",
-                                            backgroundPosition: "center bottom"
-                                        }}>
+                                        <div className = "link-wrapper" 
+                                            key={uid(link)}
+                                            style = {
+                                                {backgroundImage: `url(${QuizImage1})` ,
+                                                backgroundRepeat: "no-repeat",
+                                                backgroundAttachment: "fixed",
+                                                backgroundSize: "cover",
+                                                backgroundPosition: "center bottom"
+                                            }}>
                                             <h2> {link.text} </h2>
                                             <p> {link.desc} </p>
                                             <a href = {link.link} className = "link"> Visit Link  &rarr; </a>
@@ -84,13 +77,15 @@ class Resources extends React.Component {
                                 <p> Take a look at some of the career pathways that are available to you right now!</p>
                                 <div className  = "links-wrapper3">
                                 {!!resource.careers && resource.careers.map((link) =>
-                                    <div className = "link-wrapper" style = {
-                                        {backgroundImage: `url(${QuizImage1})` ,
-                                        backgroundRepeat: "no-repeat",
-                                        backgroundAttachment: "fixed",
-                                        backgroundSize: "cover",
-                                        backgroundPosition: "right top"
-                                    }}>
+                                    <div className = "link-wrapper" 
+                                        key={uid(link)}
+                                        style = {
+                                            {backgroundImage: `url(${QuizImage1})` ,
+                                            backgroundRepeat: "no-repeat",
+                                            backgroundAttachment: "fixed",
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "right top"
+                                        }}>
                                         <h2> {link.text} </h2>
                                         <p> {link.desc} </p>
                                         <a href = {link.link} className = "link"> Visit Link  &rarr; </a>
@@ -110,7 +105,6 @@ const Container = styled.div`
     margin-top: 20px;
 `
 const ContentContainer = styled.div`
-
 `
 const Header = styled.div`
     background: linear-gradient(90deg,rgb(11,146,191), rgb(42,181,227));
@@ -174,9 +168,6 @@ const Header = styled.div`
             padding: 40px 0;
             margin: 0 auto;
         }
-    }
-    @media only screen and (max-width: 600px){
-
     }
 `
 const MainContentContainer = styled.div`
@@ -289,6 +280,9 @@ const WatchAndLearn = styled.div`
                 @media only screen and (min-width: 2350px){
                     font-size: 3.2em;
                 }
+                @media only screen and (max-width: 600px){
+                    width: 90%;
+                }
             }
             p{
                 color: white;
@@ -302,6 +296,9 @@ const WatchAndLearn = styled.div`
                 }
                 @media only screen and (min-width: 2350px){
                     font-size: 1.65em;
+                }
+                @media only screen and (max-width: 600px){
+                    width: 90%;
                 }
             }
             .link{
@@ -373,13 +370,18 @@ const UsefulLinks = styled.div`
             &:nth-of-type(even){
                 margin-right: -10px;
             }
-
+            &:last-child{
+                &:nth-of-type(odd){
+                    margin-right: -10px;
+                }
+            }
             @media only screen and (max-width: 1200px) and (min-width: 1000px){
                 min-height: 28vh;
             }
             @media only screen and (max-width: 1000px) and (min-width: 600px){
                 min-height: 25vh;
                 width: 100%;
+                margin: 0 10px;
             }
             @media only screen and (max-width: 600px){
                 width: 100%;
@@ -387,25 +389,26 @@ const UsefulLinks = styled.div`
             }
             &:nth-child(1n){
                 flex-grow: 6;
-                @media only screen and (max-width: 1000px) and (min-width: 600px){
+                @media only screen and (max-width: 1000px) and (min-width: 0px){
                     flex-grow: 0;
                 }
             }
             &:nth-child(2n){
                 flex-grow: 0.1;
-                @media only screen and (max-width: 1000px) and (min-width: 600px){
+                @media only screen and (max-width: 1000px) and (min-width: 0px){
                     flex-grow: 0;
                 }
             }
             &:nth-child(3n){
                 flex-grow: 0.1;
-                @media only screen and (max-width: 1000px) and (min-width: 600px){
+                @media only screen and (max-width: 1000px) and (min-width: 0px){
                     min-height: 0;
+                    flex-grow: 0;
                 }
             }
             &:nth-child(4n){
                 flex-grow: 6;
-                @media only screen and (max-width: 1000px) and (min-width: 600px){
+                @media only screen and (max-width: 1000px) and (min-width: 0px){
                     flex-grow: 0;
                 }
             }
@@ -424,6 +427,9 @@ const UsefulLinks = styled.div`
                 @media only screen and (min-width: 2350px){
                     font-size: 3.2em;
                 }
+                @media only screen and (max-width: 600px){
+                    width: 90%;
+                }
             }
             p{
                 color: white;
@@ -437,6 +443,9 @@ const UsefulLinks = styled.div`
                 }
                 @media only screen and (min-width: 2350px){
                     font-size: 1.65em;
+                }
+                @media only screen and (max-width: 600px){
+                    width: 90%;
                 }
             }
             .link{
@@ -476,7 +485,6 @@ const UsefulLinks = styled.div`
             margin: 0;
         }
     }
-
 `
 const CareerPathways = styled.div`
     margin-top: 40px !important;
@@ -486,7 +494,7 @@ const CareerPathways = styled.div`
         flex-wrap: wrap;
         flex-direction: row;
         padding-bottom: 10px;
-        margin: auto 0 auto -10px;
+        margin: 0;
         @media only screen and (min-width: 600px) and (max-width: 1000px){
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -501,11 +509,9 @@ const CareerPathways = styled.div`
             background: #ff6161;
             overflow: hidden;
             min-height: 35vh;
-
             &:nth-of-type(even){
                 margin-right: -10px;
             }
-
             justify-content: space-between;
             margin: 10px;
 
@@ -514,8 +520,8 @@ const CareerPathways = styled.div`
             }
             @media only screen and (max-width: 1000px) and (min-width: 600px){
                 min-height: 25vh;
-                // width: 48%;
                 width: 100%;
+                margin: 0;
             }
             @media only screen and (max-width: 600px){
                 width: 100%;
@@ -565,6 +571,9 @@ const CareerPathways = styled.div`
                 @media only screen and (min-width: 2350px){
                     font-size: 3.2em;
                 }
+                @media only screen and (max-width: 600px){
+                    width: 90%;
+                }
             }
             p{
                 color: white;
@@ -578,6 +587,9 @@ const CareerPathways = styled.div`
                 }
                 @media only screen and (min-width: 2350px){
                     font-size: 1.65em;
+                }
+                @media only screen and (max-width: 600px){
+                    width: 90%;
                 }
             }
             .link{
@@ -621,9 +633,18 @@ const CareerPathways = styled.div`
                     color: white;
                 }
             }
+            &:nth-of-type(odd){
+                margin-left: 0;
+            }
+            &:nth-of-type(even){
+                margin-right: 0;
+            }
             @media only screen and (max-width: 600px){
                 margin: 10px 0;
             }
+        }
+        @media only screen and (max-width: 1000px) and (min-width: 600px){
+            margin-left: 0;
         }
         @media only screen and (max-width: 600px){
             margin: 0;

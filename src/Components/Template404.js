@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import Wave from "../Images/SVG/quiz-wave-2.svg";
 import Wave2 from "../Images/SVG/quiz-wave-1.svg";
 
 class Template404 extends React.Component {
@@ -12,7 +11,6 @@ class Template404 extends React.Component {
                     <h1> 404 PAGE </h1>
                     <p>Oops, something went wrong here</p>
                 </div>
-                {/* <img className = "image1" src = {Wave} alt = "background of wave"/> */}
                 <img className = "image2" src = {Wave2} alt = "background of wave"/>
             </Template>
         )
@@ -28,7 +26,6 @@ const Template = styled.div`
     background: white;
     z-index: 100;
     .message{
-        // margin-top: 100px;
         text-align: center;
         position: absolute;
         left: 50%;
@@ -67,18 +64,6 @@ const Template = styled.div`
                 font-size: 1.2em;
             }
         }
-        // @media only screen and (min-width: 2100px){
-        //     margin-top: 250px;
-        // }
-        // @media only screen an (min-width: 1400px) and (max-width: 2100px){
-        //     margin-top: 300px;
-        // }
-        // @media only screen and (max-width: 900px) and (min-width: 500px){
-        //     margin-top: 200px;
-        // }   
-        // @media only screen and (max-width: 500px){
-        //     margin-top: 300px;
-        // }
     }
     .image1{
         position: absolute;

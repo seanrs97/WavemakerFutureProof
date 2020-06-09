@@ -4,7 +4,6 @@ html, body{
   scroll-snap-type: y mandatory;
 }
 .App{
-  /* background: #e0e0e0; */
   font-family: "Dosis", sans-serif;
 }
 .content{

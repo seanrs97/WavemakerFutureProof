@@ -27,7 +27,6 @@ class Summary extends React.Component {
 
                     <SuccessContainer>
                         <p> You have {this.props.success} </p>
-                        {/* <p> {this.props.successMessage} </p> */}
                     </SuccessContainer>
                 </div>
                 <img alt = "background of wave" src = {QuizImage1} className = "top-quiz-wave" />
@@ -183,7 +182,7 @@ const ButtonContainer = styled.div`
         transition: .5s all;
         width: 100%;
         &:nth-child(1){
-            background: #52ec52;
+            background: #88e93a;
             &:hover{
                 background: #31d331;
             }

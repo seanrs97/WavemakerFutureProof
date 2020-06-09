@@ -21,41 +21,10 @@ class Confetti extends React.Component {
     return random;
   }
   randomColourGenerator = () => {
-
-    // BLUE COLOUR
-    let colour1 = 42;
-    let colour2 = 181;
-    let colour3 = 227;
-
-    // GREEN COLOUR
-    let colour4 = 87;
-    let colour5 = 178;
-    let colour6 = 142;
-
-    // YELLOW / ORANGE COLOUR
-    let colour7 = 255;
-    let colour8 = 211;
-    let colour9 = 43;
-
-    // RED COLOUR
-    let colour10 = 251;
-    let colour11 = 24;
-    let colour12 = 66;
-
-
-    // let finalBlueColour = `linear-gradient(90deg, rgba(42,181,227,1) 0%, rgba(11,146,191,1) 12%)`;
-    // let finalGreenColour = `linear-gradient(90deg, rgba(87,178,142,1) 0%, rgba(60,157,82,1) 12%)`;
-    // let finalYellowColour = ` linear-gradient(90deg, rgba(255,211,43,1) 0%, rgba(243,146,0,1) 12%)`;
-    // let finalRedColour = `linear-gradient(90deg, rgba(251,24,66,1) 0%, rgba(208,0,86,1) 12%)`;
     let blueColour = `#2ab5e3`;
     let redColour = `#fb1842`;
     let greenColour = `#57b28e`;
     let yellowColour = `#ffd32b`;
-
-    let finalColour = `rgb(${colour1}, ${colour2}, ${colour3})`;
-    let finalColour2 = `rgb(${colour4}, ${colour5}, ${colour6})`;
-    let finalColour3 = `rgb(${colour7}, ${colour8}, ${colour9})`;
-    let finalColour4 = `rgb(${colour10}, ${colour11}, ${colour12})`;
 
     let colours = []
     colours.push(blueColour, redColour, greenColour, yellowColour);
@@ -110,11 +79,10 @@ class Confetti extends React.Component {
       confettiNumber = 450
     }
 
-    console.log(this.state.width, confettiNumber);
-
     for(let i = 0; i < confettiNumber; i++){
       confettiItems.push(
         <FallingConfetti
+          key = {i}
           style = {{
             height: `${this.randomNumberGenerator(6, 10)}px`,
             width: `${this.randomNumberGenerator(8, 14)}px`,
@@ -134,8 +102,6 @@ class Confetti extends React.Component {
         <div>
           {confettiItems}
         </div>
-        {/* <FallingConfetti transY1 = "100px"
-        /> */}
       </div>
     )
   }

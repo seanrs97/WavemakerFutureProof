@@ -1,6 +1,5 @@
 import React  from "react";
 import styled from "styled-components";
-
 import WaveImage from "../../Images/SVG/quiz-wave-1.svg";
 
 class Header extends React.Component {
@@ -8,8 +7,6 @@ class Header extends React.Component {
         super(props);
         this.state = {
         }
-    }
-    componentDidUpdate(prevProps, prevState){
     }
     render(){
         return (
@@ -34,22 +31,10 @@ const HeaderImage = styled.div`
     max-height: 90vh;
     padding: 40px 0;
     background: ${props => props.headerColour};
-    // background: url(${props => props.headerImageDesk});
-    // background-repeat: no-repeat;
-    // background-size: cover;
-    // background-attachment: fixed;
     @media only screen and (max-width: 760px){
-        // background: url(${props => props.headerImageTab});
-        // background-repeat: no-repeat;
-        // background-attachment: fixed;
-        // background-size: cover;
         background: ${props => props.headerColour};
     }
     @media only screen and (max-width: 500px){
-        // background: url(${props => props.headerImageMob});
-        // background-repeat: no-repeat;
-        // background-attachment: fixed;
-        // background-size: cover;
         background: ${props => props.headerColour};
     }
 `
@@ -65,7 +50,6 @@ const ImageTextContainer = styled.div`
             margin-left: 0;
         }
     }
-    // text-shadow: 5px 5px 5px #545454;
     color: white;
     width: 90%;
     margin: 0 auto;
@@ -82,22 +66,28 @@ const ImageTextContainer = styled.div`
     @media only screen and (min-width: 1400px) and (max-width: 1700px){
         padding-top: 50%;
     }
+    @media only screen and (min-width: 1400px) and (max-width: 1700px) and (min-height: 900px) and (max-height: 1050px){
+        padding-top: 40%;
+    }
     @media only screen and (min-width: 1400px) and (max-width: 1700px) and (max-height: 900px){
-        padding-top: 35%;
+        padding-top: 30%;
     }
     @media only screen and (max-width: 850px) and (min-width: 600px){
         padding-top: 100%;
     }
-    @media only screen and (max-width: 1050px) and (min-width: 600px) and (max-height: 800px){
+    @media only screen and (max-width: 1050px) and (min-width: 600px) and (min-height: 650px) and (max-height: 800px){
         padding-top: 55%;
     }
-    @media only screen and (max-width: 600px){
-        padding-top: 100%;
+    @media only screen and (max-width: 1050px) and (min-width: 600px) and (max-height: 650px){
+        padding-top: 45%;
+    }
+    @media only screen and (max-width: 600px) and (min-width: 350px){
+        padding-top: 85%;
     }
     @media only screen and (min-width: 600px) and (max-width: 1050px) and (min-height: 800px) and (max-height: 1400px){
         padding-top: 85%;
     }
-    @media only screen and (min-height: 300px) and (max-height: 420px){
+    @media only screen and (min-height: 0px) and (max-height: 350px){
         padding-top: 30%;
     }
     -webkit-animation: slideIn 2s linear;

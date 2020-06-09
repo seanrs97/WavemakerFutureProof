@@ -7,6 +7,7 @@ import Quiz from "./Quiz.js";
 
 import sal from "sal.js";
 import '../../node_modules/sal.js/dist/sal.css';
+import styled from "styled-components";
 
 class Template extends React.Component {
     componentDidUpdate(){
@@ -15,7 +16,6 @@ class Template extends React.Component {
         });
     }
     render(){
-        console.log(this.props.quiz)
         return (
             <div>
                 <Header 
@@ -36,11 +36,29 @@ class Template extends React.Component {
                 <Banner bannerTwo = {this.props.bannerTwo}/>
                 <MainContent content3 = {this.props.content3}/>
                 <Quiz style = {{overflowY: "scroll"}} quiz = {this.props.quiz} quizColour = {this.props.headerColour} />
-                <Resources resources = {this.props.resources}/>
 
+                <UnlockableContent>
+                    <HideContent style = {{display: this.props.display}}></HideContent>
+                    <Resources resources = {this.props.resources}/>
+                </UnlockableContent>
             </div>
         )
     }
 }
+const UnlockableContent = styled.div`
+    position: relative;
+`
+const HideContent = styled.div`
+    height: 100%;
+    width: 100%;
+    background: grey;
+    opacity: 0.98;
+    z-index: 100;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    display: none;
+`
 
 export default Template;

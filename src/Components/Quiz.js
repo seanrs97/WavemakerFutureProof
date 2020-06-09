@@ -69,57 +69,27 @@ class Quiz extends React.Component {
              overlayVisibility: "hidden",  
 
 
-             entireQuizVisibility: ""
+             entireQuizVisibility: "",
+             isSummaryDisplayed: "hidden"
         }
         this.interval = null
         this.targetElement = null;
     }
-    // async componentDidMount(){
-
-    //     this.targetElement = document.querySelectorAll("#quizAndSummary");
-    //     const quizData = await (await (fetch("/example-quiz.json"))).json();
-    //     console.log("QUIZ DATA",quizData);
-    //     // Check if quiz exists
-    //     if(quizData.status === 200){
-    //         this.setState({
-    //             quizData: quizData.data,
-    //             questions: quizData.data.questions,
-    //         });
-    //         if(this.state.currentQuestionIndex !== 0){
-    //             this.setState({
-    //                 currentQuestionIndex: 0,
-    //                 score: 0
-    //             });
-    //             this.showOptions();
-    //         }
-    //         this.displayQuestions(
-    //             this.state.questions,
-    //             this.state.currentQuestion,
-    //             this.state.nextQuestion,
-    //             this.state.previousQuestion
-    //         )
-    //         if(this.state.showSummary !== "dissapear .6s linear forwards"){
-    //             this.setState({
-    //                 showSummary: "dissapear .6s linear forwards"
-    //             })
-    //         }
-    //     } else {
-    //         console.log("QUIZ DOES NOT EXIST")
-    //     }
-    // }
-
     async componentDidMount(){
         let baseURL = 'https://seanrs97.github.io/jsonData/';
         let params = (new URL(document.location)).searchParams;
         let myURL;
-        console.log(params.get("page"));
+
+        setTimeout(() => {
+            this.setState({
+                isSummaryDisplayed: "visible"
+            })
+        }, 2200);
         if (params.get("page")===null) {
           myURL = `${baseURL}404.json`;
-          console.log("this is a dead page");
         } else {
           myURL = `${baseURL}${params.get("page")}.json`;
         }
-        console.log(myURL)
         if(myURL !== "https://seanrs97.github.io/jsonData/404.json"){
             const self = this;
             fetch(myURL).then(response => {
@@ -129,7 +99,6 @@ class Quiz extends React.Component {
                       jsonData: data[0].quiz[0],
                       questions: data[0].quiz[0].questions,
                     });
-                    console.log("OK", this.state.jsonData);
                     if(this.state.currentQuestionIndex !== 0){
                       this.setState({
                           currentQuestionIndex: 0,
@@ -145,19 +114,17 @@ class Quiz extends React.Component {
                   )
                   if(this.state.showSummary !== "dissapear .6s linear forwards"){
                       this.setState({
-                          showSummary: "dissapear .6s linear forwards"
+                          isSummaryDisplayed: "hidden"
                       })
                   }
                   })
                 } else {
-                  console.log("error fetching file");
                   this.setState({
                     entireQuizVisibility: "none"
                 })
                 }
               });
         } else {
-            console.log("quiz does not exist here");
             this.setState({
                 entireQuizVisibility: "none"
             })
@@ -200,8 +167,7 @@ class Quiz extends React.Component {
         let nextQuestion = this.state.questions[currentQuestionIndex + 1];
         let previousQuestion = this.state.questions[currentQuestionIndex - 1];
         let answer = this.state.questions[currentQuestionIndex].answer;
-        
-        // Sets the questions data to state, so they can be used throughout the rest of this component
+
         if(questions.length === 0 || questions === undefined || currentQuestion.length === 0 || currentQuestion === undefined){
             console.log("somethings gone wrong here")
         } else {
@@ -256,7 +222,6 @@ class Quiz extends React.Component {
     }
     startQuiz = () => {
         let quizScaleSize;
-        console.log(window.innerWidth);
         if(window.innerWidth < 580){
             quizScaleSize = "100%"
         } else if(window.innerWidth >= 580 && window.innerWidth <= 1400) {
@@ -264,12 +229,14 @@ class Quiz extends React.Component {
         }else {
             quizScaleSize = "88%"
         }
+        this.setState({
+            isSummaryDisplayed: "hidden"
+        })
         setTimeout(() => {
             this.setState({
                 displayQuiz: "translateX(0) scale(1)",
                 quizShow: "block",
                 quizScale: quizScaleSize,
-                // homeAppear: "dissapear 1s linear forwards",
                 showMainOverlay: "block",
 
                 overlayVisibility: "visible",
@@ -300,6 +267,7 @@ class Quiz extends React.Component {
             score: 0,
             endScore: 0,
             showSummary: "dissapear .6s linear forwards",
+            isSummaryDisplayed: "visible",
             displayQuiz: "translateX(0) scale(1)",
             showConfetti: "none",
             questionDisplay: "translateX(0)"
@@ -308,8 +276,6 @@ class Quiz extends React.Component {
         this.startTimer();
     }
     handleOptionClick = (e) => {
-        console.log(e.target.innerHTML.toLowerCase()); 
-
         this.setState({
             questionDisplay: "translateX(350%)",
             answeredQuestions: [...this.state.answeredQuestions, e.target.innerHTML.toLowerCase()]
@@ -353,12 +319,10 @@ class Quiz extends React.Component {
             body: JSON.stringify(this.state.answeredQuestions)
             .then((result) => {
                 if(result.json().wonQuiz === true){
-                    console.log("Quiz Passed");
                     this.setState({
                         quizWon: true
                     })
                 } else {
-                    console.log("Quiz Failed");
                     this.setState({
                         quizWon: false
                     })
@@ -400,25 +364,31 @@ class Quiz extends React.Component {
             successMessage: successMessage,
 
         });
-        setTimeout(() => {
+        this.setState({
+            isSummaryDisplayed: "visible"
+        })
+        this.setState({
+            showQuestions: "none",
+            numberOfAnsweredQuestions: 0,
+            currentQuestionIndex: playerStats.numberOfQuestions - 1,
+            time: {
+                minutes: 0,
+                seconds: 0
+            },
+            showSummary: "appear .6s linear forwards",
+            displayQuiz: "translateX(-100%) scale(0)",
+        });
+        clearInterval(this.interval);
+
+
+        if(this.state.successMessage === undefined || this.state.successMessage === "passed"){
             this.setState({
-                showQuestions: "none",
-                numberOfAnsweredQuestions: 0,
-                currentQuestionIndex: playerStats.numberOfQuestions - 1,
-                time: {
-                    minutes: 0,
-                    seconds: 0
-                },
-                showSummary: "appear .6s linear forwards",
-                displayQuiz: "translateX(-100%) scale(0)",
-            });
-            clearInterval(this.interval);
-            console.log(this.state);
-        }, 100)
+                unlockContent: "block"
+            })
+        }
     }
     // Used when the user selects 'no' from the dialog menu to resume the quiz
     resumeQuiz = () => {
-        console.log("pause state", this.state.time.seconds)
         this.setState({
             showDialog: "none",
             showOverlay: "none"
@@ -454,7 +424,6 @@ class Quiz extends React.Component {
         }, 1000);
     }
     quitQuiz = () => {
-        console.log("are you sure you want to quit this quiz?");
         this.setState({
             showDialog: "block",
             showOverlay: "block",
@@ -465,7 +434,6 @@ class Quiz extends React.Component {
         this.setState({
             showDialog: "none",
             showOverlay: "none",
-            // homeAppear: "appear 1s linear forwards",
             displayQuiz: "translateX(0) scale(1)",
 
             quizShow: "none",
@@ -479,43 +447,33 @@ class Quiz extends React.Component {
     }
     returnHome = () => {
         this.setState({
-            // homeAppear: "appear 1s linear forwards",
-            // showSummary: "dissapear .6s linear forwards",
             quizShow: "none",
             quizScale: "0",
-
             showMainOverlay: "none",
-
             overlayVisibility: "hidden",
             overlayOpacity: 0
         });
         this.hideTargetElement();
     }
     showTargetElement = () => {
-        // ... some logic to show target element
-     
-        // 3. Disable body scroll
         disableBodyScroll(this.targetElement);
       };
      
-      hideTargetElement = () => {
-        // ... some logic to hide target element
-     
-        // 4. Re-enable body scroll
+    hideTargetElement = () => {
         enableBodyScroll(this.targetElement);
-      };
+    };
     render(){
         const {
             currentQuestion, 
             currentQuestionIndex, 
             numberOfQuestions, 
             time,
-
             endScore,
             endNumOfQuestions,
             success,
-            successMessage
+            successMessage,
         } = this.state;
+
         return (
             <React.Fragment>
                 <div style = {{
@@ -567,7 +525,7 @@ class Quiz extends React.Component {
                                         <H5 style = {{transform: this.state.questionDisplay}}> {currentQuestion.text} </H5>
                                         <OptionsContainer>
                                             {!!currentQuestion.answers && currentQuestion.answers.map((ans) =>
-                                                <button style = {{transform: this.state.questionDisplay}} disabled = {!this.state.optionDisabled} className = "option" onClick = {this.handleOptionClick}> {ans.text}</button>
+                                                <button key = {ans.text} style = {{transform: this.state.questionDisplay}} disabled = {!this.state.optionDisabled} className = "option" onClick = {this.handleOptionClick}> {ans.text}</button>
                                             )}
                                         </OptionsContainer>
                                         <LifelineContainer style = {{transform: this.state.questionDisplay}}>
@@ -583,7 +541,7 @@ class Quiz extends React.Component {
                                 </Container>
                             </div>
                         </QuizContainer>
-                        <SummaryContainer style = {{animation: this.state.showSummary}}>
+                        <SummaryContainer style = {{animation: this.state.showSummary, visibility: this.state.isSummaryDisplayed}}>
                             <Summary
                                     quizColour = {this.props.quizColour}
                                     score = {endScore}
@@ -606,12 +564,7 @@ class Quiz extends React.Component {
 
 
 const ContentWrapper = styled.div`
-    // position: relative;
     overflow: hidden;
-    // height: 40vh;
-    @media only screen and (max-width: 580px){
-        // height: 60vh;
-    }
 `
 /* HOME PAGE STYLES */ 
 const Home = styled.div`
@@ -624,7 +577,6 @@ const Home = styled.div`
     position: relative;
     overflow: hidden;
     transition: 1.6s;
-    // padding: 30px 40px;
     @media only screen and (min-width: 600px) and (max-width: 1900px){
         padding: 30px 0;
     }
@@ -731,7 +683,6 @@ const Home = styled.div`
         }
         @media only screen and (max-width: 430px){
             display: block;
-            // height: 60vh;
         }
     }
     .quiz-description{
@@ -770,11 +721,7 @@ const Home = styled.div`
         top: -5%;
         right: 0;
         width: 500px;
-
-
         display: none;
-
-
         @media only screen and (max-width: 1400px) and (min-width: 800px){
             width: 700px;
         }
@@ -791,7 +738,6 @@ const Home = styled.div`
         right: 0;
         width: 250px;
         display: none;
-
         @media only screen and (max-width: 1400px) and (min-width: 800px){
             width: 350px;
         }
@@ -801,12 +747,6 @@ const Home = styled.div`
         @media only screen and (min-width: 2000px){
             width: 750px;
         }
-    }
-    @media only screen and (max-width: 430px){
-        // height: 60vh;
-    }
-    @media only screen and (max-width: 3000px) and (min-width: 430px){
-        // height: 60vh;
     }
 `
 const QuizAndSummaryContainer = styled.div`
@@ -818,8 +758,6 @@ const QuizAndSummaryContainer = styled.div`
     z-index: 99999999999999999999;
     transform: translate(-50%, -50%);
     border-radius: 8px; 
-
-    // display: none;
     transition: .7s all;
     overflow: hidden;
     @media only screen and (min-width: 576px) and (max-width: 1400px){
@@ -834,13 +772,6 @@ const QuizAndSummaryContainer = styled.div`
 `
 /* MAIN QUIZ STYLES */
 const QuizContainer = styled.div`
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // width: 100%;
-    // z-index: 2;
-    // transition: 1.2s all;
-    // height: 100vh;
     z-index: 999999999999999999999999999;
 `
 const Container = styled.div`
@@ -862,8 +793,6 @@ const Container = styled.div`
         padding: 0;
         width: 100%;
     }
-
-
     .main-content-container{
         top: 38%;
         position: absolute;
@@ -912,7 +841,6 @@ const Container = styled.div`
         left: 6px;
         font-size: 1.5em;
         cursor: pointer;
-        z-index:
         @media only screen and (max-width: 800px) and (min-width: 574px){
             font-size: 2.2em;
             top: 15px;
@@ -969,11 +897,6 @@ const Container = styled.div`
             }
         }
     }
-    // @media only screen and (max-width: 7000px){
-    //     height: 100vh;
-    //     width: 100%;
-    //     padding: 0;
-    // }
 `
 const OverlayContainer = styled.div`
     position:absolute;

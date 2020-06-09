@@ -1,12 +1,19 @@
 import React from 'react';
 import './App.css';
+import ScrollToTop from "./ScrollToTop.js";
 
 import NavBar from "./Components/NavBar.js";
 import Template from "./Components/Template.js";
 import Template404 from "./Components/Template404.js";
 import Footer from "./Components/Footer.js";
+import Home from "./Components/Home.js";
 
-import {BrowserRouter as Router} from "react-router-dom";
+import Coding from "./Components/CoreTopics/Pages/Coding.js";
+import Essential from "./Components/CoreTopics/Pages/Essential.js";
+import Design from "./Components/CoreTopics/Pages/Design.js";
+import DigitalEnt from "./Components/CoreTopics/Pages/DigitalEnt.js";
+
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faHourglass} from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagramSquare, faTwitter} from '@fortawesome/free-brands-svg-icons'
@@ -27,9 +34,7 @@ class App extends React.Component{
     let baseURL = 'https://seanrs97.github.io/jsonData/';
     let params = (new URL(document.location)).searchParams;
     let myURL;
-    console.log(params.get("page"));
     if (params.get("page")===null) {
-      // myURL = `${baseURL}404.json`;
       this.setState({
         showHome: "block",
         showTemplate: "none"
@@ -49,7 +54,6 @@ class App extends React.Component{
         showTemplate: "block"
       })
     }
-    console.log("CURRENT URL", myURL)
     const self = this;
     fetch(myURL).then(response => {
       if(response.ok){
@@ -62,8 +66,6 @@ class App extends React.Component{
           display404: "none"
         })
       } else {
-        console.log("error fetching file");
-        console.log(this.state.jsonData);
         this.setState({
           display404: "block"
         })
@@ -71,19 +73,32 @@ class App extends React.Component{
     });
   }
   render(){
-    console.log(this.state);
+    console.log(this.state.jsonData)
     return(
       <div className="App">
         <Router>
-          <NavBar/>
-          {/* <div style = {{display: this.state.showHome}}>
-            <Home/>
-          </div> */}
-          <div style = {{display: this.state.showTemplate}}>
-            <Template {...this.state.jsonData}/>
-          </div>
-          <Template404 display404 = {this.state.display404} />
-          <Footer/>
+          <ScrollToTop>
+            <NavBar/>
+            <Route exact path = "/coding" component = {Coding}/>
+            <Route exact path = "/essentialSkills" component = {Essential}/>
+            <Route exact path = "/2dand3ddesign" component = {Design}/> 
+            <Route exact path = "/DigitalEntertainment" component = {DigitalEnt}/>
+
+            <Route path = "/" exact render= {() => {
+                return (
+                  <div>
+                    <div style = {{display: this.state.showTemplate}}>
+                      <Template {...this.state.jsonData}/>
+                    </div>
+                    <Template404 display404 = {this.state.display404} />
+                  </div>
+                )
+            }}/>
+
+
+            <Route exact path = "/home" component = {Home} />
+            <Footer/>
+          </ScrollToTop>
         </Router>
       </div>
     )

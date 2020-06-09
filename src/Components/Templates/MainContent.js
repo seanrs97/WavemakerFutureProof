@@ -66,7 +66,7 @@ class MainContent extends React.Component {
                                 <div className = "thirdTextContainer">
                                     <h2> {cont.headingText3}</h2>
                                     <ul> {!!cont.text3 && cont.text3.map((data) =>
-                                        <li> {data.text} </li>
+                                        <li key = {data.text}> {data.text} </li>
                                     )}
                                     </ul>
                                 </div>
@@ -212,8 +212,6 @@ const ContentContainer = styled.div`
             max-width: 45%;
             position: initial;
             width: 70%;
-            // margin-left: auto;
-            // margin-right: auto;
             @media only screen and (max-width: 480px){
                 padding-bottom: 50px;
             }
@@ -231,7 +229,6 @@ const ContentContainer = styled.div`
         }
         &:nth-of-type(even){
             .content-text{
-                // padding-right: 6px;
                 justify-content: space-between;
                 @media only screen and (max-width: 500px){
                     justify-content: center;
@@ -240,7 +237,6 @@ const ContentContainer = styled.div`
         }
         &:nth-of-type(odd){
             .content-text{
-                // padding-left: 6px;
                 @media only screen and (max-width: 500px){
                     padding-left: 0;
                 }

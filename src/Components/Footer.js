@@ -55,7 +55,6 @@ const FooterContainer = styled.div`
     color: white;
     position: relative;
     overflow: hidden;
-    // padding: 2.5% 5%;
 `
 const ContentContainer = styled.div`
     width: 90% !important;
@@ -79,7 +78,6 @@ const ContentContainer = styled.div`
 `
 const LeftSide = styled.div`
     width: 20% !important;
-    // padding-left: 4%;
     @media only screen and (max-width: 600px){
         width: 100% !important;  
         margin: 0 auto;
@@ -106,11 +104,14 @@ const Logo = styled.div`
         display: block;
         opacity: 1;
         filter: invert(102%) sepia(103%) saturate(1352%) hue-rotate(87deg) brightness(11119%) contrast(119%);
+        @media only screen and (max-width: 600px){
+            margin: 0;
+        }
     }
     padding-bottom: 136px;
     @media only screen and (max-width: 600px){
         padding-bottom: 40px;
-        width: 70%;
+        width: 80%;
         margin: 0 auto;
     }
 `

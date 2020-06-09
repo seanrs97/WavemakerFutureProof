@@ -44,13 +44,13 @@ class NavBar extends React.Component{
                 <MenuContainer onClick = {this.handleClickOutside}>
                     <ContentContainer>
                         <NavImgContainer>
-                            <Link to = "/"><NavImg src = {logo} /></Link>
+                            <Link to = "/home"><NavImg src = {logo} alt = "wavemaker home page" /></Link>
                         </NavImgContainer>
                         <MenuList>
                             <Link to = "/coding"><li> <img src = {BadgeBlue} alt = "coding"/></li></Link>
-                            <Link to = "/2d-design"><li> <img src = {BadgeRed} alt = "2D Design"/></li></Link>
-                            <Link to = "/3d-design"><li> <img src = {BadgeGreen} alt = "3D Design"/></li></Link>
-                            <Link to = "/animation"><li> <img src = {BadgeOrange} alt = "Animation"/></li></Link>
+                            <Link to = "/essentialskills"><li> <img src = {BadgeRed} alt = "essential skills"/></li></Link>
+                            <Link to = "/2dand3ddesign"><li> <img src = {BadgeGreen} alt = "2D and 3D Design"/></li></Link>
+                            <Link to = "/DigitalEntertainment"><li> <img src = {BadgeOrange} alt = "Digital Entertainment"/></li></Link>
                         </MenuList>
                         <Hamburger onClick = {this.showMenu} style = {{marginLeft: this.state.hamburgerShow}}>
                             <div className = "bar1"></div>
@@ -62,9 +62,9 @@ class NavBar extends React.Component{
                         </Cross>
                         <MenuListText style = {{marginTop: this.state.displayMenu}}>
                             <Link onClick = {this.closeMenu} to = "/coding"><li className = "listElementText"> Coding </li></Link>
-                            <Link onClick = {this.closeMenu} to = "/2d-design"><li className = "listElementText"> 2D Design </li></Link>
-                            <Link onClick = {this.closeMenu} to = "/3d-design"><li className = "listElementText"> 3D Design </li></Link>
-                            <Link onClick = {this.closeMenu} to = "/animation"><li className = "listElementText"> Animation </li></Link>
+                            <Link onClick = {this.closeMenu} to = "/essentialskills"><li className = "listElementText"> 2D Design </li></Link>
+                            <Link onClick = {this.closeMenu} to = "/2dand3ddesign"><li className = "listElementText"> 3D Design </li></Link>
+                            <Link onClick = {this.closeMenu} to = "/DigitalEntertainment"><li className = "listElementText"> Animation </li></Link>
                         </MenuListText>
                         
                     </ContentContainer>
