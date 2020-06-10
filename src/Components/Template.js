@@ -27,14 +27,14 @@ class Template extends React.Component {
                     description = {this.props.description}
                 />
                 <MainContent
-                    content = {this.props.content}
+                    what = {this.props.what}
                 />
                 <Banner
                     bannerOne = {this.props.bannerOne}
                 />
-                <MainContent content2 = {this.props.content2}/>
+                <MainContent why = {this.props.why}/>
                 <Banner bannerTwo = {this.props.bannerTwo}/>
-                <MainContent content3 = {this.props.content3}/>
+                <MainContent how = {this.props.how}/>
                 <Quiz style = {{overflowY: "scroll"}} quiz = {this.props.quiz} quizColour = {this.props.headerColour} />
 
                 <UnlockableContent>

@@ -102,6 +102,12 @@ h5,h6{
   transition: all 300ms;
 }
 
+.navigationOffScreenText{
+  position: absolute;
+  left: -10000px;
+  bottom: -10000px;
+}
+
 @keyframes changer{
   from {
     font-size: "2em"

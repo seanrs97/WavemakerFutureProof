@@ -182,7 +182,8 @@ const ButtonContainer = styled.div`
         transition: .5s all;
         width: 100%;
         &:nth-child(1){
-            background: #88e93a;
+            background: rgba(43, 251, 0, 0.4);
+            nborder: 2px solid white;
             &:hover{
                 background: #31d331;
             }

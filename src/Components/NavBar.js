@@ -23,7 +23,7 @@ class NavBar extends React.Component{
     }
     showMenu = () => {
         this.setState({
-            displayMenu: "180px",
+            displayMenu: "40px",
             crossShow: "translateX(0)",
             hamburgerShow: "-600px"
         })
@@ -60,11 +60,13 @@ class NavBar extends React.Component{
                         <Cross onClick = {this.closeMenu} style = {{transform: this.state.crossShow}}>
                             <h1 style = {{color: "white"}}> X </h1>
                         </Cross>
-                        <MenuListText style = {{marginTop: this.state.displayMenu}}>
-                            <Link onClick = {this.closeMenu} to = "/coding"><li className = "listElementText"> Coding </li></Link>
-                            <Link onClick = {this.closeMenu} to = "/essentialskills"><li className = "listElementText"> 2D Design </li></Link>
-                            <Link onClick = {this.closeMenu} to = "/2dand3ddesign"><li className = "listElementText"> 3D Design </li></Link>
-                            <Link onClick = {this.closeMenu} to = "/DigitalEntertainment"><li className = "listElementText"> Animation </li></Link>
+                        <MenuListText>
+                            <ul style = {{marginTop: this.state.displayMenu}}>
+                                <li onClick = {this.closeMenu} className = "listElementText"><Link to = "/coding">Coding</Link></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><Link to = "/essentialskills"> 2D Design </Link></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><Link to = "/2dand3ddesign"> 3D Design </Link></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><Link to = "/DigitalEntertainment"> Animation </Link></li>
+                            </ul>
                         </MenuListText>
                         
                     </ContentContainer>
@@ -107,7 +109,7 @@ const ContentContainer = styled.nav`
     @media only screen and (max-width: 700px){
         width: 100%;
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
     }
 `
 const NavImgContainer = styled.div`
@@ -169,36 +171,39 @@ const MenuList = styled.ul`
         display: none;
     }
 `
-const MenuListText = styled.ul`
-    display: none;
-    padding-left: 0;
-    transition: 1s all;
-    a{
-        color: white;
-        text-decoration: none;
+const MenuListText = styled.div`
+    ul{
+        display: none;
+        padding-left: 0;
+        transition: 1s all;
+
         li{
             text-decoration: none;
             padding: 20px 0;
             border-bottom: 2px solid white;
             width: 90%;
             margin: 0 auto;
-        }
-        &:last-child{
-            li{
-                border-bottom: none;
+            a{
+                color: white;
+                text-decoration: none;
+            }
+            &:last-child{
+                {
+                    border-bottom: none;
+                }
             }
         }
-    }
-    @media only screen and (max-width: 700px){
-        display: block;
-        text-decoration: none;
-        list-style: none;
-        width: 100%;
-        margin: 0 auto;
-        position: absolute;
-        background: black;
-        left: 0;
-        z-index: -10;
+        @media only screen and (max-width: 700px){
+            display: block;
+            text-decoration: none;
+            list-style: none;
+            width: 100%;
+            margin: 0 auto;
+            position: absolute;
+            background: black;
+            left: 0;
+            z-index: -10;
+        }
     }
 `
 const Hamburger = styled.div`

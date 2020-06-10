@@ -1,0 +1,15 @@
+{
+    "ok": false,
+    "status": 422,
+    "data": {
+      "validationErrors": [
+        {
+          "value": "hello",
+          "msg": "must be integer IDs",
+          "param": "[0][0]",
+          "location": "body"
+        }
+      ],
+      "error": "Invalid quiz submission"
+    }
+}

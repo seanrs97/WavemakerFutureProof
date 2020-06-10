@@ -76,59 +76,98 @@ class Quiz extends React.Component {
         this.targetElement = null;
     }
     async componentDidMount(){
-        let baseURL = 'https://seanrs97.github.io/jsonData/';
-        let params = (new URL(document.location)).searchParams;
+        // let baseURL = 'https://seanrs97.github.io/jsonData/';
+        // let params = (new URL(document.location)).searchParams;
         let myURL;
+
+        const quizData = await (await (fetch("/quiz-web.json"))).json();
+        console.log(quizData);
+        // Check if quiz exists
+        if(quizData.status === 200){
+            this.setState({
+                quizData: quizData.data,
+                questions: quizData.data.questions,
+            });
+            if(this.state.currentQuestionIndex !== 0){
+                this.setState({
+                    currentQuestionIndex: 0,
+                    score: 0
+                });
+                this.showOptions();
+            }
+            this.displayQuestions(
+                this.state.questions,
+                this.state.currentQuestion,
+                this.state.nextQuestion,
+                this.state.previousQuestion
+            )
+            if(this.state.isSummaryDisplayed !== "dissapear .6s linear forwards"){
+                this.setState({
+                    isSummaryDisplayed: "dissapear .6s linear forwards"
+                })
+            } else {
+                this.setState({
+                    entireQuizVisibility: "none"
+                });
+            }
+        } else {
+            console.log("QUIZ DOES NOT EXIST");
+            this.setState({
+                entireQuizVisibility: "none"
+            })
+        }         
 
         setTimeout(() => {
             this.setState({
                 isSummaryDisplayed: "visible"
             })
         }, 2200);
-        if (params.get("page")===null) {
-          myURL = `${baseURL}404.json`;
-        } else {
-          myURL = `${baseURL}${params.get("page")}.json`;
-        }
-        if(myURL !== "https://seanrs97.github.io/jsonData/404.json"){
-            const self = this;
-            fetch(myURL).then(response => {
-                if(response.ok && response){
-                  response.json().then(data => {
-                    self.setState({
-                      jsonData: data[0].quiz[0],
-                      questions: data[0].quiz[0].questions,
-                    });
-                    if(this.state.currentQuestionIndex !== 0){
-                      this.setState({
-                          currentQuestionIndex: 0,
-                          score: 0
-                      });
-                      this.showOptions();
-                  }
-                  this.displayQuestions(
-                      this.state.questions,
-                      this.state.currentQuestion,
-                      this.state.nextQuestion,
-                      this.state.previousQuestion
-                  )
-                  if(this.state.showSummary !== "dissapear .6s linear forwards"){
-                      this.setState({
-                          isSummaryDisplayed: "hidden"
-                      })
-                  }
-                  })
-                } else {
-                  this.setState({
-                    entireQuizVisibility: "none"
-                })
-                }
-              });
-        } else {
-            this.setState({
-                entireQuizVisibility: "none"
-            })
-        }
+        // if (params.get("page")===null) {
+        //   myURL = `${baseURL}404.json`;
+        // } else {
+        //   myURL = `${baseURL}${params.get("page")}.json`;
+        // }
+        // myURL = "/quiz-web.json";
+        // if(myURL !== "https://seanrs97.github.io/jsonData/404.json"){
+        //     const self = this;
+        //     fetch(myURL).then(response => {
+        //         if(response.ok && response){
+        //           response.json().then(data => {
+        //             self.setState({
+        //               jsonData: data,
+        //               questions: data.questions,
+        //             });
+        //             if(this.state.currentQuestionIndex !== 0){
+        //               this.setState({
+        //                   currentQuestionIndex: 0,
+        //                   score: 0
+        //               });
+        //               this.showOptions();
+        //           }
+        //           this.displayQuestions(
+        //               this.state.questions,
+        //               this.state.currentQuestion,
+        //               this.state.nextQuestion,
+        //               this.state.previousQuestion
+        //           )
+        //           if(this.state.showSummary !== "dissapear .6s linear forwards"){
+        //               this.setState({
+        //                   isSummaryDisplayed: "hidden"
+        //               })
+        //           }
+        //           })
+        //         } else {
+        //           this.setState({
+        //             entireQuizVisibility: "none"
+        //         })
+        //         }
+        //       });
+        //       console.log("DATA", this.state.jsonData)
+        // } else {
+        //     this.setState({
+        //         entireQuizVisibility: "none"
+        //     })
+        // }
     }
     componentWillUnmount(){
         clearInterval(this.interval);
@@ -325,7 +364,7 @@ class Quiz extends React.Component {
                 } else {
                     this.setState({
                         quizWon: false
-                    })
+                    });
                 }
             })
         })

@@ -93,9 +93,7 @@ class App extends React.Component{
                     <Template404 display404 = {this.state.display404} />
                   </div>
                 )
-            }}/>
-
-
+            }}/>  
             <Route exact path = "/home" component = {Home} />
             <Footer/>
           </ScrollToTop>

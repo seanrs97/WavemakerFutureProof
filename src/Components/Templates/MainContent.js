@@ -19,7 +19,9 @@ class MainContent extends React.Component {
     render(){
         return (
             <ContentContainer>
-                {!!this.props.content && this.props.content.map((cont) =>
+                {!!this.props.what && this.props.what.map((cont) =>
+
+                    // WHAT CONTENT 
                     <div className = "contentContainer contentContainerComplex" key = {cont.id}>
                         <img 
                             src = {cont.image} alt = {cont.id}
@@ -31,7 +33,9 @@ class MainContent extends React.Component {
                         <p className = "content-text">{cont.text}</p>
                     </div>
                 )}
-                {!!this.props.content2 && this.props.content2.map((cont) =>
+                {!!this.props.why && this.props.why.map((cont) =>
+
+                    // WHY CONTENT 
                     <div className = "contentContainer contentContainerComplex" key = {cont.id}>
                         <img
                             src = {cont.image} alt = {cont.id}
@@ -43,7 +47,9 @@ class MainContent extends React.Component {
                         <p className = "content-text">{cont.text}</p>
                     </div>
                 )}
-                {!!this.props.content3 && this.props.content3.map((cont) =>
+                {!!this.props.how && this.props.how.map((cont) =>
+                
+                    //HOW CONTENT 
                     <div className = "contentContainer contentContainerComplex" key = {cont.id}>
                         <img 
                             src = {cont.image} alt = {cont.id}

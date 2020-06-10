@@ -1,0 +1,19 @@
+{
+    "ok": true,
+    "status": 200,
+    "data": {
+      "points": 0,
+      "results": {
+        "0": {
+          "points": 0,
+          "answeredCorrectly": false,
+          "debug_reason": "Correct answers were: [0]"
+        },
+        "1": {
+          "points": 0,
+          "answeredCorrectly": false,
+          "debug_reason": "Required 2 answers. 1 answers given."
+        }
+      }
+    }
+}

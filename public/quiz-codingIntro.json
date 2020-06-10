@@ -1,0 +1,186 @@
+{
+    "ok": true,
+    "status": 200, 
+    "data": {
+      "id": "web-quiz",
+      "name": "Web Development Quiz",
+      "questions": [
+        {
+            "text": "What is HTML an Acronym for? ",
+            "type": "single_correct_answer",
+            "answers": [
+                {
+                    "id": 0,
+                    "text": "Hello table magic lamp"
+                },
+                {
+                    "id": 1,
+                    "text": "Hyper Text Markup Language"
+                },
+                {
+                    "id": 2,
+                    "text": "High Terminal Making Language"
+                },
+                {
+                    "id": 3,
+                    "text": "Hinged Tracking Malware Language"
+                }
+            ]
+        },
+        {
+            "text": "What is typically a beginners first website called?",
+            "type": "single_correct_answer",
+            "answers": [
+                {
+                    "id": 0,
+                    "text": "Hello Internet"  
+                },
+                {
+                    "id": 1,
+                    "text": "Hello Universe"
+                },
+                {
+                    "id": 2,
+                    "text": "Hello World"
+                },
+                {
+                    "id": 3,
+                    "text": "Hello Web Development"
+                }
+            ]
+        },
+        {
+            "text": "Which of these is a real JavaScript framework?",
+            "type": "single_correct_answer",
+            "answers": [
+                {
+                    "id": 0,
+                    "text": "JSFrame"  
+                },
+                {
+                    "id": 1,
+                    "text": "Angular"
+                },
+                {
+                    "id": 2,
+                    "text": "Mystic"
+                },
+                {
+                    "id": 3,
+                    "text": "FeatherBuild"
+                }
+            ]
+        },
+        {
+            "text": "which is the correct way of styling a p tag with the id of 'first' with the text colour of white in CSS?",
+            "type": "single_correct_answer",
+            "answers": [
+                {
+                    "id": 0,
+                    "text": "#first { background: 'white' } "  
+                },
+                {
+                    "id": 1,
+                    "text": "p { color: 'white' }"
+                },
+                {
+                    "id": 2,
+                    "text": "#first { textColour: 'white'} "
+                },
+                {
+                    "id": 3,
+                    "text": "#first { color: 'white'} "
+                }
+            ]
+        },
+        {
+            "text": "What goes in the head of a HTML file? ",
+            "type": "single_correct_answer",
+            "answers": [
+                {
+                    "id": 0,
+                    "text": "metadata that is not displayed"  
+                },
+                {
+                    "id": 1,
+                    "text": "content that is displayed in the pages interface"
+                },
+                {
+                    "id": 2,
+                    "text": "just the title tag"
+                },
+                {
+                    "id": 3,
+                    "text": "JavaScript files only"
+                }
+            ]
+        },
+        {
+            "text": "What tag is used to let the browser know what document type to expect",
+            "type": "single_correct_answer",
+            "answers": [
+                {
+                    "id": 0,
+                    "text": "<html>"  
+                },
+                {
+                    "id": 1,
+                    "text": "<document-type>"
+                },
+                {
+                    "id": 2,
+                    "text": "<!DOCTYPE>"
+                },
+                {
+                    "id": 3,
+                    "text": "<expect-document>"
+                }
+            ]
+        },
+        {
+            "text": "Which is the correct way to link a stylesheet called 'styles.css' to a html file?",
+            "type": "single_correct_answer",
+            "answers": [
+                {
+                    "id": 0,
+                    "text": "<link> styles.css </link>"  
+                },
+                {
+                    "id": 1,
+                    "text": "<link src = 'styles.css'/> "
+                },
+                {
+                    "id": 2,
+                    "text": "<link src = 'styles.css 'rel = 'stylesheet'/>"
+                },
+                {
+                    "id": 3,
+                    "text": "<link rel = 'stylesheet' href = 'styles.css'/>"
+                }
+            ]
+        },
+        {
+            "text": "Which tag would you use to display a large heading? ",
+            "type": "single_correct_answer",
+            "answers": [
+                {
+                    "id": 0,
+                    "text": "<h1></h1>"  
+                },
+                {
+                    "id": 1,
+                    "text": "<largeHeading></largeHeading>"
+                },
+                {
+                    "id": 2,
+                    "text": "<p style = 'font-size: 100px'></p>"
+                },
+                {
+                    "id": 3,
+                    "text": "<header></header"
+                }
+            ]
+        }
+    ]
+    }
+}
