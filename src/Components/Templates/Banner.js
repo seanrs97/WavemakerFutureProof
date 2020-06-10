@@ -11,7 +11,7 @@ class Banner extends React.Component {
     render(){
         return (
             <div>
-                {!!this.props.bannerOne && this.props.bannerOne.map((banner) =>
+                {/* {!!this.props.bannerOne && this.props.bannerOne.map((banner) =>
                     <HalfwayBanner key = {banner.id} style = {{background: banner.colour}}>
                         <div key = {banner.id}>
                             <h1> {banner.text} </h1>
@@ -26,7 +26,13 @@ class Banner extends React.Component {
                             <p> {banner.desc} </p>
                         </div>
                     </HalfwayBanner>
-                )}
+                )} */}
+                <HalfwayBanner style = {{background: this.props.bannerColour}}>
+                    <div key = {this.props.bannerId}>
+                        <h1> {this.props.bannerText} </h1>
+                        <p> {this.props.bannerDesc} </p>
+                    </div>
+                </HalfwayBanner>
             </div>
         )
     }

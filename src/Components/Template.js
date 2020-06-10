@@ -5,6 +5,8 @@ import Resources from "./Templates/Resources.js";
 import Banner from "./Templates/Banner.js";
 import Quiz from "./Quiz.js";
 
+// import What from "./ContentTemplates/What.js";
+
 import sal from "sal.js";
 import '../../node_modules/sal.js/dist/sal.css';
 import styled from "styled-components";
@@ -26,6 +28,11 @@ class Template extends React.Component {
                     headerColour = {this.props.headerColour}
                     description = {this.props.description}
                 />
+
+                {/* <What/> */}
+
+
+
                 <MainContent
                     what = {this.props.what}
                 />
