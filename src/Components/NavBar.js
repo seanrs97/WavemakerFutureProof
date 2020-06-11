@@ -145,7 +145,10 @@ const MenuList = styled.ul`
     vertical-align: middle;
     position: relative;
     transition: 1s all;
-    margin: 0;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
     a{
         display: flex;
         justify-content: center;

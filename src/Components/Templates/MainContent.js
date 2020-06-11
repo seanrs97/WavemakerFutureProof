@@ -33,6 +33,7 @@ class MainContent extends React.Component {
                         <p className = "content-text">{cont.text}</p>
                     </div>
                 )}
+
                 {!!this.props.why && this.props.why.map((cont) =>
 
                     // WHY CONTENT 
@@ -48,7 +49,7 @@ class MainContent extends React.Component {
                     </div>
                 )}
                 {!!this.props.how && this.props.how.map((cont) =>
-                
+
                     //HOW CONTENT 
                     <div className = "contentContainer contentContainerComplex" key = {cont.id}>
                         <img 

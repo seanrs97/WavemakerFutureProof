@@ -5,7 +5,9 @@ import Resources from "./Templates/Resources.js";
 import Banner from "./Templates/Banner.js";
 import Quiz from "./Quiz.js";
 
-// import What from "./ContentTemplates/What.js";
+import What from "./Templates/What.js";
+import Why from "./Templates/Why.js";
+import How from "./Templates/How.js";
 
 import sal from "sal.js";
 import '../../node_modules/sal.js/dist/sal.css';
@@ -29,19 +31,10 @@ class Template extends React.Component {
                     description = {this.props.description}
                 />
 
-                {/* <What/> */}
+                <What {...this.props} />
+                <Why {...this.props} />
+                <How {...this.props} />
 
-
-
-                <MainContent
-                    what = {this.props.what}
-                />
-                <Banner
-                    bannerOne = {this.props.bannerOne}
-                />
-                <MainContent why = {this.props.why}/>
-                <Banner bannerTwo = {this.props.bannerTwo}/>
-                <MainContent how = {this.props.how}/>
                 <Quiz style = {{overflowY: "scroll"}} quiz = {this.props.quiz} quizColour = {this.props.headerColour} />
 
                 <UnlockableContent>

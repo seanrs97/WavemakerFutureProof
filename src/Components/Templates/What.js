@@ -1,6 +1,6 @@
 import React from "react";
-import Banner from "../Templates/Banner.js";
-import MainContent from "./Templates/MainContent.js";
+import Banner from "./Banner.js";
+import MainContent from "./MainContent.js";
 
 class What extends React.Component{
     render(){
@@ -9,9 +9,11 @@ class What extends React.Component{
                 <Banner
                     bannerText = "What is it?"
                     bannerDesc = "Learn more about this subject and how it can benefit you!"
-                    bannerColour = {this.props.bannerColour}
+                    bannerColour = {this.props.headerColour}
                 />
-                <MainContent/>
+                <MainContent 
+                    what = {this.props.what}
+                />
             </div>
         )
     }
