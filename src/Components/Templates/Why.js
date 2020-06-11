@@ -12,7 +12,7 @@ class Why extends React.Component{
                     bannerColour = {this.props.headerColour}
                 />
                 <MainContent 
-                    what = {this.props.why}
+                    why = {this.props.why}
                 />
             </div>
         )
