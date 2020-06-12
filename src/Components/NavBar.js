@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
 
 import BadgeBlue from "../Images/BadgeBlue.svg";
 import BadgeGreen from "../Images/BadgeGreen.svg";
@@ -44,13 +43,13 @@ class NavBar extends React.Component{
                 <MenuContainer onClick = {this.handleClickOutside}>
                     <ContentContainer>
                         <NavImgContainer>
-                            <Link to = "/home"><NavImg src = {logo} alt = "wavemaker home page" /></Link>
+                            <a href = "/home"><NavImg src = {logo} alt = "wavemaker home page" /></a>
                         </NavImgContainer>
                         <MenuList>
-                            <Link to = "/coding"><li> <img src = {BadgeBlue} alt = "coding"/></li></Link>
-                            <Link to = "/essentialskills"><li> <img src = {BadgeRed} alt = "essential skills"/></li></Link>
-                            <Link to = "/2dand3ddesign"><li> <img src = {BadgeGreen} alt = "2D and 3D Design"/></li></Link>
-                            <Link to = "/DigitalEntertainment"><li> <img src = {BadgeOrange} alt = "Digital Entertainment"/></li></Link>
+                            <a href = "/?navPage=coding"><li> <img src = {BadgeBlue} alt = "coding"/></li></a>
+                            <a href = "/?navPage=essential"><li> <img src = {BadgeRed} alt = "essential skills"/></li></a>
+                            <a href = "/?navPage=design"><li> <img src = {BadgeGreen} alt = "2D and 3D Design"/></li></a>
+                            <a href = "/?navPage=digitalEnt"><li> <img src = {BadgeOrange} alt = "Digital Entertainment"/></li></a>
                         </MenuList>
                         <Hamburger onClick = {this.showMenu} style = {{marginLeft: this.state.hamburgerShow}}>
                             <div className = "bar1"></div>
@@ -62,10 +61,10 @@ class NavBar extends React.Component{
                         </Cross>
                         <MenuListText>
                             <ul style = {{marginTop: this.state.displayMenu}}>
-                                <li onClick = {this.closeMenu} className = "listElementText"><Link to = "/coding">Coding</Link></li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><Link to = "/essentialskills"> 2D Design </Link></li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><Link to = "/2dand3ddesign"> 3D Design </Link></li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><Link to = "/DigitalEntertainment"> Animation </Link></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><a href = "/?navPage=coding">Coding</a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><a href = "/?navPage=essential"> 2D Design </a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><a href = "/?navPage=design"> 3D Design </a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><a href = "/?navPage=digitalEnt"> Animation </a></li>
                             </ul>
                         </MenuListText>
                         

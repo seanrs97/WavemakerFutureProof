@@ -28,19 +28,32 @@ class HeaderComp extends React.Component {
         }
     }
     render(){
+        console.log("YEEEE", this.props);
         return (
-            <HeaderImage
-                headerImageDesk = {this.props.image}
-                headerImageTab = {this.props.imageTab}
-                headerImageMob = {this.props.imageMob}
-            >
-                <div></div>
-                <ImageTextContainer style = {{animation: this.state.animation}}>
-                    <H1> {this.props.name} </H1>
-                    <Stripe stripeColour = {this.props.headerColour}/>
-                    <p> {this.props.description} </p>
-                </ImageTextContainer>
-            </HeaderImage>
+            <div>
+                {Object.values(this.props).map((header) =>
+                    <div>
+                        <HeaderImage headerImageDesk = {header.image}>
+                            <ImageTextContainer style = {{animation: this.state.animation}}>
+                                <H1> {header.text} </H1>
+                                <p> {header.desc} </p>
+                            </ImageTextContainer>
+                        </HeaderImage>
+                    </div>
+                )}
+            </div>
+            // <HeaderImage
+            //     headerImageDesk = {this.props.image}
+            //     headerImageTab = {this.props.imageTab}
+            //     headerImageMob = {this.props.imageMob}
+            // >
+            //     <div></div>
+            //     <ImageTextContainer style = {{animation: this.state.animation}}>
+            //         <H1> {this.props.text} </H1>
+            //         <Stripe stripeColour = {this.props.headerColour}/>
+            //         <p> {this.props.desc} </p>
+            //     </ImageTextContainer>
+            // </HeaderImage>
         )
     }
 }

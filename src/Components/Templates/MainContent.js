@@ -8,7 +8,7 @@ class MainContent extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-
+            jsonDATA: ""
         }
     }
     componentDidMount(){
@@ -20,8 +20,6 @@ class MainContent extends React.Component {
         return (
             <ContentContainer>
                 {!!this.props.what && this.props.what.map((cont) =>
-
-                    // WHAT CONTENT 
                     <div className = "contentContainer contentContainerComplex" key = {cont.id}>
                         <img 
                             src = {cont.image} alt = {cont.id}
@@ -35,8 +33,6 @@ class MainContent extends React.Component {
                 )}
 
                 {!!this.props.why && this.props.why.map((cont) =>
-
-                    // WHY CONTENT 
                     <div className = "contentContainer contentContainerComplex" key = {cont.id}>
                         <img
                             src = {cont.image} alt = {cont.id}
@@ -49,8 +45,6 @@ class MainContent extends React.Component {
                     </div>
                 )}
                 {!!this.props.how && this.props.how.map((cont) =>
-
-                    //HOW CONTENT 
                     <div className = "contentContainer contentContainerComplex" key = {cont.id}>
                         <img 
                             src = {cont.image} alt = {cont.id}

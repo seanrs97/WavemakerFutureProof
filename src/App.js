@@ -4,6 +4,7 @@ import ScrollToTop from "./ScrollToTop.js";
 
 import NavBar from "./Components/NavBar.js";
 import Template from "./Components/Template.js";
+import NavTemplate from "./Components/NavTemplate.js";
 import Template404 from "./Components/Template404.js";
 import Footer from "./Components/Footer.js";
 import Home from "./Components/Home.js";
@@ -25,6 +26,7 @@ class App extends React.Component{
     super(props);
     this.state = {  
       jsonData: [],
+      navData: [],
       display404: "none",
       showHome: "none",
       showTemplate: ""
@@ -71,9 +73,53 @@ class App extends React.Component{
         })
       }
     });
+
+
+
+    let navURL = 'https://seanrs97.github.io/navData/';
+    let navParams = (new URL(document.location)).searchParams;
+    let myNavURL;
+    if (params.get("navPage")===null) {
+      this.setState({
+        showHome: "block",
+        showNavTemplate: "none"
+      });
+    } else {
+      myNavURL = `${navURL}${navParams.get("navPage")}.json`;
+      this.setState({
+        showHome: "none",
+        showNavTemplate: "block"
+      })
+    }
+
+    if(navParams.get("navPage") !== null){
+      myNavURL = `${navURL}${navParams.get("navPage")}.json`;
+      this.setState({
+        showHome: "none",
+        showNavTemplate: "block"
+      })
+    }
+    const navSelf = this;
+    fetch(myNavURL).then(response => {
+      if(response.ok){
+        response.json().then(data => {
+          console.log("DATA", data)
+          navSelf.setState({
+            navData: data
+          })
+        });
+        this.setState({
+          display404: "none"
+        })
+      } else {
+        this.setState({
+          display404: "block"
+        })
+      }
+    });
   }
   render(){
-    console.log(this.state.jsonData)
+    console.log("STATE: ", this.state);
     return(
       <div className="App">
         <Router>
@@ -94,6 +140,12 @@ class App extends React.Component{
                   </div>
                 )
             }}/>  
+              <div>
+                <div>
+                  <NavTemplate {...this.state.navData}/>
+                </div>
+                <Template404 display404 = {this.state.display404} />
+              </div>
             <Route exact path = "/home" component = {Home} />
             <Footer/>
           </ScrollToTop>

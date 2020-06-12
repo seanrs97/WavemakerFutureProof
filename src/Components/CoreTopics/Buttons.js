@@ -12,12 +12,16 @@ class Buttons extends React.Component {
     render(){
         return (
             <ButtonsContainer>
-                {!!this.props.buttons && this.props.buttons.map((button) => 
-                    <div key = {button.id}>
-                        <a href = {button.id}>
-                            <img src = {button.image} alt = {button.text} />
-                        </a>
-                        <p> {button.text} </p>
+                {Object.values(this.props).map((button) =>
+                    <div>
+                        {!!button.buttons && button.buttons.map((val) => (
+                            <div key = {val.id}>
+                                <a href = {val.id}>
+                                    <img src = {val.image} alt = {val.text}/>
+                                </a>
+                                <p> {val.text} </p>
+                            </div>
+                        ))}
                     </div>
                 )}
             </ButtonsContainer>
@@ -26,15 +30,17 @@ class Buttons extends React.Component {
 }
 const ButtonsContainer = styled.div`
     div{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        border-top: 1px solid grey;
-        padding: 80px 0;
-        position: relative;
-        width: 87.5%;
-        margin: 0 auto;
-        &:nth-child(1){
-            border-top: none;
+        div{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border-top: 1px solid grey;
+            padding: 80px 0;
+            position: relative;
+            width: 87.5%;
+            margin: 0 auto;
+            &:nth-child(1){
+                border-top: none;
+            }
         }
         img{
             width: 300px;
