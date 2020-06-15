@@ -63,8 +63,14 @@ const ImageTextContainer = styled.div`
         width: 78%;
         padding-top: 40%;
     }
+    @media only screen and (min-width: 1280px) and (max-width: 1700px){
+        width: 78%;
+    }
+    @media only screen and (min-width: 1280px) and (max-width: 1400px){
+        padding-top: 40%;
+    }
     @media only screen and (min-width: 1400px) and (max-width: 1700px){
-        padding-top: 50%;
+        padding-top: 30%;
     }
     @media only screen and (min-width: 1400px) and (max-width: 1700px) and (min-height: 900px) and (max-height: 1050px){
         padding-top: 40%;

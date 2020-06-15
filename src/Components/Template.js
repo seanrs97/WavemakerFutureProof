@@ -8,6 +8,7 @@ import Quiz from "./Quiz.js";
 import What from "./Templates/What.js";
 import Why from "./Templates/Why.js";
 import How from "./Templates/How.js";
+import Navigation from "./Templates/Navigation.js";
 
 import sal from "sal.js";
 import '../../node_modules/sal.js/dist/sal.css';
@@ -18,6 +19,9 @@ class Template extends React.Component {
         sal({
             once: false
         });
+    }
+    handleFinish = () => {
+        console.log("quiz finished");
     }
     render(){
         return (
@@ -35,12 +39,14 @@ class Template extends React.Component {
                 <Why {...this.props} />
                 <How {...this.props} />
 
-                <Quiz style = {{overflowY: "scroll"}} quiz = {this.props.quiz} quizColour = {this.props.headerColour} />
+                <Quiz onFinished = {this.handleFinish} style = {{overflowY: "scroll"}} quiz = {this.props.quiz} quizColour = {this.props.headerColour} />
 
                 <UnlockableContent>
                     <HideContent style = {{display: this.props.display}}></HideContent>
                     <Resources resources = {this.props.resources}/>
                 </UnlockableContent>
+
+                <Navigation {...this.props}/>
             </div>
         )
     }

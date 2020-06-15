@@ -40,6 +40,7 @@ class Banner extends React.Component {
 const HalfwayBanner = styled.div`
     width: 100%;
     margin-bottom: 20px;
+    margin-top: 20px;
     position: relative;
     div{
         padding: 30px 0;

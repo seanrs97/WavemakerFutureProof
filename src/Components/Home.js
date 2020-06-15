@@ -47,10 +47,10 @@ class Home extends React.Component{
                 <div style = {{ textAlign: "center"}}>
                     <H3> Start by selecting a topic! </H3>
                     <BadgesContainer>
-                        <a href = "/coding"><img src = {BadgeBlue} alt = {BadgeBlue}/></a>
-                        <a href = "/essentialskills"><img src = {BadgeRed} alt = {BadgeRed}/></a>
-                        <a href = "/2dand3ddesign"><img src = {BadgeGreen} alt = {BadgeGreen}/></a>
-                        <a href = "/DigitalEntertainment"><img src = {BadgeOrange} alt = {BadgeOrange}/></a>
+                        <a href = "/?navPage=coding"><img src = {BadgeBlue} alt = {BadgeBlue}/></a>
+                        <a href = "/?navPage=essential"><img src = {BadgeRed} alt = {BadgeRed}/></a>
+                        <a href = "/?navPage=essential"><img src = {BadgeGreen} alt = {BadgeGreen}/></a>
+                        <a href = "/?navPage=digitalEnt"><img src = {BadgeOrange} alt = {BadgeOrange}/></a>
                     </BadgesContainer>
                 </div>
             </Container>
