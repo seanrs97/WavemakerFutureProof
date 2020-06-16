@@ -43,7 +43,7 @@ class NavBar extends React.Component{
                 <MenuContainer onClick = {this.handleClickOutside}>
                     <ContentContainer>
                         <NavImgContainer>
-                            <a href = "/home"><NavImg src = {logo} alt = "wavemaker home page" /></a>
+                            <a href = "home.html"><NavImg src = {logo} alt = "wavemaker home page" /></a>
                         </NavImgContainer>
                         <MenuList>
                             <a href = "/?navPage=coding"><li> <img src = {BadgeBlue} alt = "coding"/></li></a>
@@ -130,9 +130,6 @@ const NavImg = styled.img`
     }
     @media only screen and (min-width: 1650px) and (max-width: 2000px){
         width: 255px;
-    }
-    @media only screen and (max-width: 530px){
-
     }
 `
 const MenuList = styled.ul`

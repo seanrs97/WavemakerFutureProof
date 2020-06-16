@@ -41,6 +41,9 @@ const ButtonsContainer = styled.div`
             &:nth-child(1){
                 border-top: none;
             }
+            @media only screen and (max-width: 500px){
+                display: block;
+            }
         }
         img{
             width: 300px;

@@ -36,6 +36,7 @@ class HeaderComp extends React.Component {
                         <HeaderImage headerImageDesk = {header.image}>
                             <ImageTextContainer style = {{animation: this.state.animation}}>
                                 <H1> {header.text} </H1>
+                                <Stripe stripeColour = "white"/>
                                 <p> {header.desc} </p>
                             </ImageTextContainer>
                         </HeaderImage>
@@ -69,13 +70,13 @@ const HeaderImage = styled.div`
     background-size: cover;
     background-attachment: fixed;
     @media only screen and (max-width: 760px){
-        background: url(${props => props.headerImageTab});
+        // background: url(${props => props.headerImageTab});
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
     }
     @media only screen and (max-width: 500px){
-        background: url(${props => props.headerImageMob});
+        // background: url(${props => props.headerImageMob});
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
@@ -84,16 +85,17 @@ const HeaderImage = styled.div`
 const ImageTextContainer = styled.div`
     @keyframes slideIn{
         0%{
-            margin-left: -1200px;
+            transform: translateX(-1200px);
         }
-        80%{
-            margin-left: 20px;
+        95%{
+            transform: translateX(80px);
         }
         100%{
-            margin-left: 0;
+            transform: translateX(0);
         }
     }
     text-shadow: 5px 5px 5px #545454;
+    animation: slideIn 2s ease-in-out;
     color: white;
     width: 50%;
     position: absolute;

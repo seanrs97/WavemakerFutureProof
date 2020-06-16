@@ -42,7 +42,7 @@ class Footer extends React.Component {
                     </Copyright>
                     <SocialMedia>
                         <a href = "https://www.facebook.com/wavemakerstoke"> <p><span className = "navigationOffScreenText">Link to Wavemakers Facebook Page</span><FontAwesomeIcon icon={['fab', 'facebook-square']} /></p> </a>
-                        <a href = "https://twitter.com/wavemakerstoke"> <p> <span className = "navigationOffScreenText">Link to Wavemakers Facebook Page</span><FontAwesomeIcon icon={['fab', 'twitter']} /></p> </a>
+                        <a href = "https://twitter.com/wavemakerstoke"> <p> <span className = "navigationOffScreenText ">Link to Wavemakers Facebook Page</span><FontAwesomeIcon icon={['fab', 'twitter']} /></p> </a>
                     </SocialMedia>
                 </Bottom>
             </FooterContainer>

@@ -1,10 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/wm64.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="rgb(42, 181, 227)" />
+    <meta
+      name="description"
+      content="Wavemaker Future Proof learning site"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/wm192.png" />
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome.css">
+    <link rel = "stylesheet" href = "home.css"/>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+    <title>Wavemaker Future Proof</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div class = "main-body-container">
+      <div>
+        <div class = "menuContainer">
+          <div class = "contentContainer">
+            <div class = "navImgContainer">
+              <a href = "home.html"> <img class = "navImg" src = "images/logo.svg" alt = "wavemaker logo"/></a>
+            </div>
+            <div class = "menuList">
+              <a href = "/?navPage=coding"><li> <img src = "images/BadgeBlue.svg" alt = "coding"/></li></a>
+              <a href = "/?navPage=essential"><li> <img src = "images/BadgeRed.svg" alt = "essential skills"/></li></a>
+              <a href = "/?navPage=design"><li> <img src = "images/BadgeGreen.svg" alt = "2D and 3D Design"/></li></a>
+              <a href = "/?navPage=digitalEnt"><li> <img src = "images/BadgeOrange.svg" alt = "Digital Entertainment"/></li></a>
+            </div>
+            <div id = "hamburger" onClick = "showMenu()">
+              <div class = "bar1"></div>
+              <div class = "bar2"></div>
+              <div class = "bar3"></div>
+            </div>
+            <div id = "cross" onClick = "closeMenu()">
+              <h1 style = "color: white;"> X </h1>
+            </div>
+            <div class = "menuListText">
+              <ul id = "displayMenu">
+                <li onClick = "closeMenu()" class = "listElementText"><a href = "/?navPage=coding">Coding</a></li>
+                <li onClick = "closeMenu()" class = "listElementText"><a href = "/?navPage=essential"> 2D Design </a></li>
+                <li onClick = "closeMenu()" class = "listElementText"><a href = "/?navPage=design"> 3D Design </a></li>
+                <li onClick = "closeMenu()" class = "listElementText"><a href = "/?navPage=digitalEnt"> Animation </a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class = "container">
+        <div class = "introContainer">
+          <img class = "logoImage" alt = "logo" src = "images/logo.svg" />
+          <div class = "meaningContainer">
+            <h5> Adjective </h5>
+            <p style = "text-transform: lowercase; font-size: 1.8em; line-height: 1.4em;">A product, system or person unlikely to become obsolete.</p>
+          </div>
+          <div class = "meaningContainer">
+            <h5> Verb </h5>
+            <p style = "text-transform: lowercase; font-size: 1.8em; line-height: 1.4em;"> Make (a product or system) future proof. 
+              <br></br>"This approach allows you to future-proof your applications
+            </p>
+          </div>
+        </div>
+        <div id = "banner"></div>
+        <div style = "text-align: center">
+          <h3> Start by selecting a topic </h3>
+          <div class = "badgesContainer">
+            <a href = "/?navPage=coding"><img src = "images/BadgeBlue.svg" alt = "blue badge" /></a>
+            <a href = "/?navPage=essential"><img src = "images/BadgeRed.svg" alt = "red badge" /></a>
+            <a href = "/?navPage=essential"><img src = "images/BadgeGreen.svg" alt = "green badge"/></a>
+            <a href = "/?navPage=digitalEnt"><img src = "images/BadgeOrange.svg" alt = "orange badge"/></a>
+          </div>
+        </div>
+      </div>
+      <div class = "footerContainer">
+        <div class = "footerContentContainer">
+          <div class = "leftSide">
+            <div class = "logo">
+              <img src = "images/logo.svg" alt = "wave"/>
+            </div>
+          </div>
+          <div class = "rightSide">
+            <div class = "sponsors">
+              <div>
+                <p class = "sponsors-text">
+                  Wavemaker Future Proof was developed with support
+                  from Staffordshire University as part of the 
+                  Staffordshire Digital Innovation Partnerships Programme (SDIPs)
+                  and is part funded by the European Regional Development Fund 2014 - 2020
+                </p>
+                <div class = "sponsors-images">
+                  <img src = "images/connected_university.jpg" alt = "connected university"/>
+                  <img src = "images/european_union.png" alt = "european union"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class = "bottom">
+          <div class = "copyright">
+            <p>  Copyright © 2020 Wavemaker Stoke  </p>
+          </div>
+          <div class = "socialMedia">
+            <a href = "https://www.facebook.com/wavemakerstoke"> <p><span class = "navigationOffScreenText">Link to Wavemakers Facebook Page</span><i class="fa fa-facebook-square"></i></p> </a>
+            <a href = "https://twitter.com/wavemakerstoke"> <p> <span class = "navigationOffScreenText ">Link to Wavemakers Twitters Page</span><i class="fa fa-twitter"></i></p> </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    
+    <script>
+        const imagesArray = [
+          "images/webHeaderDesktop.jpg",
+          "images/CodingBanner1.png",
+          "images/Banner3.png",
+          "images/Banner4.png",
+          "images/CodingBanner2.png",
+          "images/Banner6.png",
+          "images/Banner7.png"
+        ]
+        const random = Math.floor(Math.random() * imagesArray.length);
+        
+        let currentImageIndex = null;
+
+        window.onload = function(){
+          document.getElementById("banner").style.backgroundImage = "url(" + imagesArray[random] +  ")";
+        }
+
+        function showMenu(){
+          document.getElementById("displayMenu").style.marginTop = "40px";
+          document.getElementById("hamburger").style.marginLeft = "-600px";
+          document.getElementById("cross").style.transform = "translateX(0)";
+        }
+        function closeMenu(){
+          document.getElementById("displayMenu").style.marginTop = "-600px";
+          document.getElementById("hamburger").style.marginLeft = "0px";
+          document.getElementById("cross").style.transform = "translateX(-600px)";
+        }
+    </script>
   </body>
 </html>

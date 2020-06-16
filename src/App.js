@@ -119,34 +119,23 @@ class App extends React.Component{
     });
   }
   render(){
-    console.log("STATE: ", this.state);
     return(
       <div className="App">
         <Router>
           <ScrollToTop>
             <NavBar/>
-            <Route exact path = "/coding" component = {Coding}/>
-            <Route exact path = "/essentialSkills" component = {Essential}/>
-            <Route exact path = "/2dand3ddesign" component = {Design}/> 
-            <Route exact path = "/DigitalEntertainment" component = {DigitalEnt}/>
-
-            <Route path = "/" exact render= {() => {
-                return (
-                  <div>
-                    <div style = {{display: this.state.showTemplate}}>
-                      <Template {...this.state.jsonData}/>
-                    </div>
-                    <Template404 display404 = {this.state.display404} />
-                  </div>
-                )
-            }}/>  
+              <div>
+                <div style = {{display: this.state.showTemplate}}>
+                  <Template {...this.state.jsonData}/>
+                </div>
+                <Template404 display404 = {this.state.display404} />
+              </div>
               <div>
                 <div>
                   <NavTemplate {...this.state.navData}/>
                 </div>
                 <Template404 display404 = {this.state.display404} />
               </div>
-            <Route exact path = "/home" component = {Home} />
             <Footer/>
           </ScrollToTop>
         </Router>

@@ -27,8 +27,8 @@ const HeaderImage = styled.div`
     overflow: hidden;
     color: white;
     position: relative;
-    min-height: 70vh;
-    max-height: 90vh;
+    // min-height: 70vh;
+    // max-height: 90vh;
     padding: 40px 0;
     background: ${props => props.headerColour};
     @media only screen and (max-width: 760px){
@@ -41,60 +41,35 @@ const HeaderImage = styled.div`
 const ImageTextContainer = styled.div`
     @keyframes slideIn{
         0%{
-            margin-left: -1200px;
+            transform: translateX(-140%);
         }
-        80%{
-            margin-left: 20px;
+        65%{
+            transform: translateX(10%);
         }
         100%{
-            margin-left: 0;
+            transform: translateX(0);
         }
     }
     color: white;
     width: 90%;
     margin: 0 auto;
-    padding-top: 30%;
-    animation: slideIn 2s linear;
+    padding-top: 40%;
+    padding-bottom: 40px;
+    animation: slideIn 2s ease-in-out;
     @media only screen and (min-width: 2000px){
         width: 70%;
-        padding-top: 30%;
     }
     @media only screen and (min-width: 1700px) and (max-width: 2000px){
         width: 78%;
-        padding-top: 40%;
     }
     @media only screen and (min-width: 1280px) and (max-width: 1700px){
         width: 78%;
     }
-    @media only screen and (min-width: 1280px) and (max-width: 1400px){
-        padding-top: 40%;
+    @media only screen and (max-width: 500px){
+        padding-top: 60%;
     }
-    @media only screen and (min-width: 1400px) and (max-width: 1700px){
-        padding-top: 30%;
-    }
-    @media only screen and (min-width: 1400px) and (max-width: 1700px) and (min-height: 900px) and (max-height: 1050px){
-        padding-top: 40%;
-    }
-    @media only screen and (min-width: 1400px) and (max-width: 1700px) and (max-height: 900px){
-        padding-top: 30%;
-    }
-    @media only screen and (max-width: 850px) and (min-width: 600px){
-        padding-top: 100%;
-    }
-    @media only screen and (max-width: 1050px) and (min-width: 600px) and (min-height: 650px) and (max-height: 800px){
-        padding-top: 55%;
-    }
-    @media only screen and (max-width: 1050px) and (min-width: 600px) and (max-height: 650px){
-        padding-top: 45%;
-    }
-    @media only screen and (max-width: 600px) and (min-width: 350px){
-        padding-top: 85%;
-    }
-    @media only screen and (min-width: 600px) and (max-width: 1050px) and (min-height: 800px) and (max-height: 1400px){
-        padding-top: 85%;
-    }
-    @media only screen and (min-height: 0px) and (max-height: 350px){
-        padding-top: 30%;
+    @media only screen and (max-height: 450px){
+        padding-top: 10%;
     }
     -webkit-animation: slideIn 2s linear;
     h1{
