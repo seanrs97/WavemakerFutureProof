@@ -61,10 +61,10 @@ class NavBar extends React.Component{
                         </Cross>
                         <MenuListText>
                             <ul style = {{marginTop: this.state.displayMenu}}>
-                                <li onClick = {this.closeMenu} className = "listElementText"><a href = "/?navPage=coding">Coding</a></li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><a href = "/?navPage=essential"> 2D Design </a></li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><a href = "/?navPage=design"> 3D Design </a></li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><a href = "/?navPage=digitalEnt"> Animation </a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=coding">Coding & Programming</a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=essential"> Essential Digital Skills </a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=design"> 3D Design & 2D Design </a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><div></div> <a href = "/?navPage=digitalEnt"> Digital Entertainment </a></li>
                             </ul>
                         </MenuListText>
                         
@@ -182,13 +182,43 @@ const MenuListText = styled.div`
             border-bottom: 2px solid white;
             width: 90%;
             margin: 0 auto;
+            div{
+                height: 14px;
+                width: 14px;
+                background: white;
+                border-radius: 100px;
+                display: inline-block;
+                margin-right: 22px;
+                // transform: translateY(2px);
+            }
             a{
                 color: white;
                 text-decoration: none;
+                display: inline-block;
             }
             &:last-child{
                 {
                     border-bottom: none;
+                }
+            }
+            &:nth-child(1){
+                div{
+                    background: linear-gradient(#2ab5e3, #0b92bf);
+                }
+            }
+            &:nth-child(2){
+                div{
+                    background: linear-gradient(#fb1842, #d00056);
+                }
+            }
+            &:nth-child(3){
+                div{
+                    background: linear-gradient(#57b28e, #3c9d52);
+                }
+            }
+            &:nth-child(4){
+                div{
+                    background: linear-gradient(#ffd32b, #f39200);
                 }
             }
         }

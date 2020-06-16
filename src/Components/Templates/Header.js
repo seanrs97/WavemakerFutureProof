@@ -50,6 +50,17 @@ const ImageTextContainer = styled.div`
             transform: translateX(0);
         }
     }
+    @keyframes slideInMobile{
+        0%{
+            transform: translateX(-170%);
+        }
+        65%{
+            transform: translateX(25%);
+        }
+        100%{
+            transform: translateX(0);
+        }
+    }
     color: white;
     width: 90%;
     margin: 0 auto;
@@ -112,6 +123,7 @@ const ImageTextContainer = styled.div`
     }
     @media only screen and (max-width: 500px){
         width: 80%;
+        animation: slideInMobile 2s ease-in-out;
         h1{
             font-size: 2.6em;
         }

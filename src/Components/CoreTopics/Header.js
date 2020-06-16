@@ -85,10 +85,21 @@ const HeaderImage = styled.div`
 const ImageTextContainer = styled.div`
     @keyframes slideIn{
         0%{
-            transform: translateX(-1200px);
+            transform: translateX(-140%);
         }
-        95%{
-            transform: translateX(80px);
+        65%{
+            transform: translateX(10%);
+        }
+        100%{
+            transform: translateX(0);
+        }
+    }
+    @keyframes slideInMobile{
+        0%{
+            transform: translateX(-170%);
+        }
+        65%{
+            transform: translateX(25%);
         }
         100%{
             transform: translateX(0);
@@ -133,6 +144,7 @@ const ImageTextContainer = styled.div`
     }
     @media only screen and (max-width: 500px){
         width: 80%;
+        animation: slideInMobile 2s ease-in-out;
         h1{
             font-size: 2.6em;
         }
