@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from "../Images/logo.svg";
 import StaffsUniImage from "../Images/footerImages/connected_university.jpg";
 import EuropeanUnionImage from "../Images/footerImages/european_union.png";
+import CountyCouncil from "../Images/footerImages/county-council.jpg";
 
 
 class Footer extends React.Component {
@@ -30,6 +31,7 @@ class Footer extends React.Component {
                                 <div className = "sponsors-images">
                                     <img src = {StaffsUniImage} alt = "connected university"/>
                                     <img src = {EuropeanUnionImage} alt = "european union"/>
+                                    <img src = {CountyCouncil} alt = "Staffordshire county council"/>
                                 </div>
                             </div>
                         </Sponsors>
@@ -170,6 +172,13 @@ const Sponsors = styled.div`
                 @media only screen and (max-width: 340px){
                     height: 36px;
                     width: 132px;
+                }
+            }
+            &:nth-child(3){
+                padding-left: 2.5%;
+                @media only screen and (max-width: 470px){
+                    padding-left: 0%;
+                    padding-top: 5%;
                 }
             }
         }

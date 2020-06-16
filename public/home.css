@@ -370,10 +370,8 @@ h3{
 }
 .logo img{
     width: 84%;
-    margin: 0 auto;
     display: block;
     opacity: 1;
-    padding-bottom: 136px;
     filter: invert(102%) sepia(103%) saturate(1352%) hue-rotate(87deg) brightness(11119%) contrast(119%);
 }
 .sponsors{
@@ -407,6 +405,15 @@ h3{
 .sponsors div img:nth-child(2){
     width: 150px;
     padding-left: 2.5%;
+}
+.sponsors div img:nth-child(3){
+    padding-left: 2.5%;
+}
+@media only screen and (max-width: 470px){
+    .sponsors div img:nth-child(3){
+        padding-left: 0%;
+        padding-top: 5%;
+    }
 }
 .socialMedia{
     display: flex;
