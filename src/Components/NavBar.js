@@ -98,7 +98,7 @@ const ContentContainer = styled.nav`
         width: 70%;
         padding: 24px 0;
     }
-    @media only screen and (min-width: 1350px) and (max-width: 2000px){
+    @media only screen and (min-width: 1280px) and (max-width: 2000px){
         width: 78%;
     }
     @media only screen and (max-width: 700px){

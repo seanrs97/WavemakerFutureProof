@@ -63,8 +63,10 @@ const HeaderImage = styled.div`
     overflow: hidden;
     color: white;
     position: relative;
-    min-height: 70vh;
-    max-height: 90vh;
+    height: 80vh;
+    @media only screen and (min-width: 2000px){
+        height: 90vh;
+    }
     background: url(${props => props.headerImageDesk});
     background-repeat: no-repeat;
     background-size: cover;
@@ -85,33 +87,44 @@ const HeaderImage = styled.div`
 const ImageTextContainer = styled.div`
     @keyframes slideIn{
         0%{
-            transform: translateX(-140%);
+            left: -170%;
         }
         65%{
-            transform: translateX(10%);
+            left: 80%;
         }
         100%{
-            transform: translateX(0);
+            left: 50%;
         }
     }
     @keyframes slideInMobile{
         0%{
-            transform: translateX(-170%);
+            left: -170%;
         }
         65%{
-            transform: translateX(25%);
+            left: 80%;
         }
         100%{
-            transform: translateX(0);
+            left: 50%;
         }
     }
     text-shadow: 5px 5px 5px #545454;
     animation: slideIn 2s ease-in-out;
     color: white;
-    width: 50%;
+    width: 90%;
     position: absolute;
-    left: 5%;
-    bottom: 3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    bottom: 0;
+
+    @media only screen and (min-width: 2000px){
+        width: 70%;
+    }
+    @media only screen and (min-width: 1700px) and (max-width: 2000px){
+        width: 78%;
+    }
+    @media only screen and (min-width: 1280px) and (max-width: 1700px){
+        width: 78%;
+    }
     h1{
         font-size: 3.4em;
         text-transform: uppercase;
@@ -140,7 +153,7 @@ const ImageTextContainer = styled.div`
         }
     }
     @media only screen and (max-width: 760px){
-        width: 65%;
+        width: 90%;
     }
     @media only screen and (max-width: 500px){
         width: 80%;

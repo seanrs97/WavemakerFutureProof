@@ -36,13 +36,22 @@ const ButtonsContainer = styled.div`
             border-top: 1px solid grey;
             padding: 80px 0;
             position: relative;
-            width: 87.5%;
+            width: 90%;
             margin: 0 auto;
             &:nth-child(1){
                 border-top: none;
             }
             @media only screen and (max-width: 500px){
                 display: block;
+            }
+            @media only screen and (min-width: 2000px){
+                width: 70%;
+            }
+            @media only screen and (min-width: 1700px) and (max-width: 2000px){
+                width: 78%;
+            }
+            @media only screen and (min-width: 1280px) and (max-width: 1700px){
+                width: 78%;
             }
         }
         img{

@@ -27,9 +27,11 @@ const HeaderImage = styled.div`
     overflow: hidden;
     color: white;
     position: relative;
-    // min-height: 70vh;
-    // max-height: 90vh;
     padding: 40px 0;
+    height: 80vh;
+    @media only screen and (min-width: 2000px){
+        height: 90vh;
+    }
     background: ${props => props.headerColour};
     @media only screen and (max-width: 760px){
         background: ${props => props.headerColour};
@@ -41,31 +43,35 @@ const HeaderImage = styled.div`
 const ImageTextContainer = styled.div`
     @keyframes slideIn{
         0%{
-            transform: translateX(-140%);
+            left: -170%;
         }
         65%{
-            transform: translateX(10%);
+            left: 80%;
         }
         100%{
-            transform: translateX(0);
+            left: 50%;
         }
     }
     @keyframes slideInMobile{
         0%{
-            transform: translateX(-170%);
+            left: -170%;
         }
         65%{
-            transform: translateX(25%);
+            left: 80%;
         }
         100%{
-            transform: translateX(0);
+            left: 50%;
         }
     }
     color: white;
     width: 90%;
     margin: 0 auto;
-    padding-top: 40%;
-    padding-bottom: 40px;
+
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate( -50%, -50% );
+
     animation: slideIn 2s ease-in-out;
     @media only screen and (min-width: 2000px){
         width: 70%;
@@ -76,13 +82,6 @@ const ImageTextContainer = styled.div`
     @media only screen and (min-width: 1280px) and (max-width: 1700px){
         width: 78%;
     }
-    @media only screen and (max-width: 500px){
-        padding-top: 60%;
-    }
-    @media only screen and (max-height: 450px){
-        padding-top: 10%;
-    }
-    -webkit-animation: slideIn 2s linear;
     h1{
         font-size: 3.4em;
         text-transform: uppercase;
