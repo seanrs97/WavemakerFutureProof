@@ -24,8 +24,8 @@ const Coding = () => {
     return (
         <div>
             <Template
-                name = "2D & 3D Digital Design"
-                description = "Welcome to your introduction to 2D & 3D Digital Design"
+                name = "Digital Design"
+                description = "Welcome to your introduction to Digital Design"
                 image = {HeaderImage}
                 imageTab = {HeaderImage}
                 imageMob = {HeaderImage}

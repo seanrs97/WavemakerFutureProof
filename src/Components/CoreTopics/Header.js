@@ -115,7 +115,7 @@ const ImageTextContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     bottom: 0;
-
+    
     @media only screen and (min-width: 2000px){
         width: 70%;
     }
@@ -128,7 +128,7 @@ const ImageTextContainer = styled.div`
     h1{
         font-size: 3.4em;
         text-transform: uppercase;
-        line-height: 1.3em;
+        line-height: 1em;
         margin-left: -1px;
     }
     p {
