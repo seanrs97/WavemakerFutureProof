@@ -24,19 +24,28 @@ class Template extends React.Component {
             value_key: "",
         }
     }
+    async componentDidMount(){
+        let baseURL = 'https://seanrs97.github.io/jsonData/userProfile.json';
+        let params = (new URL(document.location)).searchParams;
+        let myURL;
+        
+
+        const self = this;
+        fetch(myURL).then(response => {
+          if(response.ok){
+            response.json().then(data => {
+              console.log("DATA", data)
+              self.setState({
+                jsonData: data[0]
+              })
+            });
+          }
+        });
+    }
     componentDidUpdate(){
         sal({
             once: false
         });
-    }
-    handleFinish = () => {
-        console.log("quiz finished");
-    }
-    proceedToLoginPage = () => {
-
-    }
-    unlockContent = () => {
-
     }
 
     parentFunction = (data_from_child) => {

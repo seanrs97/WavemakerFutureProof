@@ -27,6 +27,7 @@ class App extends React.Component{
     }
   }
   async componentDidMount(){
+
     let baseURL = 'https://seanrs97.github.io/jsonData/';
     let params = (new URL(document.location)).searchParams;
     let myURL;

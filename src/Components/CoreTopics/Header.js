@@ -28,7 +28,6 @@ class HeaderComp extends React.Component {
         }
     }
     render(){
-        console.log("YEEEE", this.props);
         return (
             <div>
                 {Object.values(this.props).map((header) =>
