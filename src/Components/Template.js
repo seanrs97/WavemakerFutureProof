@@ -21,7 +21,7 @@ class Template extends React.Component {
         super();
         this.state = {
             showUnlockableContent: "none",
-            value_key: ""
+            value_key: "",
         }
     }
     componentDidUpdate(){
@@ -64,10 +64,8 @@ class Template extends React.Component {
                     <div>
                         <h1> Want to view more content? </h1>
                         <p> I'm afraid you'll need to login to view anymore content. Please click on the button below to login or sign up!</p>
-                        <button onClick = {this.proceedToLoginPage}><a href = "#">Login</a></button>
 
-                        
-                        <Login functionCallFromParent = {this.parentFunction.bind(this)} />
+                        <button onClick = {this.proceedToLoginPage}><a id = "quiz" href = "login.html?action=" >Login</a></button>
                     </div>
                 </DisplayContent>
 

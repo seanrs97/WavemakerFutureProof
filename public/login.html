@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/wm64.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="rgb(42, 181, 227)" />
+    <meta
+      name="description"
+      content="Wavemaker Future Proof learning site"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/wm192.png" />
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome.css">
+    <link rel = "stylesheet" href = "home.css"/>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
+    <title>Wavemaker Future Proof</title>
+  </head>
+    <body>
+
+        <button id="fred"> Login </button>
+        <script>
+
+            let myButton = document.addEventListener("click",testMe);
+
+            function testMe() {
+                let urlParams = new URLSearchParams(window.location.search);
+                let myLink = urlParams.get('action');
+                location.replace(myLink+ "?page=codingIntro" + "#quiz");
+            }
+        </script>
+    </body>
+</html>

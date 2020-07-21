@@ -7,12 +7,6 @@ import Template from "./Components/Template.js";
 import NavTemplate from "./Components/NavTemplate.js";
 import Template404 from "./Components/Template404.js";
 import Footer from "./Components/Footer.js";
-import Home from "./Components/Home.js";
-
-import Coding from "./Components/CoreTopics/Pages/Coding.js";
-import Essential from "./Components/CoreTopics/Pages/Essential.js";
-import Design from "./Components/CoreTopics/Pages/Design.js";
-import DigitalEnt from "./Components/CoreTopics/Pages/DigitalEnt.js";
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
