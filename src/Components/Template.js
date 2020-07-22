@@ -1,8 +1,7 @@
 import React from "react";
 import Header from "./Templates/Header.js";
-import MainContent from "./Templates/MainContent.js";
 import Resources from "./Templates/Resources.js";
-import Banner from "./Templates/Banner.js";
+// import Banner from "./Templates/Banner.js";
 import Quiz from "./Quiz.js";
 
 import What from "./Templates/What.js";
@@ -14,30 +13,40 @@ import sal from "sal.js";
 import '../../node_modules/sal.js/dist/sal.css';
 import styled from "styled-components";
 
-import Login from "./Login";
+// import Login from "./Login";
 
 class Template extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             showUnlockableContent: "none",
             value_key: "",
+
+            quiz_desc_value: "start",
         }
     }
     async componentDidMount(){
         let baseURL = 'https://seanrs97.github.io/jsonData/userProfile.json';
-        let params = (new URL(document.location)).searchParams;
-        let myURL;
-        
+        // let params = (new URL(document.location)).searchParams;
+        // let myURL;
+        this.setState({
+            quizId: this.props.quiz,
+        });
 
         const self = this;
-        fetch(myURL).then(response => {
+        fetch(baseURL).then(response => {
           if(response.ok){
             response.json().then(data => {
-              console.log("DATA", data)
+              console.log("data", data[0].data.nickname)
+              
               self.setState({
-                jsonData: data[0]
+                  nickname: data[0].data.nickname,
+                  quizzesCompleted: data[0].data.quizzesCompleted,
+                  profilePicture: data[0].data.profilePicture,
               })
+            });
+            this.setState({
+                status: response.status
             });
           }
         });
@@ -48,12 +57,48 @@ class Template extends React.Component {
         });
     }
 
-    parentFunction = (data_from_child) => {
-        this.setState({
-            value_key: data_from_child
-        })
-    }
     render(){
+
+        let descCompleted = "Well done, you have already completed the quiz! You can complete the quiz again if you like, but no additional points will be added!";
+        let descNotCompleted = "You have not completed the quiz yet, to play, please press the start button!";
+        let descNotSignedIn = "You must sign in to complete this quiz"
+
+        let descText;
+        let disabledButton;
+
+        let buttonHidden;
+        let showContent;
+        let showLoginMessage;
+
+        // CHECKS USER LOGIN DETAILS >> IDEALLY WORKING WITH BACKEND HERE
+
+        {!!this.props.quiz && this.props.quiz.map((el) => 
+            {
+                // THEY ARE SIGNED IN
+                if(this.state.status === 200){
+                    disabledButton = false;
+                    buttonHidden = 1;
+                    // THEY ARE SIGNED IN AND HAVE COMPLETED THE QUIZ
+                    if(this.state.quizzesCompleted.indexOf(el.id) > -1){
+                        descText = descCompleted;
+                        showContent = "block";
+                        showLoginMessage = "none"
+                    // THEY ARE SIGNED IN AND HAVE NOT COMPLETED THE QUIZ 
+                    } else {
+                        descText = descNotCompleted;
+                        showContent = "none";
+                        showLoginMessage = "block";
+                    }
+                // THEY ARE NOT SIGNED IN
+                } else {
+                    descText = descNotSignedIn;
+                    disabledButton = true;
+                    buttonHidden = 0.5;
+                }
+            }
+        )}
+
+
         return (
             <div>
                 <Header 
@@ -68,8 +113,17 @@ class Template extends React.Component {
                 <What {...this.props} />
                 <Why {...this.props} />
                 <How {...this.props} />
+                <Quiz 
+                    onFinished = {this.handleFinish} 
+                    style = {{overflowY: "scroll"}} 
+                    quiz = {this.props.quiz} 
+                    quizColour = {this.props.headerColour} 
+                    quizDescription = {descText}
+                    buttonDisabled = {disabledButton}
+                    buttonHidden = {buttonHidden}
+                />
 
-                <DisplayContent style = {{background: this.props.headerColour}}>
+                <DisplayContent style = {{background: this.props.headerColour, display: showLoginMessage}}>
                     <div>
                         <h1> Want to view more content? </h1>
                         <p> I'm afraid you'll need to login to view anymore content. Please click on the button below to login or sign up!</p>
@@ -78,8 +132,7 @@ class Template extends React.Component {
                     </div>
                 </DisplayContent>
 
-                <UnlockableContent style = {{display: this.state.showUnlockableContent}}>
-                    <Quiz onFinished = {this.handleFinish} style = {{overflowY: "scroll"}} quiz = {this.props.quiz} quizColour = {this.props.headerColour} />
+                <UnlockableContent style = {{display: showContent}}>
                     <HideContent style = {{display: this.props.display}}></HideContent>
                     <Resources resources = {this.props.resources}/>
                 </UnlockableContent>

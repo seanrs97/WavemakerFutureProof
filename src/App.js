@@ -8,7 +8,7 @@ import NavTemplate from "./Components/NavTemplate.js";
 import Template404 from "./Components/Template404.js";
 import Footer from "./Components/Footer.js";
 
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faHourglass} from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagramSquare, faTwitter} from '@fortawesome/free-brands-svg-icons'

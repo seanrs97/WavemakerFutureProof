@@ -76,10 +76,6 @@ class Quiz extends React.Component {
         this.targetElement = null;
     }
     async componentDidMount(){
-        // let baseURL = 'https://seanrs97.github.io/jsonData/';
-        // let params = (new URL(document.location)).searchParams;
-        let myURL;
-
         const quizData = await (await (fetch("/quiz-web.json"))).json();
         console.log(quizData);
         // Check if quiz exists
@@ -529,15 +525,21 @@ class Quiz extends React.Component {
                     opacity: this.state.overlayOpacity
                 }}></div>
                 <ContentWrapper onScroll = {this.handleScroll} style = {{animation: this.state.doesQuizExist, display:this.state.entireQuizVisibility}}>
-                    <Home style = {{animation: this.state.homeAppear, background: this.props.quizColour}}>
+                    <Home style = {{animation: this.state.homeAppear, background: this.props.quizColour, marginBottom: "20px"}}>
                         <div className = "content-container">
                             <h1> Quiz </h1>
                             <div className = "button-container">
-                                <button onClick = {this.startQuiz}>Start</button> 
+                                <button 
+                                    onClick = {this.startQuiz} 
+                                    disabled = {this.props.buttonDisabled}
+                                    style = {{opacity: this.props.buttonHidden}}
+                                >
+                                        Start
+                                </button> 
                             </div>
                         </div>
                         <div className = "quiz-description">
-                            <p> Test you're knowledge on what you've learnt already and take the quiz to move on to the next section! </p>
+                            <p> {this.props.quizDescription} </p>
                         </div>
                         <img alt = "background of wave" src = {QuizImage1} className = "top-quiz-wave" />
                         <img alt = "background of wave" src = {QuizImage2} className = "bottom-quiz-wave"/>

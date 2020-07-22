@@ -15,10 +15,10 @@ class Navigation extends React.Component {
                         </a>
                     )}
                     {!!this.props.nextNavigation && this.props.nextNavigation.map((content) =>
-                        <a className = "next" href = {content.link}>
+                        <a className = "next" href = {content.link} key = {content.link}>
                             <div>
                                 <h1> Next Topic</h1>
-                                <a className = "link" href = {content.link}> {content.text}</a>
+                                <p className = "link"> {content.text}  </p>
                             </div>
                         </a>
                     )}
