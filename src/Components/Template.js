@@ -26,9 +26,10 @@ class Template extends React.Component {
         }
     }
     async componentDidMount(){
+
+        this.checkIfUserIsLoggedIn();
+
         let baseURL = 'https://seanrs97.github.io/jsonData/userProfile.json';
-        // let params = (new URL(document.location)).searchParams;
-        // let myURL;
         this.setState({
             quizId: this.props.quiz,
         });
@@ -36,9 +37,7 @@ class Template extends React.Component {
         const self = this;
         fetch(baseURL).then(response => {
           if(response.ok){
-            response.json().then(data => {
-              console.log("data", data[0].data.nickname)
-              
+            response.json().then(data => {    
               self.setState({
                   nickname: data[0].data.nickname,
                   quizzesCompleted: data[0].data.quizzesCompleted,
@@ -55,6 +54,16 @@ class Template extends React.Component {
         sal({
             once: false
         });
+    }
+
+    
+    async checkIfUserIsLoggedIn(){
+        const sdk = window.futureproofSdk();
+        const userIsLoggedIn = await sdk.auth.session(); 
+
+        console.log(userIsLoggedIn);
+
+        return userIsLoggedIn;
     }
 
     render(){

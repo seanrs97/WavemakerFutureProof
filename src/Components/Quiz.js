@@ -118,52 +118,6 @@ class Quiz extends React.Component {
                 isSummaryDisplayed: "visible"
             })
         }, 2200);
-        // if (params.get("page")===null) {
-        //   myURL = `${baseURL}404.json`;
-        // } else {
-        //   myURL = `${baseURL}${params.get("page")}.json`;
-        // }
-        // myURL = "/quiz-web.json";
-        // if(myURL !== "https://seanrs97.github.io/jsonData/404.json"){
-        //     const self = this;
-        //     fetch(myURL).then(response => {
-        //         if(response.ok && response){
-        //           response.json().then(data => {
-        //             self.setState({
-        //               jsonData: data,
-        //               questions: data.questions,
-        //             });
-        //             if(this.state.currentQuestionIndex !== 0){
-        //               this.setState({
-        //                   currentQuestionIndex: 0,
-        //                   score: 0
-        //               });
-        //               this.showOptions();
-        //           }
-        //           this.displayQuestions(
-        //               this.state.questions,
-        //               this.state.currentQuestion,
-        //               this.state.nextQuestion,
-        //               this.state.previousQuestion
-        //           )
-        //           if(this.state.showSummary !== "dissapear .6s linear forwards"){
-        //               this.setState({
-        //                   isSummaryDisplayed: "hidden"
-        //               })
-        //           }
-        //           })
-        //         } else {
-        //           this.setState({
-        //             entireQuizVisibility: "none"
-        //         })
-        //         }
-        //       });
-        //       console.log("DATA", this.state.jsonData)
-        // } else {
-        //     this.setState({
-        //         entireQuizVisibility: "none"
-        //     })
-        // }
     }
     componentWillUnmount(){
         clearInterval(this.interval);
@@ -564,7 +518,7 @@ class Quiz extends React.Component {
                                             </span>
                                         </p>
                                         <H5 style = {{transform: this.state.questionDisplay}}> {currentQuestion.text} </H5>
-                                        <OptionsContainer>
+                                        <OptionsContainer style = {{transform: this.state.questionDisplay}}>
                                             {!!currentQuestion.answers && currentQuestion.answers.map((ans) =>
                                                 <button key = {ans.text} style = {{transform: this.state.questionDisplay}} disabled = {!this.state.optionDisabled} className = "option" onClick = {this.handleOptionClick}> {ans.text}</button>
                                             )}
