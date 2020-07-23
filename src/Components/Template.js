@@ -27,7 +27,10 @@ class Template extends React.Component {
     }
     async componentDidMount(){
 
+        // SDK Login method
         this.checkIfUserIsLoggedIn();
+
+
 
         let baseURL = 'https://seanrs97.github.io/jsonData/userProfile.json';
         this.setState({
@@ -56,7 +59,8 @@ class Template extends React.Component {
         });
     }
 
-    
+
+    // Check to see if user is logged in or not
     async checkIfUserIsLoggedIn(){
         const sdk = window.futureproofSdk();
         const userIsLoggedIn = await sdk.auth.session(); 
@@ -81,31 +85,31 @@ class Template extends React.Component {
 
         // CHECKS USER LOGIN DETAILS >> IDEALLY WORKING WITH BACKEND HERE
 
-        {!!this.props.quiz && this.props.quiz.map((el) => 
-            {
-                // THEY ARE SIGNED IN
-                if(this.state.status === 200){
-                    disabledButton = false;
-                    buttonHidden = 1;
-                    // THEY ARE SIGNED IN AND HAVE COMPLETED THE QUIZ
-                    if(this.state.quizzesCompleted.indexOf(el.id) > -1){
-                        descText = descCompleted;
-                        showContent = "block";
-                        showLoginMessage = "none"
-                    // THEY ARE SIGNED IN AND HAVE NOT COMPLETED THE QUIZ 
-                    } else {
-                        descText = descNotCompleted;
-                        showContent = "none";
-                        showLoginMessage = "block";
-                    }
-                // THEY ARE NOT SIGNED IN
-                } else {
-                    descText = descNotSignedIn;
-                    disabledButton = true;
-                    buttonHidden = 0.5;
-                }
-            }
-        )}
+        // {!!this.props.quiz && this.props.quiz.map((el) => 
+        //     {
+        //         // THEY ARE SIGNED IN
+        //         if(this.state.status === 200){
+        //             disabledButton = false;
+        //             buttonHidden = 1;
+        //             // THEY ARE SIGNED IN AND HAVE COMPLETED THE QUIZ
+        //             if(this.state.quizzesCompleted.indexOf(el.id) > -1){
+        //                 descText = descCompleted;
+        //                 showContent = "block";
+        //                 showLoginMessage = "none"
+        //             // THEY ARE SIGNED IN AND HAVE NOT COMPLETED THE QUIZ 
+        //             } else {
+        //                 descText = descNotCompleted;
+        //                 showContent = "none";
+        //                 showLoginMessage = "block";
+        //             }
+        //         // THEY ARE NOT SIGNED IN
+        //         } else {
+        //             descText = descNotSignedIn;
+        //             disabledButton = true;
+        //             buttonHidden = 0.5;
+        //         }
+        //     }
+        // )}
 
 
         return (

@@ -1,6 +1,6 @@
 #### NOTES FOR 23/07/20 ####
 
-
+// To get to the code i've been using, navigate to the 'src' folder and then the 'components' folder
 // Look inside of Template.js file to find the SDK code
 // Look for a method called 'checkIfUserIsLoggedIn' to find where I'm calling the futureproofSdk()
 // Look for the 'componentDidMount' method for where it is being called
