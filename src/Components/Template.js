@@ -32,7 +32,8 @@ class Template extends React.Component {
             displayLoginContent: "none",
 
             displayLoggedInAvatar: "",
-            displayNavBarLoginMessage: ""
+            displayNavBarLoginMessage: "",
+            loginOrLogout: ""
         }
     }
     async componentDidMount(){
@@ -82,7 +83,9 @@ class Template extends React.Component {
                 displayLoginMessage: "none",
                 displayLoginContent: "block",
 
-                displayLoggedInAvatar: `${userLoggedIn}`
+                displayLoggedInAvatar: `${userLoggedIn}`,
+                loginOrLogout: "Logout",
+                loginHref: "https://wm-educational-pwa-dev.web.app/"
             })
 
             return userIsLoggedIn;
@@ -91,7 +94,9 @@ class Template extends React.Component {
             console.log("you need to login");
             this.setState({
                 loginUrl: e.urlWithRedirect,
-                displayLoggedInAvatar: `${userLoggedOut}`
+                displayLoggedInAvatar: `${userLoggedOut}`,
+                loginOrLogout: "Login",
+                loginHref: "https://wm-educational-pwa-dev.web.app/login"
             });
         }
     }
@@ -105,6 +110,8 @@ class Template extends React.Component {
             <div>
                 <NavBar
                     showLoggedInImage = {this.state.displayLoggedInAvatar}
+                    loginOrLogout = {this.state.loginOrLogout}
+                    loginHref = {this.state.loginHref}
                 />
                 <Header 
                     image = {this.props.image}

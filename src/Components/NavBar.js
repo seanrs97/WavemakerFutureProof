@@ -53,6 +53,7 @@ class NavBar extends React.Component{
                             <a href = "/?navPage=digitalEnt"><li> <img src = {BadgeOrange} alt = "Digital Entertainment"/></li></a>
                             <a href = "#"><li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li></a>
                         </MenuList>
+                            <a className = "loginLink" href = {this.props.loginHref}> {this.props.loginOrLogout} </a>
                         <Hamburger onClick = {this.showMenu} style = {{marginLeft: this.state.hamburgerShow}}>
                             <div className = "bar1"></div>
                             <div className = "bar2"></div>
@@ -63,6 +64,8 @@ class NavBar extends React.Component{
                         </Cross>
                         <MenuListText>
                             <ul style = {{marginTop: this.state.displayMenu}}>
+                                <a className = "loginLinkHamburger" href = {this.props.loginHref}> {this.props.loginOrLogout} </a>
+
                                 <a className = "loggedInAvatar" href = "#"><li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li></a>
                                 <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=coding">Coding & Programming</a></li>
                                 <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=essential"> Essential Digital Skills </a></li>
@@ -112,6 +115,29 @@ const ContentContainer = styled.nav`
         width: 100%;
         display: flex;
         justify-content: center;
+    }
+
+    .loginLink{
+        text-decoration: none;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        right: -5px;
+        @media only screen and (max-width: 700px){
+            display: none;
+        }
+    }
+    .loginLinkHamburger{
+        text-decoration: none;
+        color: white;
+        position: absolute;
+        top: 20%;
+        right: 5%;
+    
+
+        @media only screen and (min-width: 700px){
+            display: none;
+        }
     }
 `
 const NavImgContainer = styled.div`

@@ -117,7 +117,6 @@ class App extends React.Component{
     return(
       <div className="App">
         <Router>
-          <NavBar/>
           <ScrollToTop>
               <div>
                 <div style = {{display: this.state.showTemplate}}>
