@@ -13,6 +13,11 @@ import sal from "sal.js";
 import '../../node_modules/sal.js/dist/sal.css';
 import styled from "styled-components";
 
+import NavBar from "./NavBar";
+
+import userLoggedOut from "../Images/userLoggedOut.svg";
+import userLoggedIn from "../Images/userLoggedIn.svg";
+
 // import Login from "./Login";
 
 class Template extends React.Component {
@@ -21,8 +26,13 @@ class Template extends React.Component {
         this.state = {
             showUnlockableContent: "none",
             value_key: "",
-
             quiz_desc_value: "start",
+
+            displayLoginMessage: "block",
+            displayLoginContent: "none",
+
+            displayLoggedInAvatar: "",
+            displayNavBarLoginMessage: ""
         }
     }
     async componentDidMount(){
@@ -62,58 +72,40 @@ class Template extends React.Component {
 
     // Check to see if user is logged in or not
     async checkIfUserIsLoggedIn(){
-        const sdk = window.futureproofSdk();
-        const userIsLoggedIn = await sdk.auth.session(); 
+        try {
+            const sdk = window.futureproofSdk();
+            const userIsLoggedIn = await sdk.auth.session(); 
 
-        console.log(userIsLoggedIn);
+            console.log("you are logged in");
 
-        return userIsLoggedIn;
+            this.setState({
+                displayLoginMessage: "none",
+                displayLoginContent: "block",
+
+                displayLoggedInAvatar: `${userLoggedIn}`
+            })
+
+            return userIsLoggedIn;
+        } catch (e) {
+            console.log("ERROR", e);
+            console.log("you need to login");
+            this.setState({
+                loginUrl: e.urlWithRedirect,
+                displayLoggedInAvatar: `${userLoggedOut}`
+            });
+        }
     }
 
     render(){
-
-        let descCompleted = "Well done, you have already completed the quiz! You can complete the quiz again if you like, but no additional points will be added!";
-        let descNotCompleted = "You have not completed the quiz yet, to play, please press the start button!";
-        let descNotSignedIn = "You must sign in to complete this quiz"
-
         let descText;
         let disabledButton;
-
         let buttonHidden;
-        let showContent;
-        let showLoginMessage;
-
-        // CHECKS USER LOGIN DETAILS >> IDEALLY WORKING WITH BACKEND HERE
-
-        // {!!this.props.quiz && this.props.quiz.map((el) => 
-        //     {
-        //         // THEY ARE SIGNED IN
-        //         if(this.state.status === 200){
-        //             disabledButton = false;
-        //             buttonHidden = 1;
-        //             // THEY ARE SIGNED IN AND HAVE COMPLETED THE QUIZ
-        //             if(this.state.quizzesCompleted.indexOf(el.id) > -1){
-        //                 descText = descCompleted;
-        //                 showContent = "block";
-        //                 showLoginMessage = "none"
-        //             // THEY ARE SIGNED IN AND HAVE NOT COMPLETED THE QUIZ 
-        //             } else {
-        //                 descText = descNotCompleted;
-        //                 showContent = "none";
-        //                 showLoginMessage = "block";
-        //             }
-        //         // THEY ARE NOT SIGNED IN
-        //         } else {
-        //             descText = descNotSignedIn;
-        //             disabledButton = true;
-        //             buttonHidden = 0.5;
-        //         }
-        //     }
-        // )}
-
 
         return (
             <div>
+                <NavBar
+                    showLoggedInImage = {this.state.displayLoggedInAvatar}
+                />
                 <Header 
                     image = {this.props.image}
                     imageTab = {this.props.imageTab}
@@ -136,16 +128,15 @@ class Template extends React.Component {
                     buttonHidden = {buttonHidden}
                 />
 
-                <DisplayContent style = {{background: this.props.headerColour, display: showLoginMessage}}>
+                <DisplayContent style = {{background: this.props.headerColour, display: this.state.displayLoginMessage}}>
                     <div>
                         <h1> Want to view more content? </h1>
-                        <p> I'm afraid you'll need to login to view anymore content. Please click on the button below to login or sign up!</p>
-
-                        <button onClick = {this.proceedToLoginPage}><a id = "quiz" href = "login.html?action=" >Login</a></button>
+                        <p className = "content-desc"> I'm afraid you'll need to login to view anymore content. Please click on the button below to login or sign up!</p>
+                        <button onClick = {this.proceedToLoginPage}><a id = "quiz" href = {this.state.loginUrl} >Login</a></button>
                     </div>
                 </DisplayContent>
 
-                <UnlockableContent style = {{display: showContent}}>
+                <UnlockableContent style = {{display: this.state.displayLoginContent}}>
                     <HideContent style = {{display: this.props.display}}></HideContent>
                     <Resources resources = {this.props.resources}/>
                 </UnlockableContent>
@@ -185,17 +176,29 @@ const DisplayContent = styled.div`
         h1{
             color: white;
             line-height: 1.2em;
-            text-align: center;
             padding-bottom: 60px;
+            font-size: 5em;
+            @media only screen and (min-width: 2000px){
+                font-size: 8em;
+            }
+            @media only screen and (max-width: 600px){
+                font-size: 3.6em;
+            }
         }
-        p{
+        .content-desc{
             color: white;
-            text-align: center;
-            padding-bottom: 40px
+            padding-bottom: 40px;
+            @media only screen and (min-width: 1650px) and (max-width: 2000px){
+                font-size: 1.6em;
+            }
+            @media only screen and (min-width: 2000px){
+                font-size: 2em;
+            }
         }
         button{
             margin: 0 auto;
             display: block;
+            margin-top: 100px;
             border: none;
             background: white;
             font-size: 2.6em;
@@ -206,9 +209,14 @@ const DisplayContent = styled.div`
             font-weight: 900;
             letter-spacing: 0.05em;
             color: #595858;
-
             a{
                 text-decoration: none;
+            }
+            @media only screen and (min-width: 2000px){
+                font-size: 4em !important;
+            }
+            @media only screen and (max-width: 600px){
+                font-size: 1.8em;
             }
         }
     }

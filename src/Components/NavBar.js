@@ -8,6 +8,7 @@ import BadgeOrange from "../Images/BadgeOrange.svg";
 
 import logo from "../Images/logo.svg";
 
+
 class NavBar extends React.Component{
     constructor(props){
         super(props);
@@ -50,6 +51,7 @@ class NavBar extends React.Component{
                             <a href = "/?navPage=essential"><li> <img src = {BadgeRed} alt = "essential skills"/></li></a>
                             <a href = "/?navPage=design"><li> <img src = {BadgeGreen} alt = "2D and 3D Design"/></li></a>
                             <a href = "/?navPage=digitalEnt"><li> <img src = {BadgeOrange} alt = "Digital Entertainment"/></li></a>
+                            <a href = "#"><li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li></a>
                         </MenuList>
                         <Hamburger onClick = {this.showMenu} style = {{marginLeft: this.state.hamburgerShow}}>
                             <div className = "bar1"></div>
@@ -61,6 +63,7 @@ class NavBar extends React.Component{
                         </Cross>
                         <MenuListText>
                             <ul style = {{marginTop: this.state.displayMenu}}>
+                                <a className = "loggedInAvatar" href = "#"><li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li></a>
                                 <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=coding">Coding & Programming</a></li>
                                 <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=essential"> Essential Digital Skills </a></li>
                                 <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=design"> 3D Design & 2D Design </a></li>
@@ -134,7 +137,7 @@ const NavImg = styled.img`
 `
 const MenuList = styled.ul`
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-gap: 25px;
     list-style: none;
     text-align: center;
@@ -149,6 +152,17 @@ const MenuList = styled.ul`
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-left: -120px;
+
+        &:last-child{
+            margin-left: 0;
+        }
+        @media only screen and (min-width: 1650px) and (max-width: 2000px){
+            margin-left: -180px;
+        }
+        @media only screen and (min-width: 2000px){
+            margin-left: -240px;
+        }
     }
     li{
         display: flex;
@@ -175,7 +189,17 @@ const MenuListText = styled.div`
         display: none;
         padding-left: 0;
         transition: 1s all;
-
+        
+        .loggedInAvatar{
+            li{
+                text-align: center;
+                padding-bottom: 0;
+            }
+            img{
+                height: 150px;
+                width: 150px;
+            }
+        }
         li{
             text-decoration: none;
             padding: 20px 0;
@@ -201,22 +225,22 @@ const MenuListText = styled.div`
                     border-bottom: none;
                 }
             }
-            &:nth-child(1){
+            &:nth-child(2){
                 div{
                     background: linear-gradient(#2ab5e3, #0b92bf);
                 }
             }
-            &:nth-child(2){
+            &:nth-child(3){
                 div{
                     background: linear-gradient(#fb1842, #d00056);
                 }
             }
-            &:nth-child(3){
+            &:nth-child(4){
                 div{
                     background: linear-gradient(#57b28e, #3c9d52);
                 }
             }
-            &:nth-child(4){
+            &:nth-child(5){
                 div{
                     background: linear-gradient(#ffd32b, #f39200);
                 }
