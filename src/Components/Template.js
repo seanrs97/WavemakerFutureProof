@@ -33,7 +33,9 @@ class Template extends React.Component {
 
             displayLoggedInAvatar: "",
             displayNavBarLoginMessage: "",
-            loginOrLogout: ""
+            loginOrLogout: "",
+            userProfileLink: "",
+            quizDescription: ""
         }
     }
     async componentDidMount(){
@@ -77,34 +79,42 @@ class Template extends React.Component {
             const sdk = window.futureproofSdk();
             const userIsLoggedIn = await sdk.auth.session(); 
 
-            console.log("you are logged in");
-
             this.setState({
                 displayLoginMessage: "none",
                 displayLoginContent: "block",
 
                 displayLoggedInAvatar: `${userLoggedIn}`,
                 loginOrLogout: "Logout",
-                loginHref: "https://wm-educational-pwa-dev.web.app/"
+                loginHref: "https://wm-educational-pwa-dev.web.app/",
+                userProfileLink: "https://wm-educational-pwa-dev.web.app/profile/",
+                buttonDisabled: false,
+                buttonHidden: "1",
+                buttonCursor: "pointer"
+            });
+
+            // Need to check if quiz has bee completed here
+            this.setState({
+                quizDescription: "You haven't completed the quiz yet! simply click the start button to start playing, good luck!"
             })
 
             return userIsLoggedIn;
+
         } catch (e) {
-            console.log("ERROR", e);
-            console.log("you need to login");
             this.setState({
                 loginUrl: e.urlWithRedirect,
                 displayLoggedInAvatar: `${userLoggedOut}`,
                 loginOrLogout: "Login",
-                loginHref: "https://wm-educational-pwa-dev.web.app/login"
+                loginHref: "https://wm-educational-pwa-dev.web.app/login",
+                userProfileLink: "https://wm-educational-pwa-dev.web.app/login",
+                quizDescription: "You need to be logged in to completed the quiz. To login, simply click the login button just below and login or signup!",
+                buttonDisabled: true,
+                buttonHidden: "0.5",
+                buttonCursor: "auto"
             });
         }
     }
 
     render(){
-        let descText;
-        let disabledButton;
-        let buttonHidden;
 
         return (
             <div>
@@ -112,6 +122,7 @@ class Template extends React.Component {
                     showLoggedInImage = {this.state.displayLoggedInAvatar}
                     loginOrLogout = {this.state.loginOrLogout}
                     loginHref = {this.state.loginHref}
+                    userProfileLink = {this.state.userProfileLink}
                 />
                 <Header 
                     image = {this.props.image}
@@ -130,9 +141,10 @@ class Template extends React.Component {
                     style = {{overflowY: "scroll"}} 
                     quiz = {this.props.quiz} 
                     quizColour = {this.props.headerColour} 
-                    quizDescription = {descText}
-                    buttonDisabled = {disabledButton}
-                    buttonHidden = {buttonHidden}
+                    quizDescription = {this.state.quizDescription}
+                    buttonDisabled = {this.state.buttonDisabled}
+                    buttonHidden = {this.state.buttonHidden}
+                    buttonCursor = {this.state.buttonCursor}
                 />
 
                 <DisplayContent style = {{background: this.props.headerColour, display: this.state.displayLoginMessage}}>

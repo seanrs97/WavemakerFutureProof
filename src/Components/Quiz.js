@@ -220,7 +220,13 @@ class Quiz extends React.Component {
         }
         this.setState({
             isSummaryDisplayed: "hidden"
-        })
+        });
+
+        if(this.props.canUserPlayQuiz === true){
+            console.log("User is logged in and can play quiz")
+        } else {
+            console.log("User is not logged in and cannot play quiz")
+        }
         setTimeout(() => {
             this.setState({
                 displayQuiz: "translateX(0) scale(1)",
@@ -419,6 +425,11 @@ class Quiz extends React.Component {
         });
         clearInterval(this.interval);
     }
+    quitLogin = () => {
+        this.setState({
+            canUserPlayQuiz: "0"
+        })
+    }
     exitQuiz = () => {
         this.setState({
             showDialog: "none",
@@ -486,7 +497,7 @@ class Quiz extends React.Component {
                                 <button 
                                     onClick = {this.startQuiz} 
                                     disabled = {this.props.buttonDisabled}
-                                    style = {{opacity: this.props.buttonHidden}}
+                                    style = {{opacity: this.props.buttonHidden, cursor: this.props.buttonCursor}}
                                 >
                                         Start
                                 </button> 
@@ -766,6 +777,7 @@ const QuizAndSummaryContainer = styled.div`
     }
 `
 /* MAIN QUIZ STYLES */
+
 const QuizContainer = styled.div`
     z-index: 999999999999999999999999999;
 `

@@ -51,7 +51,7 @@ class NavBar extends React.Component{
                             <a href = "/?navPage=essential"><li> <img src = {BadgeRed} alt = "essential skills"/></li></a>
                             <a href = "/?navPage=design"><li> <img src = {BadgeGreen} alt = "2D and 3D Design"/></li></a>
                             <a href = "/?navPage=digitalEnt"><li> <img src = {BadgeOrange} alt = "Digital Entertainment"/></li></a>
-                            <a href = "#"><li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li></a>
+                            <a href = {this.props.userProfileLink}><li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li></a>
                         </MenuList>
                             <a className = "loginLink" href = {this.props.loginHref}> {this.props.loginOrLogout} </a>
                         <Hamburger onClick = {this.showMenu} style = {{marginLeft: this.state.hamburgerShow}}>
@@ -251,22 +251,22 @@ const MenuListText = styled.div`
                     border-bottom: none;
                 }
             }
-            &:nth-child(2){
+            &:nth-child(3){
                 div{
                     background: linear-gradient(#2ab5e3, #0b92bf);
                 }
             }
-            &:nth-child(3){
+            &:nth-child(4){
                 div{
                     background: linear-gradient(#fb1842, #d00056);
                 }
             }
-            &:nth-child(4){
+            &:nth-child(5){
                 div{
                     background: linear-gradient(#57b28e, #3c9d52);
                 }
             }
-            &:nth-child(5){
+            &:nth-child(6){
                 div{
                     background: linear-gradient(#ffd32b, #f39200);
                 }
