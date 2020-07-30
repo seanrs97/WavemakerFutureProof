@@ -196,6 +196,7 @@ const MenuList = styled.ul`
     li img{
         height: auto;
         width: 50px;
+        border-radius: 100%;
         @media only screen and (min-width: 2000px){
             width: 110px;
         }

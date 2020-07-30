@@ -43,8 +43,6 @@ class Template extends React.Component {
         // SDK Login method
         this.checkIfUserIsLoggedIn();
 
-
-
         let baseURL = 'https://seanrs97.github.io/jsonData/userProfile.json';
         this.setState({
             quizId: this.props.quiz,
@@ -75,15 +73,18 @@ class Template extends React.Component {
 
     // Check to see if user is logged in or not
     async checkIfUserIsLoggedIn(){
+        // USER IS LOGGED IN
         try {
             const sdk = window.futureproofSdk();
             const userIsLoggedIn = await sdk.auth.session(); 
 
+            
+            this.displayUserInformation();
+
+            
             this.setState({
                 displayLoginMessage: "none",
                 displayLoginContent: "block",
-
-                displayLoggedInAvatar: `${userLoggedIn}`,
                 loginOrLogout: "Logout",
                 loginHref: "https://wm-educational-pwa-dev.web.app/",
                 userProfileLink: "https://wm-educational-pwa-dev.web.app/profile/",
@@ -92,10 +93,16 @@ class Template extends React.Component {
                 buttonCursor: "pointer"
             });
 
+            setTimeout(() => {
+                this.setState({
+                    displayLoggedInAvatar: this.state.userProfilePicture
+                })
+            }, 2000)
+
             // Need to check if quiz has bee completed here
             this.setState({
                 quizDescription: "You haven't completed the quiz yet! simply click the start button to start playing, good luck!"
-            })
+            });
 
             return userIsLoggedIn;
 
@@ -113,7 +120,19 @@ class Template extends React.Component {
             });
         }
     }
+    async displayUserInformation(){
+        const sdk = window.futureproofSdk();
+        const user = await sdk.user.profile();
 
+        this.setState({
+            userName: user.data.nickname,
+            userProfilePicture: user.data.profilePicture
+        });
+
+        console.log(this.state);
+
+        return user;
+    }
     render(){
 
         return (
