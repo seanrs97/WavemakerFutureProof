@@ -7,10 +7,10 @@ class Navigation extends React.Component {
             <Container style = {{background: this.props.headerColour}}>
                 <ContentContainer>
                     {!!this.props.previousNavigation && this.props.previousNavigation.map((content) =>
-                        <a className = "previous" href = {content.link}>
+                        <a className = "previous" href = {content.link} key = {content.link}>
                             <div>
                                 <h1> Previous Topic </h1>
-                                <a className = "link" href = {content.link}> {content.text} </a>
+                                <span className = "link"> {content.text} </span>
                             </div>
                         </a>
                     )}
@@ -18,7 +18,7 @@ class Navigation extends React.Component {
                         <a className = "next" href = {content.link} key = {content.link}>
                             <div>
                                 <h1> Next Topic</h1>
-                                <p className = "link"> {content.text}  </p>
+                                <span className = "link"> {content.text}  </span>
                             </div>
                         </a>
                     )}

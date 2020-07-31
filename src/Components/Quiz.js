@@ -77,12 +77,13 @@ class Quiz extends React.Component {
     }
     async componentDidMount(){
         const quizData = await (await (fetch("/quiz-web.json"))).json();
-        console.log(quizData);
+
         // Check if quiz exists
         if(quizData.status === 200){
             this.setState({
                 quizData: quizData.data,
                 questions: quizData.data.questions,
+                quizId: quizData.data.id
             });
             if(this.state.currentQuestionIndex !== 0){
                 this.setState({
@@ -106,6 +107,8 @@ class Quiz extends React.Component {
                     entireQuizVisibility: "none"
                 });
             }
+
+            this.checkIfQuizExists();
         } else {
             console.log("QUIZ DOES NOT EXIST");
             this.setState({
@@ -122,7 +125,6 @@ class Quiz extends React.Component {
     componentWillUnmount(){
         clearInterval(this.interval);
     }
-   
     displayQuestions = (questions = this.state.questions, currentQuestion, nextQuestion, previousQuestion) => {
         let { currentQuestionIndex } = this.state;
 
@@ -462,6 +464,26 @@ class Quiz extends React.Component {
     hideTargetElement = () => {
         enableBodyScroll(this.targetElement);
     };
+
+
+    // CHECK TO SEE IF QUIZZES HAVE BEEN COMPLETED
+    async checkIfQuizExists() {
+        let quizId = this.state.quizId;
+
+        const sdk = window.futureproofSdk();
+        const quizInfo = await sdk.user.profile();
+
+        this.setState({
+            quizzesCompleted: quizInfo.data.quizzesCompleted
+        });
+        if(this.state.quizzesCompleted.indexOf(quizId) > -1){
+            console.log("THIS QUIZ IS COMPLETE")
+        } else {
+            console.log("QUIZ NOT COMPLETE");
+        }
+
+        console.log("QUIZ INFO" , quizInfo);
+    }
     render(){
         const {
             currentQuestion, 

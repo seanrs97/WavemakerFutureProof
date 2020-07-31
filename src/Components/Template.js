@@ -16,7 +16,6 @@ import styled from "styled-components";
 import NavBar from "./NavBar";
 
 import userLoggedOut from "../Images/userLoggedOut.svg";
-import userLoggedIn from "../Images/userLoggedIn.svg";
 
 // import Login from "./Login";
 
@@ -37,16 +36,13 @@ class Template extends React.Component {
             userProfileLink: "",
             quizDescription: ""
         }
+        this.stopUserSession = this.stopUserSession.bind(this)
     }
     async componentDidMount(){
-
         // SDK Login method
         this.checkIfUserIsLoggedIn();
 
         let baseURL = 'https://seanrs97.github.io/jsonData/userProfile.json';
-        this.setState({
-            quizId: this.props.quiz,
-        });
 
         const self = this;
         fetch(baseURL).then(response => {
@@ -81,7 +77,7 @@ class Template extends React.Component {
             
             this.displayUserInformation();
 
-            
+            console.log("USER LOGGEDIN", userIsLoggedIn)
             this.setState({
                 displayLoginMessage: "none",
                 displayLoginContent: "block",
@@ -97,7 +93,7 @@ class Template extends React.Component {
                 this.setState({
                     displayLoggedInAvatar: this.state.userProfilePicture
                 })
-            }, 2000)
+            }, 1000)
 
             // Need to check if quiz has bee completed here
             this.setState({
@@ -120,21 +116,43 @@ class Template extends React.Component {
             });
         }
     }
+    async stopUserSession(){
+        const sdk = window.futureproofSdk();
+        const stopSession = await sdk.auth.stopSession();
+
+        console.log("SESSION STOPPED", stopSession);
+
+        return stopSession;
+    }
+    checkLoginText(){
+
+        // this.setState({
+        //     logDestination: 
+        // });
+        this.stopUserSession();
+
+    }
+    // async startUserSession(){
+    //     const sdk = window.futureproofSdk();
+    //     const userSession = await sdk.auth.startSession();
+
+    //     console.log("USER SESSION", userSession);
+
+    //     return userSession;
+    // }
     async displayUserInformation(){
         const sdk = window.futureproofSdk();
         const user = await sdk.user.profile();
 
         this.setState({
             userName: user.data.nickname,
-            userProfilePicture: user.data.profilePicture
+            userProfilePicture: user.data.profilePicture,
+            quizzesCompleted: user.data.quizzesCompleted
         });
-
-        console.log(this.state);
 
         return user;
     }
     render(){
-
         return (
             <div>
                 <NavBar
@@ -146,7 +164,7 @@ class Template extends React.Component {
                 <Header 
                     image = {this.props.image}
                     imageTab = {this.props.imageTab}
-                    imageMob = {this.props.imageMob}
+                    imageMob = {this.props.imageMob}        
                     name = {this.props.name}
                     headerColour = {this.props.headerColour}
                     description = {this.props.description}

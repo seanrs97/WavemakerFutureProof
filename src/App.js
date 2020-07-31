@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import ScrollToTop from "./ScrollToTop.js";
 
-import NavBar from "./Components/NavBar.js";
 import Template from "./Components/Template.js";
 import NavTemplate from "./Components/NavTemplate.js";
 import Template404 from "./Components/Template404.js";

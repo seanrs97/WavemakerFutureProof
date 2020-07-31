@@ -66,7 +66,7 @@ class NavBar extends React.Component{
                             <ul style = {{marginTop: this.state.displayMenu}}>
                                 <a className = "loginLinkHamburger" href = {this.props.loginHref}> {this.props.loginOrLogout} </a>
 
-                                <a className = "loggedInAvatar" href = "#"><li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li></a>
+                                <li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li>
                                 <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=coding">Coding & Programming</a></li>
                                 <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=essential"> Essential Digital Skills </a></li>
                                 <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=design"> 3D Design & 2D Design </a></li>
