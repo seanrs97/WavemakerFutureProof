@@ -1,6 +1,6 @@
 import React from "react";
-import Buttons from "../Components/CoreTopics/Buttons";
-import Header from "../Components/CoreTopics/Header";
+import Buttons from "../CoreTopics/Buttons";
+import Header from "../CoreTopics/Header";
 
 
 class NavTemplate extends React.Component {

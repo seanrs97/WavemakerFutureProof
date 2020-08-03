@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import ScrollToTop from "./ScrollToTop.js";
 
-import Template from "./Components/Template.js";
-import NavTemplate from "./Components/NavTemplate.js";
-import Template404 from "./Components/Template404.js";
+import Template from "./Components/Templates/Template.js";
+import NavTemplate from "./Components/Templates/NavTemplate.js";
+import Template404 from "./Components/Templates/Template404.js";
 import Footer from "./Components/Footer.js";
 
 import {BrowserRouter as Router} from "react-router-dom";

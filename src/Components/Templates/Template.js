@@ -1,21 +1,21 @@
 import React from "react";
-import Header from "./Templates/Header.js";
-import Resources from "./Templates/Resources.js";
+import {DisplayContent, UnlockableContent, HideContent} from "./TemplateStyles";
+import Header from "./ContentTemplates/Header.js";
+import Resources from "./ContentTemplates/Resources.js";
 // import Banner from "./Templates/Banner.js";
-import Quiz from "./Quiz.js";
+import Quiz from "../Quiz/Quiz.js";
 
-import What from "./Templates/What.js";
-import Why from "./Templates/Why.js";
-import How from "./Templates/How.js";
-import Navigation from "./Templates/Navigation.js";
+import What from "./ContentTemplates/What.js";
+import Why from "./ContentTemplates/Why.js";
+import How from "./ContentTemplates/How.js";
+import Navigation from "./Navigation.js";
 
 import sal from "sal.js";
-import '../../node_modules/sal.js/dist/sal.css';
-import styled from "styled-components";
+import '../../../node_modules/sal.js/dist/sal.css';
 
-import NavBar from "./NavBar";
+import NavBar from "../NavBar.js";
 
-import userLoggedOut from "../Images/userLoggedOut.svg";
+import userLoggedOut from "../../Images/userLoggedOut.svg";
 
 // import Login from "./Login";
 
@@ -202,80 +202,5 @@ class Template extends React.Component {
         )
     }
 }
-const UnlockableContent = styled.div`
-    position: relative;
-`
-const HideContent = styled.div`
-    height: 100%;
-    width: 100%;
-    background: grey;
-    opacity: 0.98;
-    z-index: 100;
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    display: none;
-`
-const DisplayContent = styled.div`
-    margin-bottom: 40px;
-    padding: 40px 0;
-    div{
-        width: 90%;
-        @media only screen and (min-width: 1280px) and (max-width: 2000px){
-            width: 78%;
-        }
-        @media only screen and (min-width: 2000px){
-            width: 70%;
-        }
-        margin: 0 auto;
-        h1{
-            color: white;
-            line-height: 1.2em;
-            padding-bottom: 60px;
-            font-size: 5em;
-            @media only screen and (min-width: 2000px){
-                font-size: 8em;
-            }
-            @media only screen and (max-width: 600px){
-                font-size: 3.6em;
-            }
-        }
-        .content-desc{
-            color: white;
-            padding-bottom: 40px;
-            @media only screen and (min-width: 1650px) and (max-width: 2000px){
-                font-size: 1.6em;
-            }
-            @media only screen and (min-width: 2000px){
-                font-size: 2em;
-            }
-        }
-        button{
-            margin: 0 auto;
-            display: block;
-            margin-top: 100px;
-            border: none;
-            background: white;
-            font-size: 2.6em;
-            border-radius: 10px;
-            padding: 26px 100px;
-            cursor: pointer;
-            font-family: Dosis;
-            font-weight: 900;
-            letter-spacing: 0.05em;
-            color: #595858;
-            a{
-                text-decoration: none;
-            }
-            @media only screen and (min-width: 2000px){
-                font-size: 4em !important;
-            }
-            @media only screen and (max-width: 600px){
-                font-size: 1.8em;
-            }
-        }
-    }
-`
 
 export default Template;

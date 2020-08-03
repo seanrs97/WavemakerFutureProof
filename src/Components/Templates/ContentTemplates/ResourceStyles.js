@@ -1,112 +1,11 @@
-import React from "react";
 import styled from "styled-components";
-import QuizImage1 from "../../Images/SVG/quiz-wave-1.svg";
-import {uid} from 'react-uid';
 
-class Resources extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            randomHeight: 0
-        }
-    }
-    randomNumberGenerator = (min, max) => {
-        let range = max - min;
-        let random = Math.random();
-        random = random * (range + 1);
-        random = random + min;
-    
-        return random;
-    }
-    render(){
-        return (
-            <Container>
-                {!!this.props.resources && this.props.resources.map((resource) =>
-                    <ContentContainer key={uid(resource)}>
-                        <Header key = {resource.title}>
-                            <div>
-                                <h1 className = "content-text">{resource.title}</h1>
-                                <p> {resource.text} </p>
-                            </div>
-                        </Header>
-                        <MainContentContainer>
-                            <WatchAndLearn>
-                                <h1 className = "mainHeading"> Watch and Learn </h1>
-                                <p> We've scoured the interet to find the most helpful videos, games, quizzes, websites and everything in between! We hope these will help you in your educational journey!</p>
-                                <div className = "links-wrapper">
-                                    {!!resource.watch_and_learn && resource.watch_and_learn.map((link) =>
-                                        <div className = "link-wrapper" 
-                                            key = {link.text}
-                                            style = {
-                                                {backgroundImage: `url(${QuizImage1})` ,
-                                                backgroundRepeat: "no-repeat",
-                                                backgroundAttachment: "fixed",
-                                                backgroundSize: "cover",
-                                                backgroundPosition: "center"
-                                            }}>
-                                            <h2> {link.text} </h2>
-                                            <p> {link.desc} </p>
-                                            <a href = {link.link} className = "link"> Visit Link  &rarr; </a>
-                                        </div>
-                                    )}
-                                </div>
-                            </WatchAndLearn>
-                            <UsefulLinks>
-                                <h1 className = "mainHeading"> Useful Links </h1>
-                                <p> We've collected the most useful links we could find to help you in your educational journey!  </p>
-                                <div className  = "links-wrapper2">
-                                {!!resource.useful_links && resource.useful_links.map((link) =>
-                                        <div className = "link-wrapper" 
-                                            key={uid(link)}
-                                            style = {
-                                                {backgroundImage: `url(${QuizImage1})` ,
-                                                backgroundRepeat: "no-repeat",
-                                                backgroundAttachment: "fixed",
-                                                backgroundSize: "cover",
-                                                backgroundPosition: "center bottom"
-                                            }}>
-                                            <h2> {link.text} </h2>
-                                            <p> {link.desc} </p>
-                                            <a href = {link.link} className = "link"> Visit Link  &rarr; </a>
-                                        </div>
-                                    )}
-                                </div>
-                            </UsefulLinks>
-                            <CareerPathways>
-                                <h1 className = "mainHeading"> Career Pathways </h1>
-                                <p> Take a look at some of the career pathways that are available to you right now!</p>
-                                <div className  = "links-wrapper3">
-                                {!!resource.careers && resource.careers.map((link) =>
-                                    <div className = "link-wrapper" 
-                                        key={uid(link)}
-                                        style = {
-                                            {backgroundImage: `url(${QuizImage1})` ,
-                                            backgroundRepeat: "no-repeat",
-                                            backgroundAttachment: "fixed",
-                                            backgroundSize: "cover",
-                                            backgroundPosition: "right top"
-                                        }}>
-                                        <h2> {link.text} </h2>
-                                        <p> {link.desc} </p>
-                                        <a href = {link.link} className = "link"> Visit Link  &rarr; </a>
-                                    </div>
-                                )}
-                            </div>
-                            </CareerPathways>
-                        </MainContentContainer>
-                    </ContentContainer>
-                )}
-            </Container>
-        )
-    }
-}
-
-const Container = styled.div`
+export const Container = styled.div`
     margin-top: 20px;
 `
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
 `
-const Header = styled.div`
+export const Header = styled.div`
     background: linear-gradient(90deg,rgb(11,146,191), rgb(42,181,227));
     color: white;
     div{
@@ -170,7 +69,7 @@ const Header = styled.div`
         }
     }
 `
-const MainContentContainer = styled.div`
+export const MainContentContainer = styled.div`
     div{
         width: 90%;
         margin: 0 auto;
@@ -234,7 +133,7 @@ const MainContentContainer = styled.div`
         }
     }
 `
-const WatchAndLearn = styled.div`
+export const WatchAndLearn = styled.div`
     margin-top: 40px !important;
     .links-wrapper{
         width: 100%;
@@ -343,7 +242,7 @@ const WatchAndLearn = styled.div`
         }
     }
 `
-const UsefulLinks = styled.div`
+export const UsefulLinks = styled.div`
     margin-top: 40px !important;
     .links-wrapper2{
         display: flex;
@@ -486,7 +385,7 @@ const UsefulLinks = styled.div`
         }
     }
 `
-const CareerPathways = styled.div`
+export const CareerPathways = styled.div`
     margin-top: 40px !important;
     .links-wrapper3{
         display: flex;
@@ -651,4 +550,3 @@ const CareerPathways = styled.div`
         }
     }
 `
-export default Resources

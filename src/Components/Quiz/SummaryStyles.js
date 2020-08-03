@@ -1,46 +1,7 @@
-import React from "react";
 import styled from "styled-components";
-import QuizImage1 from "../Images/SVG/quiz-wave-1.svg";
-import QuizImage2 from "../Images/SVG/quiz-wave-2.svg";
 
-import Confetti from "./Confetti";
 
-// This is where the User will find their results. This is mainly just a template page.
-// Data is being returned back to the Play component which populates the .props. e.g. this.props.playAgain utilises a method in Play.js to Restart the quiz
-
-class Summary extends React.Component {
-    constructor(){
-        super();
-        this.state = {
-            showConfetti: "none"
-        }
-    }
-    render(){
-        return (
-            <Container style = {{background: this.props.quizColour}}>
-                <div className = "content-container">
-                    <div style = {{display: this.props.showConfetti}}>
-                        <Confetti/>
-                    </div>
-                    <h1> Summary </h1>
-                    <h2> You scored {this.props.score} out of {this.props.numOfQuestions} </h2>
-
-                    <SuccessContainer>
-                        <p> You have {this.props.success} </p>
-                    </SuccessContainer>
-                </div>
-                <img alt = "background of wave" src = {QuizImage1} className = "top-quiz-wave" />
-                <img alt = "background of wave" src = {QuizImage2} className = "bottom-quiz-wave"/>
-                <ButtonContainer>
-                    <button onClick = {this.props.playAgain}> Play again </button>
-                    <button onClick = {this.props.homeReturn}> Move on! </button>
-                </ButtonContainer>
-            </Container> 
-        )
-    }
-}
-
-const Container = styled.div`
+export const Container = styled.div`
     height: 100vh;
     padding: 14px;
     text-align: center;
@@ -160,7 +121,7 @@ const Container = styled.div`
         }
     }
 `
-const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
     position: absolute;
     top: 60%;
     width: 92.5%;
@@ -241,7 +202,6 @@ const ButtonContainer = styled.div`
         transform: translateX(-50%);
     }
 `
-const SuccessContainer = styled.div`
+export const SuccessContainer = styled.div`
     text-align: center;
 `
-export default Summary;

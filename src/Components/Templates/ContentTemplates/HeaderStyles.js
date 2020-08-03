@@ -1,29 +1,6 @@
-import React  from "react";
 import styled from "styled-components";
-import WaveImage from "../../Images/SVG/quiz-wave-1.svg";
 
-class Header extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-        }
-    }
-    render(){
-        return (
-            <HeaderImage headerColour = {this.props.headerColour}>
-                <div></div>
-                <ImageTextContainer>
-                    <H1> {this.props.name} </H1>
-                    <Stripe stripeColour = "white"/>
-                    <p> {this.props.description} </p>
-                </ImageTextContainer>
-                <Wave src = {WaveImage} alt = "wave"/>
-            </HeaderImage>
-        )
-    }
-}
-
-const HeaderImage = styled.div`
+export const HeaderImage = styled.div`
     overflow: hidden;
     color: white;
     position: relative;
@@ -40,7 +17,7 @@ const HeaderImage = styled.div`
         background: ${props => props.headerColour};
     }
 `
-const ImageTextContainer = styled.div`
+export const ImageTextContainer = styled.div`
     @keyframes slideIn{
         0%{
             left: -170%;
@@ -131,12 +108,12 @@ const ImageTextContainer = styled.div`
         }
     }
 `
-const H1 = styled.h1`
+export const H1 = styled.h1`
     font-size: 4em;
     color: white;
     line-height: 1em;
 `
-const Stripe = styled.div`
+export const Stripe = styled.div`
     width: 115%;
     height: 6px;
     margin: 10px 0;
@@ -153,7 +130,7 @@ const Stripe = styled.div`
         height: 10px;
     }
 `
-const Wave = styled.img`
+export const Wave = styled.img`
     position: absolute;
     right: 0;
     top: 0;
@@ -177,4 +154,3 @@ const Wave = styled.img`
         height: 800px;
     }
 `
-export default Header;

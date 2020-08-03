@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import Wave2 from "../Images/SVG/quiz-wave-1.svg";
+import Wave2 from "../../Images/SVG/quiz-wave-1.svg";
 
 class Template404 extends React.Component {
     render(){
