@@ -144,12 +144,27 @@ class Template extends React.Component {
         const sdk = window.futureproofSdk();
         const user = await sdk.user.profile();
 
+
+        if(user.data.profilePicture.length >= 1){
+            this.setState({
+                userProfilePicture: user.data.profilePicture,
+            })
+        } else {
+            this.setState({
+                userProfilePicture: {userLoggedOut}
+            })  
+        }
         this.setState({
             userName: user.data.nickname,
-            userProfilePicture: user.data.profilePicture,
             quizzesCompleted: user.data.quizzesCompleted
         });
+        setTimeout(() => {
+            this.setState({
+                userProfilePicture: user.data.profilePicture
+            })
+        }, 2000)
 
+        console.log("USER PROFILE LINK", this.state.userProfilePicture);
         return user;
     }
     render(){

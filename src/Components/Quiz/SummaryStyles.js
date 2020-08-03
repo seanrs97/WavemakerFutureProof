@@ -143,8 +143,8 @@ export const ButtonContainer = styled.div`
         transition: .5s all;
         width: 100%;
         &:nth-child(1){
-            background: rgba(43, 251, 0, 0.4);
-            nborder: 2px solid white;
+            background: rgba(43, 251, 0, 0.65);
+            border: 2px solid white;
             &:hover{
                 background: #31d331;
             }
@@ -181,7 +181,7 @@ export const ButtonContainer = styled.div`
     }
     @media only screen and (max-width: 850px) and (min-width: 425px){
         top: 54%;
-        width: 44%;
+        width: 52%;
         left: 50%;
         transform: translate(-50%, -50%);
     }

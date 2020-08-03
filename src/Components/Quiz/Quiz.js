@@ -8,9 +8,6 @@
 // To find any styles, check the Styled components at the bottom of the page
 
 
-
-
-
 import React from "react";
 
 // STYLESHEET 
@@ -181,7 +178,7 @@ class Quiz extends React.Component {
     }
     // Starts the countdown Timer displayed in the Lifeline section of the quiz. Just a simple countdown clock.
     startTimer = () => {
-        const countdownTime = Date.now() + 60000;
+        const countdownTime = Date.now() + 13000;
         this.interval = setInterval(() => {
             const now = new Date();
             const distance = countdownTime - now;

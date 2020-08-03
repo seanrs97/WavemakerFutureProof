@@ -435,6 +435,7 @@ export const LifelineContainer = styled.div`
         border-radius: 4px;
         margin: 0 auto;
         font-size: 1.1em;
+        border: 2px solid white;
         span{
             color: white;
             &:nth-child(1){
@@ -486,7 +487,7 @@ export const LifelineContainer = styled.div`
         }
     }
     @media only screen and (max-width: 574px){
-        margin-top: 10px;
+        margin-top: 60px;
     }
     @media only screen and (max-width: 800px) and (min-width: 574px){
         width: 60%;
@@ -549,7 +550,7 @@ export const OptionsContainer = styled.div`
     margin: 0 auto;
     .option{
         background: rgba(71, 187, 230, 0.6);
-        border: none;
+        border: 1px solid white;
         border-radius: 4px;
         display: inline-block;
         width: 90%;
@@ -621,6 +622,15 @@ export const TimeMessage = styled.div`
     h1{
         font-weight: 800;
         font-size: 2em;
+        @media only screen and (min-width: 2000px){
+            font-size: 5em;
+        }
+    }
+    @media only screen and (min-width: 1400px) and (max-width: 2000px){
+        bottom: 8%;
+    }
+    @media only screen and (min-width: 2000px){
+        bottom: 12%;
     }
 `
 

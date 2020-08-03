@@ -153,6 +153,13 @@ export const MenuListText = styled.div`
             border-bottom: 2px solid white;
             width: 90%;
             margin: 0 auto;
+            img{
+                height: 150px;
+                width: 150px;
+                display: block;
+                margin: 0 auto;
+                border-radius: 100px;
+            }
             div{
                 height: 14px;
                 width: 14px;
