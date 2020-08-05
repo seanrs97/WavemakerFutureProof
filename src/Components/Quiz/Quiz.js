@@ -8,12 +8,13 @@
 // To find any styles, check the Styled components at the bottom of the page
 
 
+
 import React from "react";
 
 // STYLESHEET 
 import {ContentWrapper, Home, QuizAndSummaryContainer, QuizContainer, DialogContainer, 
         OverlayContainer, H5, OptionsContainer, Container, LifelineContainer, 
-        TimeMessage, SummaryContainer} from "./QuizStyles.js";
+        TimeMessage, SummaryContainer, AboutContainer} from "./QuizStyles.js";
 
 // METHODS
 
@@ -178,7 +179,7 @@ class Quiz extends React.Component {
     }
     // Starts the countdown Timer displayed in the Lifeline section of the quiz. Just a simple countdown clock.
     startTimer = () => {
-        const countdownTime = Date.now() + 13000;
+        const countdownTime = Date.now() + 60000;
         this.interval = setInterval(() => {
             const now = new Date();
             const distance = countdownTime - now;
@@ -215,7 +216,7 @@ class Quiz extends React.Component {
             }
         }, 1000);
     }
-    startQuiz = () => {
+    openAbout = () => {
         let quizScaleSize;
         if(window.innerWidth < 580){
             quizScaleSize = "100%"
@@ -225,23 +226,24 @@ class Quiz extends React.Component {
             quizScaleSize = "88%"
         }
         this.setState({
-            isSummaryDisplayed: "hidden"
+            isSummaryDisplayed: "hidden",
+            quizScale: quizScaleSize,
+            displayAbout: "100%"
         });
+        setTimeout(() => {
 
-        if(this.props.canUserPlayQuiz === true){
-            console.log("User is logged in and can play quiz")
-        } else {
-            console.log("User is not logged in and cannot play quiz")
-        }
+        }, 500)
+    }
+    startQuiz = () => {
         setTimeout(() => {
             this.setState({
                 displayQuiz: "translateX(0) scale(1)",
                 quizShow: "block",
-                quizScale: quizScaleSize,
                 showMainOverlay: "block",
 
                 overlayVisibility: "visible",
-                overlayOpacity: 0.7
+                overlayOpacity: 0.7,
+                displayAbout: "0%"
             }); 
         }, 800);
         this.showTargetElement();
@@ -451,6 +453,16 @@ class Quiz extends React.Component {
         });
         this.hideTargetElement();
     }
+    exitAboutPage = () => {
+        this.setState({
+            displayAbout: "0%",
+            displayQuiz: "translateX(0) scale(1)",
+            showOverlay: "none",
+            quizShow: "none",
+            quizScale: "0",
+            showMainOverlay: "none",
+        })
+    }
     returnHome = () => {
         this.setState({
             quizShow: "none",
@@ -521,7 +533,7 @@ class Quiz extends React.Component {
                             <h1> Quiz </h1>
                             <div className = "button-container">
                                 <button 
-                                    onClick = {this.startQuiz} 
+                                    onClick = {this.openAbout} 
                                     disabled = {this.props.buttonDisabled}
                                     style = {{opacity: this.props.buttonHidden, cursor: this.props.buttonCursor}}
                                 >
@@ -536,6 +548,20 @@ class Quiz extends React.Component {
                         <img alt = "background of wave" src = {QuizImage2} className = "bottom-quiz-wave"/>
                     </Home>
                     <QuizAndSummaryContainer id = "quizAndSummary" style = {{height: this.state.quizScale}}>
+                        <AboutContainer style = {{background: this.props.quizColour, height: this.state.displayAbout}}>
+                            <div>
+                                <span onClick = {this.exitAboutPage} className = "quitQuiz" > X </span>
+                                <h1> Time to take the quiz! </h1>
+                                <h3> What are the rules? </h3>
+                                <ul>
+                                    <li>You must complete the quiz before the timer runs out or you fail</li>
+                                    <li>All answers are multiple choice, you can only select one answer</li>
+                                    <li>To unlock more content you need full marks! </li>
+                                    <li>You can exit the quiz at anytime by clicking the 'X' in the top left corner of the quiz</li>
+                                </ul>
+                                <button style = {{background: this.props.quizColour}} onClick = {this.startQuiz}> Play! </button>
+                            </div>
+                        </AboutContainer>
                         <QuizContainer>
                             <div style = {{position: "relative"}}>
                             <DialogContainer style = {{display: this.state.showDialog, zIndex: "100000001"}}>

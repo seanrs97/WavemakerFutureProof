@@ -188,6 +188,156 @@ export const Home = styled.div`
         }
     }
 `
+export const AboutContainer = styled.div`
+    position: fixed;
+    height: 90vh;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    z-index: 9999999999999999999999999999999999999;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    transition: .7s all;
+    overflow: hidden;
+
+    @media only screen and (min-width: 576px) and (max-width: 1400px){
+        height: 92vh;
+        width: 100%;
+    }
+    @media only screen and (max-width: 576px){
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+    div{
+        padding: 64px;
+        padding-top: 80px;
+
+
+        @media only screen and (min-width: 2000px){
+            padding-top: 240px;
+        }
+        @media only screen and (min-width: 1500px) and (max-width: 2000px){
+            padding-top: 160px;
+        }
+        @media only screen and (max-width: 1100px) and (min-width: 800px){
+            padding-top: 120px;
+        }
+        @media only screen and (max-width: 800px){
+            padding-top: 160px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        ul{
+            color: white;
+            li{
+                font-size: 1.6em;
+                
+                @media only screen and (min-width: 1500px) and (max-width: 2000px){
+                    font-size: 2em;
+                }
+                @media only screen and (max-width: 1100px) and (min-width: 800px){
+                    font-size: 1.2em;
+                }
+                @media only screen and (max-width: 800px){
+                    font-size: 1em;
+                }
+            }
+        }
+        button{
+            font-size: 4em;
+            padding: 34px 80px;
+            background: white;
+            border: none;
+            border-radius: 10px;
+            margin-top: 60px;
+            color: white;
+            border: 4px solid white;
+            font-weight: 600;
+
+
+            @media only screen and (min-width: 1500px) and (max-width: 2000px){
+                font-size: 3.5em;
+                padding: 36px 80px;
+            }
+            @media only screen and (max-width: 1100px) and (min-width: 800px){
+                font-size: 2.8em;
+                padding: 30px 70px;
+            }
+            @media only screen and (max-width: 800px) and (min-width: 500px){
+                font-size: 2.2em;
+                padding: 24px 60px;
+            }
+            @media only screen and (max-width: 500px){
+                margin-top: 60px;
+                font-size: 1.6em;
+                padding: 20px 50px;
+            }
+        }
+    }
+    h1{
+        text-align: left;
+        color: white;
+        font-size: 5em;
+        line-height: 1.2em;
+
+        @media only screen and (max-width: 2000px) and (min-width: 1500px){
+            font-size: 7em;
+        }
+        @media only screen and (max-width: 1100px) and (min-width: 800px){
+            font-size: 3.6em;
+        }
+        @media only screen and (max-width: 800px) and (min-width: 500px){
+            font-size: 3em;
+            padding-bottom: 40px;
+        }
+        @media only screen and (max-width: 500px){
+            font-size: 2.4em;
+            padding-bottom: 60px;
+        }
+    }
+    h3{
+        text-align: left;
+        color: white;
+        font-size: 3.5em;
+
+        @media only screen and (max-width: 2000px) and (min-width: 1500px){
+            font-size: 4.2em;
+        }
+        @media only screen and (max-width: 1100px) and (min-width: 800px){
+            font-size: 2.8em;
+        }
+        @media only screen and (max-width: 800px) and (min-width: 500px){
+            font-size: 2.2em;
+        }
+        @media only screen and (max-width: 500px){
+            font-size: 1.7em; 
+        }
+    }
+
+    .quitQuiz{
+        font-weight: 800;
+        color: white;
+        position: absolute;
+        top: 2%;
+        left: 2%;
+        font-size: 1.5em;
+        cursor: pointer;
+        @media only screen and (max-width: 800px) and (min-width: 574px){
+            font-size: 2.2em;
+        }
+        @media only screen and (max-width: 1500px) and (min-width: 800px){
+            font-size: 3em;
+        }
+        @media only screen and (min-width: 1500px) and (max-width: 2000px){
+            font-size: 3.4em;
+        }
+        @media only screen and (min-width: 2000px){
+            font-size: 5em;
+        }
+    }
+`
+
 export const QuizAndSummaryContainer = styled.div`
     position: fixed;
     height: 90vh;
@@ -199,14 +349,16 @@ export const QuizAndSummaryContainer = styled.div`
     border-radius: 8px; 
     transition: .7s all;
     overflow: hidden;
-    @media only screen and (min-width: 576px) and (max-width: 1400px){
-        height: 92vh;
-        width: 92%;
+    @media only screen and (min-width: 2000px){
+        height: 94vh;
     }
-    @media only screen and (max-width: 576px){
-        width: 100%;
+    @media only screen and (min-width: 580px) and (max-width: 1400px){
+        height: 92vh;
+    }
+    @media only screen and (max-width: 580px){
         height: 100vh;
-        border-radius: 0;
+        padding: 0;
+        width: 100%;
     }
 `
 /* MAIN QUIZ STYLES */
