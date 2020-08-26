@@ -1,12 +1,12 @@
 import React from "react";
 import {MenuList, Hamburger, Cross, MenuListText, MenuContainer, ContentContainer, NavImgContainer, NavImg} from "./NavBarStyles.js";
 
-import BadgeBlue from "../Images/BadgeBlue.svg";
-import BadgeGreen from "../Images/BadgeGreen.svg";
-import BadgeRed from "../Images/BadgeRed.svg";
-import BadgeOrange from "../Images/BadgeOrange.svg";
+import BadgeBlue from "../../Images/BadgeBlue.svg";
+import BadgeGreen from "../../Images/BadgeGreen.svg";
+import BadgeRed from "../../Images/BadgeRed.svg";
+import BadgeOrange from "../../Images/BadgeOrange.svg";
 
-import logo from "../Images/logo.svg";
+import logo from "../../Images/logo.svg";
 
 
 class NavBar extends React.Component{

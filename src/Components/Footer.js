@@ -12,7 +12,7 @@ import CountyCouncil from "../Images/footerImages/county-council.jpg";
 class Footer extends React.Component {
     render(){
         return (
-            <FooterContainer>
+            <FooterContainer style = {{display: this.props.display404}}>
                 <ContentContainer>
                     <LeftSide>
                         <Logo>

@@ -15,6 +15,8 @@ import BannerImage5 from "../Images/headerImages/CodingBanner2.png";
 import BannerImage6 from "../Images/headerImages/Banner6.png";
 import BannerImage7 from "../Images/headerImages/Banner7.png";
 
+import {Link} from "react-router-dom";
+
 const imagesArray = [`${BannerImage}`,`${BannerImage2}`,`${BannerImage3}`,`${BannerImage4}`,`${BannerImage5}`,`${BannerImage6}`,`${BannerImage7}`];
 
 class Home extends React.Component{
@@ -47,10 +49,15 @@ class Home extends React.Component{
                 <div style = {{ textAlign: "center"}}>
                     <H3> Start by selecting a topic! </H3>
                     <BadgesContainer>
-                        <a href = "/?navPage=coding"><img src = {BadgeBlue} alt = {BadgeBlue}/></a>
+                        {/* <a href = "/?navPage=coding"><img src = {BadgeBlue} alt = {BadgeBlue}/></a>
                         <a href = "/?navPage=essential"><img src = {BadgeRed} alt = {BadgeRed}/></a>
                         <a href = "/?navPage=essential"><img src = {BadgeGreen} alt = {BadgeGreen}/></a>
-                        <a href = "/?navPage=digitalEnt"><img src = {BadgeOrange} alt = {BadgeOrange}/></a>
+                        <a href = "/?navPage=digitalEnt"><img src = {BadgeOrange} alt = {BadgeOrange}/></a> */}
+
+                        <Link to = "/?navPage=coding"><img src = {BadgeBlue} alt = {BadgeBlue}/></Link>
+                        <Link to = "/?navPage=essential"><img src = {BadgeRed} alt = {BadgeRed}/></Link>
+                        <Link to = "/?navPage=essential"><img src = {BadgeGreen} alt = {BadgeGreen}/></Link>
+                        <Link to = "/?navPage=digitalEnt"><img src = {BadgeOrange} alt = {BadgeOrange}/></Link>
                     </BadgesContainer>
                 </div>
             </Container>

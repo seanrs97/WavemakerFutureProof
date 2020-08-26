@@ -172,7 +172,7 @@ export const ButtonContainer = styled.div`
             font-size: 4em;
             padding: 50px;
         }
-    }
+    } 
     @media only screen and (max-width: 425px){
         width: 70%;
         left: 50%;

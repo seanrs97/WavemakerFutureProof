@@ -1,6 +1,19 @@
 import styled from "styled-components";
 
 
+export const BigOverlay = styled.div`
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background: grey;
+    top: 0;
+    left: 0;
+    z-index: 100000000000000000;
+    transition: 1s all;
+
+    visibility: ${props => props.OverlayContainer};
+    opacity: ${props => props.OverlayOpacity};
+`
 
 export const ContentWrapper = styled.div`
     overflow: hidden;
@@ -188,13 +201,108 @@ export const Home = styled.div`
         }
     }
 `
+export const QuizNotFound = styled.div`
+    position: fixed;
+    height: 90vh;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    z-index: 999999999999999999999999999999999999999999999;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    transition: .7s all;
+    overflow: hidden;
+
+    @media only screen and (min-width: 576px) and (max-width: 1400px){
+        height: 92vh;
+        width: 100%;
+    }
+    @media only screen and (max-width: 576px){
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    h1{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        color: white;
+        font-size: 5em;
+        transform: translate(-50%,-50%);
+        width: 100%;
+        text-align: center;
+        @media only screen and (min-width: 2000px){
+            font-size: 7em;
+        }
+        @media only screen and (min-width: 1400px) and (max-width: 2000px){
+            font-size: 6em;
+        }
+        @media only screen and (min-width: 500px) and (max-width: 800px){
+            font-size: 4em;
+        }
+        @media only screen and (max-width: 500px){
+            font-size: 3.4em;
+        }
+    }
+    .quitQuiz{
+        font-weight: 800;
+        color: white;
+        position: absolute;
+        top: 2%;
+        left: 2%;
+        font-size: 1.5em;
+        cursor: pointer;
+        @media only screen and (max-width: 800px) and (min-width: 574px){
+            font-size: 2.2em;
+        }
+        @media only screen and (max-width: 1500px) and (min-width: 800px){
+            font-size: 3em;
+        }
+        @media only screen and (min-width: 1500px) and (max-width: 2000px){
+            font-size: 3.4em;
+        }
+        @media only screen and (min-width: 2000px){
+            font-size: 5em;
+        }
+    }
+`
+
+export const WaveNum1 = styled.img`
+    position: absolute;
+    height: 80%;
+    width: 80%;
+    right: -12%;
+    top: 40%;
+    transform: rotate(-10deg);
+    z-index: -100000;
+    @media only screen and (max-width: 500px){
+        height: 100%;
+        width: 100%;
+    }
+`
+
+export const WaveNum2 = styled.img`
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    left: -10%;
+    top: -18%;
+    z-index: -1000000;
+    transform: rotate(180deg);
+    @media only screen and (max-width: 500px){
+        height: 70%;
+        width: 70%;
+        top: -22%;
+    }
+`
 export const AboutContainer = styled.div`
     position: fixed;
     height: 90vh;
     width: 100%;
     top: 50%;
     left: 50%;
-    z-index: 9999999999999999999999999999999999999;
+    z-index: 99999999999999999999999999999;
     transform: translate(-50%, -50%);
     border-radius: 8px;
     transition: .7s all;
@@ -224,15 +332,17 @@ export const AboutContainer = styled.div`
             padding-top: 120px;
         }
         @media only screen and (max-width: 800px){
-            padding-top: 160px;
+            padding-top: 60px;
             padding-left: 30px;
             padding-right: 30px;
         }
         ul{
             color: white;
             li{
-                font-size: 1.6em;
-                
+                font-size: 1.3em;
+                @media only screen and (min-width: 2000px){
+                    font-size: 2.4em;
+                }
                 @media only screen and (min-width: 1500px) and (max-width: 2000px){
                     font-size: 2em;
                 }
@@ -245,17 +355,21 @@ export const AboutContainer = styled.div`
             }
         }
         button{
-            font-size: 4em;
-            padding: 34px 80px;
+            font-size: 3em;
+            padding: 24px 60px;
             background: white;
             border: none;
             border-radius: 10px;
             margin-top: 60px;
             color: white;
+            cursor: pointer;
             border: 4px solid white;
             font-weight: 600;
 
-
+            @media only screen and (min-width: 2000px){
+                font-size: 4.5em;
+                padding: 44px 100px;
+            }
             @media only screen and (min-width: 1500px) and (max-width: 2000px){
                 font-size: 3.5em;
                 padding: 36px 80px;
@@ -278,9 +392,12 @@ export const AboutContainer = styled.div`
     h1{
         text-align: left;
         color: white;
-        font-size: 5em;
+        font-size: 4.2em;
         line-height: 1.2em;
 
+        @media only screen and (min-width: 2000px){
+            font-size: 9em;
+        }
         @media only screen and (max-width: 2000px) and (min-width: 1500px){
             font-size: 7em;
         }
@@ -299,8 +416,11 @@ export const AboutContainer = styled.div`
     h3{
         text-align: left;
         color: white;
-        font-size: 3.5em;
+        font-size: 3em;
 
+        @media only screen and (min-width: 2000px){
+            font-size: 5.4em;
+        }
         @media only screen and (max-width: 2000px) and (min-width: 1500px){
             font-size: 4.2em;
         }

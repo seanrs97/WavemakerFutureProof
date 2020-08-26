@@ -1,23 +1,20 @@
 import React from "react";
 import {DisplayContent, UnlockableContent, HideContent} from "./TemplateStyles";
-import Header from "./ContentTemplates/Header.js";
-import Resources from "./ContentTemplates/Resources.js";
-// import Banner from "./Templates/Banner.js";
-import Quiz from "../Quiz/Quiz.js";
+import Header from "../ContentTemplates/Header.js";
+import Resources from "../ContentTemplates/Resources.js";
+import Quiz from "../../Quiz/Quiz.js";
 
-import What from "./ContentTemplates/What.js";
-import Why from "./ContentTemplates/Why.js";
-import How from "./ContentTemplates/How.js";
-import Navigation from "./Navigation.js";
+import What from "../ContentTemplates/What.js";
+import Why from "../ContentTemplates/Why.js";
+import How from "../ContentTemplates/How.js";
+import Navigation from "../Navigation/Navigation.js";
 
 import sal from "sal.js";
-import '../../../node_modules/sal.js/dist/sal.css';
+import '../../../../node_modules/sal.js/dist/sal.css';
 
-import NavBar from "../NavBar.js";
+import NavBar from "../../NavBar/NavBar.js";
 
-import userLoggedOut from "../../Images/userLoggedOut.svg";
-
-// import Login from "./Login";
+import userLoggedOut from "../../../Images/userLoggedOut.svg";
 
 class Template extends React.Component {
     constructor(props){
@@ -34,13 +31,15 @@ class Template extends React.Component {
             displayNavBarLoginMessage: "",
             loginOrLogout: "",
             userProfileLink: "",
-            quizDescription: ""
+            quizDescription: "",
+
+            isLoggedIn: localStorage.getItem("isLoggedIn") || 0
         }
-        this.stopUserSession = this.stopUserSession.bind(this)
     }
     async componentDidMount(){
         // SDK Login method
         this.checkIfUserIsLoggedIn();
+        this.quizHasNotBeenCompleted();
 
         let baseURL = 'https://seanrs97.github.io/jsonData/userProfile.json';
 
@@ -60,12 +59,63 @@ class Template extends React.Component {
           }
         });
     }
-    componentDidUpdate(){
+    componentDidUpdate(prevProps, prevState){
         sal({
             once: false
         });
+
+        if(this.props !== prevProps){
+            this.setState({
+                pageQuizId: this.props.quizId
+            });   
+        }
+        this.checkIfQuizIsComplete();
     }
 
+    checkIfQuizIsComplete = () => {
+
+
+        if(this.state.pageQuizId !== undefined && this.state.pageQuizId !== null){
+            let quizId = this.state.pageQuizId;
+
+            if(this.state.quizzesCompleted.indexOf(quizId) > -1){
+                console.log("Quiz has been completed");
+                this.setState({
+                    quizDescription: "Well done, the quiz is complete!"
+                })
+            } else {
+                console.log("QUIZ HAS NOT BEEN COMPLETED")
+            }
+        }
+    }
+    async fetchQuiz(){
+        try {
+            const sdk = window.futureproofSdk();
+            const quiz = await sdk.quizzes.get("6rmJrdxlWl54wvS5KkVc"); 
+    
+            console.log("QUIZ", quiz);
+    
+            return quiz;
+        } catch (e){
+            // this.setState({
+            //     quizDescription: "It doesn't look like this section has a quiz! Sorry about that",
+            //     buttonDisabled: true,
+            //     buttonHidden: "0.5"
+            // })
+        }
+    }
+    quizHasNotBeenCompleted = () => {
+        if(this.state.loginStatus === 401){
+            this.setState({
+                quizDescription: "You need to login to complete the quiz!"
+            })
+        } else {
+            this.setState({
+                quizDescription: "You haven't completed the quiz yet! click the play button to start!"
+            });
+            this.fetchQuiz();
+        }
+    }
 
     // Check to see if user is logged in or not
     async checkIfUserIsLoggedIn(){
@@ -84,7 +134,7 @@ class Template extends React.Component {
                 loginOrLogout: "Logout",
                 loginHref: "https://wm-educational-pwa-dev.web.app/",
                 userProfileLink: "https://wm-educational-pwa-dev.web.app/profile/",
-                buttonDisabled: false,
+
                 buttonHidden: "1",
                 buttonCursor: "pointer"
             });
@@ -93,57 +143,52 @@ class Template extends React.Component {
                 this.setState({
                     displayLoggedInAvatar: this.state.userProfilePicture
                 })
-            }, 1000)
+            }, 1000);
 
-            // Need to check if quiz has bee completed here
-            this.setState({
-                quizDescription: "You haven't completed the quiz yet! simply click the start button to start playing, good luck!"
-            });
+            if(this.state.quizDescription !== "It doesn't look like this section has a quiz! Sorry about that"){
+                this.setState({
+                    buttonDisabled: false,
+                    buttonHidden: "1"
+                })
+            } else {
+                this.setState({
+                    buttonDisabled: true,
+                    buttonHidden: "0.5"
+                })
+            }
 
             return userIsLoggedIn;
 
         } catch (e) {
+            console.log("ERROR", e);
             this.setState({
+                loginStatus: e.status,
                 loginUrl: e.urlWithRedirect,
                 displayLoggedInAvatar: `${userLoggedOut}`,
                 loginOrLogout: "Login",
-                loginHref: "https://wm-educational-pwa-dev.web.app/login",
+
+                // REAL ONES 
+                // loginHref: "https://dev.wavemakerfutureproof.co.uk/login",
+                // userProfileLink: "https://dev.wavemakerfutureproof.co.uk/login",
+
                 userProfileLink: "https://wm-educational-pwa-dev.web.app/login",
-                quizDescription: "You need to be logged in to completed the quiz. To login, simply click the login button just below and login or signup!",
+                loginHref: "https://wm-educational-pwa-dev.web.app/login",
                 buttonDisabled: true,
                 buttonHidden: "0.5",
-                buttonCursor: "auto"
+                buttonCursor: "cursor"
             });
+            
+            this.setState({
+                buttonDisabled: false,
+                buttonHidden: "1"
+            })
+
+            console.log(this.state.loginStatus);
         }
     }
-    async stopUserSession(){
-        const sdk = window.futureproofSdk();
-        const stopSession = await sdk.auth.stopSession();
-
-        console.log("SESSION STOPPED", stopSession);
-
-        return stopSession;
-    }
-    checkLoginText(){
-
-        // this.setState({
-        //     logDestination: 
-        // });
-        this.stopUserSession();
-
-    }
-    // async startUserSession(){
-    //     const sdk = window.futureproofSdk();
-    //     const userSession = await sdk.auth.startSession();
-
-    //     console.log("USER SESSION", userSession);
-
-    //     return userSession;
-    // }
     async displayUserInformation(){
         const sdk = window.futureproofSdk();
         const user = await sdk.user.profile();
-
 
         if(user.data.profilePicture.length >= 1){
             this.setState({
@@ -164,18 +209,17 @@ class Template extends React.Component {
             })
         }, 2000)
 
-        console.log("USER PROFILE LINK", this.state.userProfilePicture);
         return user;
     }
     render(){
         return (
-            <div>
-                <NavBar
+            <div className = "main_container" style = {{display: this.state.is404PagePresent}}>
+                {/* <NavBar
                     showLoggedInImage = {this.state.displayLoggedInAvatar}
                     loginOrLogout = {this.state.loginOrLogout}
                     loginHref = {this.state.loginHref}
                     userProfileLink = {this.state.userProfileLink}
-                />
+                /> */}
                 <Header 
                     image = {this.props.image}
                     imageTab = {this.props.imageTab}
@@ -191,26 +235,27 @@ class Template extends React.Component {
                 <Quiz 
                     onFinished = {this.handleFinish} 
                     style = {{overflowY: "scroll"}} 
-                    quiz = {this.props.quiz} 
+                    // quiz = {this.props.quiz} 
                     quizColour = {this.props.headerColour} 
                     quizDescription = {this.state.quizDescription}
                     buttonDisabled = {this.state.buttonDisabled}
                     buttonHidden = {this.state.buttonHidden}
                     buttonCursor = {this.state.buttonCursor}
+                    quizNotFound = {this.state.quizNotFound}
                 />
-
+{/* 
                 <DisplayContent style = {{background: this.props.headerColour, display: this.state.displayLoginMessage}}>
                     <div>
                         <h1> Want to view more content? </h1>
                         <p className = "content-desc"> I'm afraid you'll need to login to view anymore content. Please click on the button below to login or sign up!</p>
                         <button onClick = {this.proceedToLoginPage}><a id = "quiz" href = {this.state.loginUrl} >Login</a></button>
                     </div>
-                </DisplayContent>
+                </DisplayContent> */}
 
-                <UnlockableContent style = {{display: this.state.displayLoginContent}}>
-                    <HideContent style = {{display: this.props.display}}></HideContent>
+                {/* <UnlockableContent style = {{display: this.state.displayLoginContent}}>
+                    <HideContent style = {{display: this.props.display}}></HideContent> */}
                     <Resources resources = {this.props.resources}/>
-                </UnlockableContent>
+                {/* </UnlockableContent> */}
 
                 <Navigation {...this.props}/>
             </div>

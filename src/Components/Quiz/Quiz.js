@@ -7,24 +7,19 @@
 // To find the HTML is being rendered to the UI, check the Render Method
 // To find any styles, check the Styled components at the bottom of the page
 
-
-
 import React from "react";
 
 // STYLESHEET 
-import {ContentWrapper, Home, QuizAndSummaryContainer, QuizContainer, DialogContainer, 
-        OverlayContainer, H5, OptionsContainer, Container, LifelineContainer, 
-        TimeMessage, SummaryContainer, AboutContainer} from "./QuizStyles.js";
+import {ContentWrapper, QuizAndSummaryContainer, QuizContainer, DialogContainer, 
+        OverlayContainer, Container, SummaryContainer} from "./Styles/QuizStyles.js";
 
 // METHODS
-
-import IsEmpty from "./IsEmpty";
-import Summary from "./Summary";
-
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-
-import QuizImage1 from "../../Images/SVG/quiz-wave-1.svg";
-import QuizImage2 from "../../Images/SVG/quiz-wave-2.svg";
+import {showOptions, showTargetElement, hideTargetElement, startTimer, displayQuestions,
+        startGame, end} from "./QuizMethods.js";
+import HomeTemplate from "./Templates/HomeTemplate.js";
+import AboutTemplate from "./Templates/AboutTemplate.js";
+import QuizFeatures from "./Templates/QuizFeatures.js";
+import Summary from "./Templates/Summary";
 
 class Quiz extends React.Component {
     constructor(props){
@@ -78,11 +73,9 @@ class Quiz extends React.Component {
              isSummaryDisplayed: "hidden"
         }
         this.interval = null
-        this.targetElement = null;
     }
     async componentDidMount(){
         const quizData = await (await (fetch("/quiz-web.json"))).json();
-
         // Check if quiz exists
         if(quizData.status === 200){
             this.setState({
@@ -95,13 +88,14 @@ class Quiz extends React.Component {
                     currentQuestionIndex: 0,
                     score: 0
                 });
-                this.showOptions();
+                showOptions(".option");
             }
-            this.displayQuestions(
+            displayQuestions(
                 this.state.questions,
                 this.state.currentQuestion,
                 this.state.nextQuestion,
-                this.state.previousQuestion
+                this.state.previousQuestion,
+                this
             )
             if(this.state.isSummaryDisplayed !== "dissapear .6s linear forwards"){
                 this.setState({
@@ -112,8 +106,6 @@ class Quiz extends React.Component {
                     entireQuizVisibility: "none"
                 });
             }
-
-            this.checkIfQuizExists();
         } else {
             console.log("QUIZ DOES NOT EXIST");
             this.setState({
@@ -130,92 +122,6 @@ class Quiz extends React.Component {
     componentWillUnmount(){
         clearInterval(this.interval);
     }
-    displayQuestions = (questions = this.state.questions, currentQuestion, nextQuestion, previousQuestion) => {
-        let { currentQuestionIndex } = this.state;
-
-        if(!IsEmpty(this.state.questions)){
-            questions = this.state.questions;
-            currentQuestion =  questions[currentQuestionIndex];
-            nextQuestion = questions[currentQuestionIndex + 1];
-            previousQuestion = questions[currentQuestionIndex - 1];
-
-            this.setState({ 
-                currentQuestion, 
-                nextQuestion,
-                previousQuestion,
-                previousRandomNumber: [],
-            }, () => {
-                this.showOptions();
-            });
-        }
-    }
-    showOptions = () => {
-        const options = Array.from(document.querySelectorAll(".option"));
-        options.forEach(option => {
-            option.style.visibility = "visible";
-        });
-    }
-    startGame = () => {
-        let {currentQuestionIndex} = this.state;
-
-        let questions = this.state.questions;
-        let currentQuestion = this.state.questions[currentQuestionIndex];
-        let nextQuestion = this.state.questions[currentQuestionIndex + 1];
-        let previousQuestion = this.state.questions[currentQuestionIndex - 1];
-        let answer = this.state.questions[currentQuestionIndex].answer;
-
-        if(questions.length === 0 || questions === undefined || currentQuestion.length === 0 || currentQuestion === undefined){
-            console.log("somethings gone wrong here")
-        } else {
-            this.setState({
-                questions: questions,
-                currentQuestion:currentQuestion,
-                nextQuestion: nextQuestion,
-                previousQuestion: previousQuestion, 
-                numberOfQuestions: questions.length,
-                answer:  answer
-            });
-        }
-    }
-    // Starts the countdown Timer displayed in the Lifeline section of the quiz. Just a simple countdown clock.
-    startTimer = () => {
-        const countdownTime = Date.now() + 60000;
-        this.interval = setInterval(() => {
-            const now = new Date();
-            const distance = countdownTime - now;
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) /  (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000 );
-            
-            if(seconds <= 15){
-                this.setState({
-                    showTimeMessage: "translateX(0)"
-                });
-                setTimeout(() => {
-                    this.setState({
-                        showTimeMessage: "translateX(-100%)"
-                    })
-                }, 3000);
-            }
-            if(distance < 0){
-                clearInterval(this.interval);
-                this.setState({
-                    time: {
-                        minutes: 0,
-                        seconds: 0
-                    }
-                }, () => {
-                    this.end();
-                });
-            } else {
-                this.setState({
-                    time: {
-                        minutes,
-                        seconds
-                    }
-                })
-            }
-        }, 1000);
-    }
     openAbout = () => {
         let quizScaleSize;
         if(window.innerWidth < 580){
@@ -226,12 +132,14 @@ class Quiz extends React.Component {
             quizScaleSize = "88%"
         }
         this.setState({
-            isSummaryDisplayed: "hidden",
-            quizScale: quizScaleSize,
-            displayAbout: "100%"
+            showSummary: "dissapear .6s linear forwards",
         });
         setTimeout(() => {
-
+            this.setState({
+                isSummaryDisplayed: "hidden",
+                quizScale: quizScaleSize,
+                displayAbout: "100%",
+            })
         }, 500)
     }
     startQuiz = () => {
@@ -246,16 +154,16 @@ class Quiz extends React.Component {
                 displayAbout: "0%"
             }); 
         }, 800);
-        this.showTargetElement();
-        this.startGame();
-        this.startTimer();
+        showTargetElement(this);
+        startGame(this);
+        startTimer(this);
         if(this.state.currentQuestionIndex !== 0){
             this.resetQuiz();
         }
     }
     resetQuiz = () => { 
         clearInterval(this.interval);
-        this.showOptions();
+        showOptions(".option");
         this.setState({
             showQuestions: "block",
             currentQuestionIndex: 0,
@@ -276,7 +184,7 @@ class Quiz extends React.Component {
             questionDisplay: "translateX(0)"
 
         });
-        this.startTimer();
+        startTimer(this);
     }
     handleOptionClick = (e) => {
         this.setState({
@@ -297,13 +205,14 @@ class Quiz extends React.Component {
                     this.setState({
                         questionDisplay: "translateX(900%)"
                     });
-                    this.end();
+                    end(this);
                 } else {
-                    this.displayQuestions(
+                    displayQuestions(
                         this.state.questions,
                         this.state.currentQuestion,
                         this.state.nextQuestion,
-                        this.state.previousQuestion
+                        this.state.previousQuestion,
+                        this
                     )
                 }
             })
@@ -333,63 +242,6 @@ class Quiz extends React.Component {
             })
         })
     }
-
-    // SHOW PLAYERS RESULTS
-    end  = () => {
-        const { state } = this;
-        let playerResult = "failed";
-        let successMessage = "Please try again!";
-
-        console.log("answered questions", this.state.answeredQuestions);
-
-        const playerStats = {
-            score: state.score,
-            numberOfQuestions: state.numberOfQuestions,
-            numberOfAnsweredQuestions: state.numberOfAnsweredQuestions,
-        };
-
-        if(playerStats.score === playerStats.numberOfQuestions){
-            playerResult = "passed"
-            successMessage = "Well done, you can now move on!"
-            setTimeout(() => {
-                this.setState({
-                    showConfetti: "block"
-                });
-            }, 800)
-        }
-        this.setState({
-            endScore: playerStats.score,
-            endNumOfQuestions: playerStats.numberOfQuestions,
-            endNumOfAnsweredQuestions: playerStats.numberOfAnsweredQuestions,
-            endNumberOfCorrectAnswers: playerStats.correctAnswers,
-            endNumberOfWrongAnswers: playerStats.wrongAnswers,
-            success: playerResult,
-            successMessage: successMessage,
-
-        });
-        this.setState({
-            isSummaryDisplayed: "visible"
-        })
-        this.setState({
-            showQuestions: "none",
-            numberOfAnsweredQuestions: 0,
-            currentQuestionIndex: playerStats.numberOfQuestions - 1,
-            time: {
-                minutes: 0,
-                seconds: 0
-            },
-            showSummary: "appear .6s linear forwards",
-            displayQuiz: "translateX(-100%) scale(0)",
-        });
-        clearInterval(this.interval);
-
-
-        if(this.state.successMessage === undefined || this.state.successMessage === "passed"){
-            this.setState({
-                unlockContent: "block"
-            })
-        }
-    }
     // Used when the user selects 'no' from the dialog menu to resume the quiz
     resumeQuiz = () => {
         this.setState({
@@ -414,7 +266,7 @@ class Quiz extends React.Component {
                         seconds: 0
                     }
                 }, () => {
-                    this.end();
+                    end(this);
                 });
             } else {
                 this.setState({
@@ -451,7 +303,7 @@ class Quiz extends React.Component {
             overlayVisibility: "hidden",
             overlayOpacity: 0
         });
-        this.hideTargetElement();
+        hideTargetElement(this);
     }
     exitAboutPage = () => {
         this.setState({
@@ -471,41 +323,10 @@ class Quiz extends React.Component {
             overlayVisibility: "hidden",
             overlayOpacity: 0
         });
-        this.hideTargetElement();
-    }
-    showTargetElement = () => {
-        disableBodyScroll(this.targetElement);
-      };
-     
-    hideTargetElement = () => {
-        enableBodyScroll(this.targetElement);
-    };
-
-
-    // CHECK TO SEE IF QUIZZES HAVE BEEN COMPLETED
-    async checkIfQuizExists() {
-        let quizId = this.state.quizId;
-
-        const sdk = window.futureproofSdk();
-        const quizInfo = await sdk.user.profile();
-
-        this.setState({
-            quizzesCompleted: quizInfo.data.quizzesCompleted
-        });
-        if(this.state.quizzesCompleted.indexOf(quizId) > -1){
-            console.log("THIS QUIZ IS COMPLETE")
-        } else {
-            console.log("QUIZ NOT COMPLETE");
-        }
-
-        console.log("QUIZ INFO" , quizInfo);
+        hideTargetElement(this);
     }
     render(){
         const {
-            currentQuestion, 
-            currentQuestionIndex, 
-            numberOfQuestions, 
-            time,
             endScore,
             endNumOfQuestions,
             success,
@@ -514,104 +335,61 @@ class Quiz extends React.Component {
 
         return (
             <React.Fragment>
-                <div style = {{
-                    position: "fixed", 
-                    height: "100vh",
-                    width: "100%",
-                    background: "grey",
-                    top: "0",
-                    left: "0",
-                    zIndex: "1000000000000000000",
-                    transition: "1s all",
-
-                    visibility: this.state.overlayVisibility,
-                    opacity: this.state.overlayOpacity
-                }}></div>
+                <HomeTemplate 
+                    homeAppear = {this.state.homeAppear} 
+                    openAbout = {this.openAbout}
+                    buttonDisabled = {this.props.buttonDisabled}
+                    buttonHidden = {this.props.buttonHidden}
+                    buttonCursor = {this.props.buttonCursor}
+                    quizColour = {this.props.quizColour}
+                    quizDescription = {this.props.quizDescription}
+                />
                 <ContentWrapper onScroll = {this.handleScroll} style = {{animation: this.state.doesQuizExist, display:this.state.entireQuizVisibility}}>
-                    <Home style = {{animation: this.state.homeAppear, background: this.props.quizColour, marginBottom: "20px"}}>
-                        <div className = "content-container">
-                            <h1> Quiz </h1>
-                            <div className = "button-container">
-                                <button 
-                                    onClick = {this.openAbout} 
-                                    disabled = {this.props.buttonDisabled}
-                                    style = {{opacity: this.props.buttonHidden, cursor: this.props.buttonCursor}}
-                                >
-                                        Start
-                                </button> 
-                            </div>
-                        </div>
-                        <div className = "quiz-description">
-                            <p> {this.props.quizDescription} </p>
-                        </div>
-                        <img alt = "background of wave" src = {QuizImage1} className = "top-quiz-wave" />
-                        <img alt = "background of wave" src = {QuizImage2} className = "bottom-quiz-wave"/>
-                    </Home>
                     <QuizAndSummaryContainer id = "quizAndSummary" style = {{height: this.state.quizScale}}>
-                        <AboutContainer style = {{background: this.props.quizColour, height: this.state.displayAbout}}>
-                            <div>
-                                <span onClick = {this.exitAboutPage} className = "quitQuiz" > X </span>
-                                <h1> Time to take the quiz! </h1>
-                                <h3> What are the rules? </h3>
-                                <ul>
-                                    <li>You must complete the quiz before the timer runs out or you fail</li>
-                                    <li>All answers are multiple choice, you can only select one answer</li>
-                                    <li>To unlock more content you need full marks! </li>
-                                    <li>You can exit the quiz at anytime by clicking the 'X' in the top left corner of the quiz</li>
-                                </ul>
-                                <button style = {{background: this.props.quizColour}} onClick = {this.startQuiz}> Play! </button>
-                            </div>
-                        </AboutContainer>
+                        <AboutTemplate
+                            quizColour = {this.props.quizColour}
+                            displayAbout = {this.state.displayAbout}
+                            exitAboutPage = {this.exitAboutPage}
+                            startQuiz = {this.startQuiz}
+                        />
                         <QuizContainer>
                             <div style = {{position: "relative"}}>
                             <DialogContainer style = {{display: this.state.showDialog, zIndex: "100000001"}}>
-                                    <h1> Are you sure you want to quit the quiz? </h1>
-                                    <button onClick = {this.exitQuiz}> Yes </button>
-                                    <button onClick = {this.resumeQuiz}> No </button>
-                                </DialogContainer>
-                                <OverlayContainer style = {{display: this.state.showOverlay, zIndex: "100000000"}}/>
+                                <h1> Are you sure you want to quit the quiz? </h1>
+                                <button onClick = {this.exitQuiz}> Yes </button>
+                                <button onClick = {this.resumeQuiz}> No </button>
+                            </DialogContainer>
+                            <OverlayContainer style = {{display: this.state.showOverlay, zIndex: "100000000"}}/>
 
-
-                                <Container style = {{background: this.props.quizColour}}>
-                                    <span onClick = {this.quitQuiz} className = "quitQuiz" > X </span>
-                                    <div className = "main-content-container">
-                                        <p style = {{transform: this.state.questionDisplay}} className = "numberOfQuestionsContainer">
-                                            <span className = "qNumber">
-                                                Question {currentQuestionIndex + 1} of {numberOfQuestions}
-                                            </span>
-                                        </p>
-                                        <H5 style = {{transform: this.state.questionDisplay}}> {currentQuestion.text} </H5>
-                                        <OptionsContainer style = {{transform: this.state.questionDisplay}}>
-                                            {!!currentQuestion.answers && currentQuestion.answers.map((ans) =>
-                                                <button key = {ans.text} style = {{transform: this.state.questionDisplay}} disabled = {!this.state.optionDisabled} className = "option" onClick = {this.handleOptionClick}> {ans.text}</button>
-                                            )}
-                                        </OptionsContainer>
-                                        <LifelineContainer style = {{transform: this.state.questionDisplay}}>
-                                            <p>
-                                                <span className = "timer help-icon"></span>
-                                                <span className = "">{time.minutes}:{time.seconds}</span>
-                                            </p>
-                                        </LifelineContainer>
-                                    </div>
-                                    <TimeMessage style = {{transform: this.state.showTimeMessage}}>
-                                        <h1> Time is Running Out! </h1>
-                                    </TimeMessage>
-                                </Container>
-                            </div>
+                            <Container style = {{background: this.props.quizColour}}>
+                                <QuizFeatures
+                                    quizColour = {this.props.quizColour}
+                                    quitQuiz = {this.quitQuiz}
+                                    questionDisplay = {this.state.questionDisplay}
+                                    optionDisabled = {this.state.optionDisabled}
+                                    handleOptionClick = {this.handleOptionClick}
+                                    showTimeMessage = {this.state.showTimeMessage}
+                                    currentQuestion = {this.state.currentQuestion}
+                                    currentQuestionIndex = {this.state.currentQuestionIndex}
+                                    numberOfQuestions = {this.state.numberOfQuestions}
+                                    time = {this.state.time}
+                                />
+                            </Container>
+                        </div>
                         </QuizContainer>
                         <SummaryContainer style = {{animation: this.state.showSummary, visibility: this.state.isSummaryDisplayed}}>
                             <Summary
-                                    quizColour = {this.props.quizColour}
-                                    score = {endScore}
-                                    numOfQuestions = {endNumOfQuestions}
-                                    success = {success}
-                                    successMessage = {successMessage}
-                                    playAgain = {this.resetQuiz}
-                                    homeReturn = {this.returnHome}
-                                    showConfetti = {this.state.showConfetti}
+                                quizColour = {this.props.quizColour}
+                                score = {endScore}
+                                numOfQuestions = {endNumOfQuestions}
+                                success = {success}
+                                successMessage = {successMessage}
+                                playAgain = {this.resetQuiz}
+                                homeReturn = {this.returnHome}
+                                showConfetti = {this.state.showConfetti}
 
-                                    style = {{background: this.props.quizColour}}
-                                />
+                                style = {{background: this.props.quizColour}}
+                            />
                         </SummaryContainer>
                     </QuizAndSummaryContainer>
                 </ContentWrapper>
@@ -619,5 +397,4 @@ class Quiz extends React.Component {
         )
     }
 }
-
 export default Quiz;
