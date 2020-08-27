@@ -325,7 +325,7 @@ export const AboutContainer = styled.div`
         @media only screen and (min-width: 2000px){
             padding-top: 240px;
         }
-        @media only screen and (min-width: 1500px) and (max-width: 2000px){
+        @media only screen and (min-width: 1600px) and (max-width: 2000px){
             padding-top: 160px;
         }
         @media only screen and (max-width: 1100px) and (min-width: 800px){
@@ -343,7 +343,7 @@ export const AboutContainer = styled.div`
                 @media only screen and (min-width: 2000px){
                     font-size: 2.4em;
                 }
-                @media only screen and (min-width: 1500px) and (max-width: 2000px){
+                @media only screen and (min-width: 1600px) and (max-width: 2000px){
                     font-size: 2em;
                 }
                 @media only screen and (max-width: 1100px) and (min-width: 800px){
@@ -370,7 +370,7 @@ export const AboutContainer = styled.div`
                 font-size: 4.5em;
                 padding: 44px 100px;
             }
-            @media only screen and (min-width: 1500px) and (max-width: 2000px){
+            @media only screen and (min-width: 1600px) and (max-width: 2000px){
                 font-size: 3.5em;
                 padding: 36px 80px;
             }
@@ -398,7 +398,7 @@ export const AboutContainer = styled.div`
         @media only screen and (min-width: 2000px){
             font-size: 9em;
         }
-        @media only screen and (max-width: 2000px) and (min-width: 1500px){
+        @media only screen and (max-width: 2000px) and (min-width: 1600px){
             font-size: 7em;
         }
         @media only screen and (max-width: 1100px) and (min-width: 800px){
@@ -421,7 +421,7 @@ export const AboutContainer = styled.div`
         @media only screen and (min-width: 2000px){
             font-size: 5.4em;
         }
-        @media only screen and (max-width: 2000px) and (min-width: 1500px){
+        @media only screen and (max-width: 2000px) and (min-width: 1600px){
             font-size: 4.2em;
         }
         @media only screen and (max-width: 1100px) and (min-width: 800px){
@@ -446,10 +446,10 @@ export const AboutContainer = styled.div`
         @media only screen and (max-width: 800px) and (min-width: 574px){
             font-size: 2.2em;
         }
-        @media only screen and (max-width: 1500px) and (min-width: 800px){
+        @media only screen and (max-width: 1600px) and (min-width: 800px){
             font-size: 3em;
         }
-        @media only screen and (min-width: 1500px) and (max-width: 2000px){
+        @media only screen and (min-width: 1600px) and (max-width: 2000px){
             font-size: 3.4em;
         }
         @media only screen and (min-width: 2000px){
