@@ -31,7 +31,7 @@ class HeaderComp extends React.Component {
         return (
             <div>
                 {Object.values(this.props).map((header) =>
-                    <div>
+                    <div key = {header.text}>
                         <HeaderImage headerImageDesk = {header.image}>
                             <ImageTextContainer style = {{animation: this.state.animation}}>
                                 <H1> {header.text} </H1>

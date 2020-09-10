@@ -12,7 +12,7 @@ class Buttons extends React.Component {
         return (
             <ButtonsContainer>
                 {Object.values(this.props).map((button) =>
-                    <div>
+                    <div key = {button}>
                         {!!button.buttons && button.buttons.map((val) => (
                             <div key = {val.id}>
                                 <a href = {val.id}>

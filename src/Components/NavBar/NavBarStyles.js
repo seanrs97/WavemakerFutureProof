@@ -104,7 +104,8 @@ export const MenuList = styled.ul`
             margin-left: 0;
         }
         @media only screen and (min-width: 1650px) and (max-width: 2000px){
-            margin-left: -180px;
+            // margin-left: -180px;
+            margin-left: -10px;
         }
         @media only screen and (min-width: 2000px){
             margin-left: -240px;

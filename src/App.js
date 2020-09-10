@@ -8,7 +8,7 @@ import Template404 from "./Components/Templates/Template404.js";
 import Footer from "./Components/Footer.js";
 import Home from "./Components/Home.js";
 
-import {BrowserRouter as Router, Route, location} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {faHourglass} from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagramSquare, faTwitter} from '@fortawesome/free-brands-svg-icons'
@@ -41,7 +41,6 @@ class App extends React.Component{
       quizDescription: "",
 
       displayUnknown404: "block",
-      display404: "none",
       displayTemplate404: "none",
 
       isLoggedIn: localStorage.getItem("isLoggedIn") || 0
@@ -72,17 +71,6 @@ class App extends React.Component{
         });
       }
     });
-
-    // console.log("URL", window.location.pathname)
-    // if(window.location.pathname === "/"){
-    //   this.setState({
-    //     displayUnknown404: "block"
-    //   })
-    // } else {
-    //   this.setState({
-    //     displayUnknown404: "none"
-    //   })
-    // }
 
     let baseURL = 'https://seanrs97.github.io/jsonData/';
     let params = (new URL(document.location)).searchParams;
@@ -192,23 +180,23 @@ class App extends React.Component{
       });
     }
   }
-    componentDidUpdate(){
-      this.checkIfQuizIsComplete();
-    }
-    checkIfQuizIsComplete = () => {
+  componentDidUpdate(){
+    this.checkIfQuizIsComplete();
+  }
+  checkIfQuizIsComplete = () => {
 
 
-    if(this.state.pageQuizId !== undefined && this.state.pageQuizId !== null){
-        let quizId = this.state.pageQuizId;
+  if(this.state.pageQuizId !== undefined && this.state.pageQuizId !== null){
+      let quizId = this.state.pageQuizId;
 
-        if(this.state.quizzesCompleted.indexOf(quizId) > -1){
-            console.log("Quiz has been completed");
-            this.setState({
-                quizDescription: "Well done, the quiz is complete!"
-            })
-        } else {
-            console.log("QUIZ HAS NOT BEEN COMPLETED")
-        }
+      if(this.state.quizzesCompleted.indexOf(quizId) > -1){
+          console.log("Quiz has been completed");
+          this.setState({
+              quizDescription: "Well done, the quiz is complete!"
+          })
+      } else {
+          console.log("QUIZ HAS NOT BEEN COMPLETED")
+      }
     }
   }
   async fetchQuiz(){
@@ -239,100 +227,100 @@ class App extends React.Component{
           this.fetchQuiz();
       }
   }
-    // Check to see if user is logged in or not
-    async checkIfUserIsLoggedIn(){
-      // USER IS LOGGED IN
-      try {
-          const sdk = window.futureproofSdk();
-          const userIsLoggedIn = await sdk.auth.session(); 
+  // Check to see if user is logged in or not
+  async checkIfUserIsLoggedIn(){
+    // USER IS LOGGED IN
+    try {
+        const sdk = window.futureproofSdk();
+        const userIsLoggedIn = await sdk.auth.session(); 
 
-          
-          this.displayUserInformation();
+        
+        this.displayUserInformation();
 
-          console.log("USER LOGGED IN", userIsLoggedIn)
-          this.setState({         
-              displayLoginMessage: "none",
-              displayLoginContent: "block",
-              loginOrLogout: "Logout",
-              loginHref: "https://wm-educational-pwa-dev.web.app/",
-              userProfileLink: "https://wm-educational-pwa-dev.web.app/profile/",
+        console.log("USER LOGGED IN", userIsLoggedIn)
+        this.setState({         
+            displayLoginMessage: "none",
+            displayLoginContent: "block",
+            loginOrLogout: "Logout",
+            loginHref: "https://wm-educational-pwa-dev.web.app/",
+            userProfileLink: "https://wm-educational-pwa-dev.web.app/profile/",
 
-              buttonHidden: "1",
-              buttonCursor: "pointer"
-          });
+            buttonHidden: "1",
+            buttonCursor: "pointer"
+        });
 
-          setTimeout(() => {
-              this.setState({
-                  displayLoggedInAvatar: this.state.userProfilePicture
-              })
-          }, 1000);
+        setTimeout(() => {
+            this.setState({
+                displayLoggedInAvatar: this.state.userProfilePicture
+            })
+        }, 1000);
 
-          if(this.state.quizDescription !== "It doesn't look like this section has a quiz! Sorry about that"){
-              this.setState({
-                  buttonDisabled: false,
-                  buttonHidden: "1"
-              })
-          } else {
-              this.setState({
-                  buttonDisabled: true,
-                  buttonHidden: "0.5"
-              })
-          }
+        if(this.state.quizDescription !== "It doesn't look like this section has a quiz! Sorry about that"){
+            this.setState({
+                buttonDisabled: false,
+                buttonHidden: "1"
+            })
+        } else {
+            this.setState({
+                buttonDisabled: true,
+                buttonHidden: "0.5"
+            })
+        }
 
-          return userIsLoggedIn;
+        return userIsLoggedIn;
 
-      } catch (e) {
-          console.log("ERROR", e);
-          this.setState({
-              loginStatus: e.status,
-              loginUrl: e.urlWithRedirect,
-              displayLoggedInAvatar: `${userLoggedOut}`,
-              loginOrLogout: "Login",
-
-              // REAL ONES 
-              // loginHref: "https://dev.wavemakerfutureproof.co.uk/login",
-              // userProfileLink: "https://dev.wavemakerfutureproof.co.uk/login",
-
-              userProfileLink: "https://wm-educational-pwa-dev.web.app/login",
-              loginHref: "https://wm-educational-pwa-dev.web.app/login",
-              buttonDisabled: true,
-              buttonHidden: "0.5",
-              buttonCursor: "auto"
-          });
-          
-          this.setState({
-              buttonDisabled: false,
-              buttonHidden: "1"
-          })
-
-          console.log(this.state.loginStatus);
-      }
-  }
-  async displayUserInformation(){
-    const sdk = window.futureproofSdk();
-    const user = await sdk.user.profile();
-
-    if(user.data.profilePicture.length >= 1){
+    } catch (e) {
+        console.log("ERROR", e);
         this.setState({
-            userProfilePicture: user.data.profilePicture,
+            loginStatus: e.status,
+            loginUrl: e.urlWithRedirect,
+            displayLoggedInAvatar: `${userLoggedOut}`,
+            loginOrLogout: "Login",
+
+            // REAL ONES 
+            loginHref: e.urlWithRedirect,
+            userProfileLink: "https://dev.wavemakerfutureproof.co.uk/login",
+
+            // userProfileLink: "https://wm-educational-pwa-dev.web.app/login",
+            // loginHref: "https://wm-educational-pwa-dev.web.app/login",
+            buttonDisabled: true,
+            buttonHidden: "0.5",
+            buttonCursor: "auto"
+        });
+        
+        this.setState({
+            buttonDisabled: false,
+            buttonHidden: "1"
         })
-    } else {
-        this.setState({
-            userProfilePicture: {userLoggedOut}
-        })  
+
+        console.log(this.state.loginStatus);
     }
-    this.setState({
-        userName: user.data.nickname,
-        quizzesCompleted: user.data.quizzesCompleted
-    });
-    setTimeout(() => {
-        this.setState({
-            userProfilePicture: user.data.profilePicture
-        })
-    }, 2000)
+}
+async displayUserInformation(){
+  const sdk = window.futureproofSdk();
+  const user = await sdk.user.profile();
 
-    return user;
+  if(user.data.profilePicture.length >= 1){
+      this.setState({
+          userProfilePicture: user.data.profilePicture,
+      })
+  } else {
+      this.setState({
+          userProfilePicture: {userLoggedOut}
+      })  
   }
+  this.setState({
+      userName: user.data.nickname,
+      quizzesCompleted: user.data.quizzesCompleted
+  });
+  setTimeout(() => {
+      this.setState({
+          userProfilePicture: user.data.profilePicture
+      })
+  }, 2000)
+
+  return user;
+}
   render(){
     return(
       <div className="App">
