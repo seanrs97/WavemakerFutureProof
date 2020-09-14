@@ -46,13 +46,14 @@ class App extends React.Component{
       isLoggedIn: localStorage.getItem("isLoggedIn") || 0
     }
   }
+  async componentDidUpdate(){
+    
+  }
   async componentDidMount(){
-    
-    
     // USER LOGIN STUFF
-
     this.checkIfUserIsLoggedIn();
-    this.quizHasNotBeenCompleted();
+    // this.checkIfUserIsLoggedIn();
+    // this.quizHasNotBeenCompleted();
 
     let loginURL = 'https://seanrs97.github.io/jsonData/userProfile.json';
 
@@ -159,8 +160,7 @@ class App extends React.Component{
           console.log("FJC<")
         }
         if(response.ok){
-          response.json().then(data => {
-            console.log("DATA", data)
+          response.json().then(data => {  
             navSelf.setState({
               navData: data
             })
@@ -180,70 +180,75 @@ class App extends React.Component{
       });
     }
   }
-  componentDidUpdate(){
-    this.checkIfQuizIsComplete();
-  }
-  checkIfQuizIsComplete = () => {
+  // componentDidUpdate(){
+  //   this.checkIfQuizIsComplete();
+  // }
+  // checkIfQuizIsComplete = () => {
 
 
-  if(this.state.pageQuizId !== undefined && this.state.pageQuizId !== null){
-      let quizId = this.state.pageQuizId;
+  // if(this.state.pageQuizId !== undefined && this.state.pageQuizId !== null){
+  //     let quizId = this.state.pageQuizId;
 
-      if(this.state.quizzesCompleted.indexOf(quizId) > -1){
-          console.log("Quiz has been completed");
-          this.setState({
-              quizDescription: "Well done, the quiz is complete!"
-          })
-      } else {
-          console.log("QUIZ HAS NOT BEEN COMPLETED")
-      }
-    }
-  }
-  async fetchQuiz(){
-      try {
-          const sdk = window.futureproofSdk();
-          const quiz = await sdk.quizzes.get("6rmJrdxlWl54wvS5KkVc"); 
+  //     if(this.state.quizzesCompleted.indexOf(quizId) > -1){
+  //         console.log("Quiz has been completed");
+  //         this.setState({
+  //             quizDescription: "Well done, the quiz is complete!"
+  //         })
+  //     } else {
+  //         console.log("QUIZ HAS NOT BEEN COMPLETED")
+  //     }
+  //   }
+  // }
+  // async fetchQuiz(){
+  //     try {
+  //         const sdk = window.futureproofSdk();
+  //         const quiz = await sdk.quizzes.get("6rmJrdxlWl54wvS5KkVc"); 
 
-          console.log("QUIZ", quiz);
+  //         console.log("QUIZ", quiz);
 
-          return quiz;
-      } catch (e){
-          // this.setState({
-          //     quizDescription: "It doesn't look like this section has a quiz! Sorry about that",
-          //     buttonDisabled: true,
-          //     buttonHidden: "0.5"
-          // })
-      }
-  }
-  quizHasNotBeenCompleted = () => {
-    if(this.state.loginStatus === 401){
-        this.setState({
-            quizDescription: "You need to login to complete the quiz!"
-        })
-    } else {
-        this.setState({
-            quizDescription: "You haven't completed the quiz yet! click the play button to start!"
-        });
-          this.fetchQuiz();
-      }
-  }
+  //         return quiz;
+  //     } catch (e){
+  //         // this.setState({
+  //         //     quizDescription: "It doesn't look like this section has a quiz! Sorry about that",
+  //         //     buttonDisabled: true,
+  //         //     buttonHidden: "0.5"
+  //         // })
+  //     }
+  // }
+  // quizHasNotBeenCompleted = () => {
+  //   if(this.state.loginStatus === 401){
+  //       this.setState({
+  //           quizDescription: "You need to login to complete the quiz!"
+  //       })
+  //   } else {
+  //       this.setState({
+  //           quizDescription: "You haven't completed the quiz yet! click the play button to start!"
+  //       });
+  //         this.fetchQuiz();
+  //     }
+  // }
   // Check to see if user is logged in or not
+  refreshPage = () => {
+    window.location.reload();
+  }
   async checkIfUserIsLoggedIn(){
     // USER IS LOGGED IN
     try {
         const sdk = window.futureproofSdk();
         const userIsLoggedIn = await sdk.auth.session(); 
 
-        
         this.displayUserInformation();
 
-        console.log("USER LOGGED IN", userIsLoggedIn)
+
+        console.log("USER LOGGED IN", userIsLoggedIn);
+
+
         this.setState({         
             displayLoginMessage: "none",
             displayLoginContent: "block",
             loginOrLogout: "Logout",
-            loginHref: "https://wm-educational-pwa-dev.web.app/",
-            userProfileLink: "https://wm-educational-pwa-dev.web.app/profile/",
+            loginHref: "https://dev.wavemakerfutureproof.co.uk/",
+            userProfileLink: " https://dev.wavemakerfutureproof.co.uk/",
 
             buttonHidden: "1",
             buttonCursor: "pointer"
@@ -271,6 +276,7 @@ class App extends React.Component{
 
     } catch (e) {
         console.log("ERROR", e);
+        console.log("USER IS NOT LOGGED IN");
         this.setState({
             loginStatus: e.status,
             loginUrl: e.urlWithRedirect,
@@ -279,7 +285,7 @@ class App extends React.Component{
 
             // REAL ONES 
             loginHref: e.urlWithRedirect,
-            userProfileLink: "https://dev.wavemakerfutureproof.co.uk/login",
+            userProfileLink: e.urlWithRedirect,
 
             // userProfileLink: "https://wm-educational-pwa-dev.web.app/login",
             // loginHref: "https://wm-educational-pwa-dev.web.app/login",
@@ -317,7 +323,9 @@ async displayUserInformation(){
       this.setState({
           userProfilePicture: user.data.profilePicture
       })
-  }, 2000)
+  }, 2000);
+
+  // this.refreshPage();
 
   return user;
 }
