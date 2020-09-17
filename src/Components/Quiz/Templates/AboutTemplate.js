@@ -6,7 +6,7 @@ import waveNumber2 from "../../../Images/SVG/quiz-wave-2.svg";
 class AboutTemplate extends React.Component {
     render(){
         return (
-            <AboutContainer style = {{background: this.props.quizColour, height: this.props.displayAbout}}>
+            <AboutContainer className = "the-magical-about-container" style = {{background: this.props.quizColour, height: this.props.displayAbout}}>
                 <WaveNum1 src = {waveNumber1} alt = {waveNumber1} />
                 <WaveNum2 src = {waveNumber2} alt = {waveNumber2} />
                 <div>

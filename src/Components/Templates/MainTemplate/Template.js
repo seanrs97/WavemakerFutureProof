@@ -36,30 +36,11 @@ class Template extends React.Component {
             isLoggedIn: localStorage.getItem("isLoggedIn") || 0
         }
     }
+
     async componentDidMount(){
-        // SDK Login method
-
-        // this.checkIfUserIsLoggedIn();
-        // this.quizHasNotBeenCompleted();
-
-        let baseURL = 'https://seanrs97.github.io/jsonData/userProfile.json';
-
-        const self = this;
-        // fetch(baseURL).then(response => {
-        //   if(response.ok){
-        //     response.json().then(data => {    
-        //       self.setState({
-        //           nickname: data[0].data.nickname,
-        //           quizzesCompleted: data[0].data.quizzesCompleted,
-        //           profilePicture: data[0].data.profilePicture,
-        //       })
-        //     });
-        //     this.setState({
-        //         status: response.status
-        //     });
-        //   }
-        // });
+        console.log("STATE", this.state);
     }
+
     componentDidUpdate(prevProps, prevState){
         sal({
             once: false
@@ -69,149 +50,165 @@ class Template extends React.Component {
             this.setState({
                 pageQuizId: this.props.quizId
             });   
+            this.checkIfUserIsLoggedIn();
         }
-        // this.checkIfQuizIsComplete();
+    }
+    async checkIfUserIsLoggedIn(){
+        // USER IS LOGGED IN
+        try {
+            const sdk = window.futureproofSdk();
+            const userIsLoggedIn = await sdk.auth.session(); 
+    
+            this.displayUserInformation();
+            this.fetchQuiz();
+    
+            console.log("USER LOGGED IN", userIsLoggedIn);
+    
+            this.setState({         
+                displayLoginMessage: "none",
+                displayLoginContent: "block",
+                loginOrLogout: "Logout",
+                loginHref: "https://dev.wavemakerfutureproof.co.uk/",
+                userProfileLink: " https://dev.wavemakerfutureproof.co.uk/",
+    
+                buttonDisabled: false,
+                buttonHidden: "1",
+                buttonCursor: "pointer"
+            });
+    
+            setTimeout(() => {
+                this.setState({
+                    displayLoggedInAvatar: this.state.userProfilePicture
+                })
+            }, 1000);
+    
+            // if(this.state.quizDescription !== "It doesn't look like this section has a quiz! Sorry about that"){
+            //     this.setState({
+            //         buttonDisabled: false,
+            //         buttonHidden: "1"
+            //     })
+            // } else {
+            //     this.setState({
+            //         buttonDisabled: true,
+            //         buttonHidden: "0.5"
+            //     })
+            // }
+
+            this.setState({
+                userIsLoggedIn: "true"
+            });
+    
+            return userIsLoggedIn;
+    
+        } catch (e) {
+            console.log("ERROR", e);
+            console.log("USER IS NOT LOGGED IN");
+
+            this.disableQuiz();
+            console.log(this.state);
+
+            this.setState({
+                loginStatus: e.status,
+                loginUrl: e.urlWithRedirect,
+                displayLoggedInAvatar: `${userLoggedOut}`,
+                loginOrLogout: "Login",
+    
+                // REAL ONES 
+                loginHref: e.urlWithRedirect,
+                userProfileLink: e.urlWithRedirect,
+    
+                // buttonDisabled: true,
+                // buttonHidden: "0.5",
+                buttonCursor: "auto"
+            });
+            this.setState({
+                userIsLoggedIn: "false"
+            });
+    
+            console.log(this.state.loginStatus);
+        }
     }
 
-    // checkIfQuizIsComplete = () => {
+    async displayUserInformation(){
+        const sdk = window.futureproofSdk();
+        const user = await sdk.user.profile();
 
 
-    //     if(this.state.pageQuizId !== undefined && this.state.pageQuizId !== null){
-    //         let quizId = this.state.pageQuizId;
+        if(user.data.profilePicture.length >= 1){
+            this.setState({
+                userProfilePicture: user.data.profilePicture,
+            })
+        } else {
+            this.setState({
+                userProfilePicture: {userLoggedOut}
+            })  
+        }
+        this.setState({
+            userName: user.data.nickname,
+            quizzesCompleted: [user.data.quizzesCompleted]
+        });
 
-    //         if(this.state.quizzesCompleted.indexOf(quizId) > -1){
-    //             console.log("Quiz has been completed");
-    //             this.setState({
-    //                 quizDescription: "Well done, the quiz is complete!"
-    //             })
-    //         } else {
-    //             console.log("QUIZ HAS NOT BEEN COMPLETED")
-    //         }
-    //     }
-    // }
-    // async fetchQuiz(){
-    //     try {
-    //         const sdk = window.futureproofSdk();
-    //         const quiz = await sdk.quizzes.get("6rmJrdxlWl54wvS5KkVc"); 
-    
-    //         console.log("QUIZ", quiz);
-    
-    //         return quiz;
-    //     } catch (e){
-    //         // this.setState({
-    //         //     quizDescription: "It doesn't look like this section has a quiz! Sorry about that",
-    //         //     buttonDisabled: true,
-    //         //     buttonHidden: "0.5"
-    //         // })
-    //     }
-    // }
-    // quizHasNotBeenCompleted = () => {
-    //     if(this.state.loginStatus === 401){
-    //         this.setState({
-    //             quizDescription: "You need to login to complete the quiz!"
-    //         })
-    //     } else {
-    //         this.setState({
-    //             quizDescription: "You haven't completed the quiz yet! click the play button to start!"
-    //         });
-    //         this.fetchQuiz();
-    //     }
-    // }
+        // HARDCODED DATA 
+        // let hardcodedQuizId = "xa00pio61tyc";
+        // this.setState({
+        //     quizzesCompleted: [hardcodedQuizId]
+        // });
+        setTimeout(() => {
+            this.setState({
+                userProfilePicture: user.data.profilePicture
+            })
+        }, 2000);
 
-    // Check to see if user is logged in or not
-    // async checkIfUserIsLoggedIn(){
-    //     // USER IS LOGGED IN
-    //     try {
-    //         const sdk = window.futureproofSdk();
-    //         const userIsLoggedIn = await sdk.auth.session(); 
+        console.log("USER INFORMATION", user);
+        console.log("quizzes available", this.state.quizzesCompleted);
 
-            
-    //         this.displayUserInformation();
+        return user;
+    }
+    async fetchQuiz(){
+        try {
+            const sdk = window.futureproofSdk();
+            const quiz = await sdk.quizzes.get("UT6AWAtNWf6HUpjGJjeS"); 
 
-    //         console.log("USER LOGGEDIN", userIsLoggedIn)
-    //         this.setState({
-    //             displayLoginMessage: "none",
-    //             displayLoginContent: "block",
-    //             loginOrLogout: "Logout",
-    //             loginHref: "https://wm-educational-pwa-dev.web.app/",
-    //             userProfileLink: "https://wm-educational-pwa-dev.web.app/profile/",
+            // this.setState({
+            //     quiz: quiz
+            // });
 
-    //             buttonHidden: "1",
-    //             buttonCursor: "pointer"
-    //         });
+            this.setState({
+                quiz: quiz,
+                quizId: quiz.data.id,
+                quizName: quiz.data.name,
+                quizQuestions: quiz.data.questions,
+            });
 
-    //         setTimeout(() => {
-    //             this.setState({
-    //                 displayLoggedInAvatar: this.state.userProfilePicture
-    //             })
-    //         }, 1000);
+            if(this.state.quizzesCompleted.includes(this.state.quizId)){
+                this.setState({
+                    quizDescription: "Well done, it looks like you've completed the quiz!",
+                });
+            } else {
+                this.setState({
+                    quizDescription: "You haven't completed the quiz yet! press the start button to start button to begin!",
+                })
+            }
 
-    //         if(this.state.quizDescription !== "It doesn't look like this section has a quiz! Sorry about that"){
-    //             this.setState({
-    //                 buttonDisabled: false,
-    //                 buttonHidden: "1"
-    //             })
-    //         } else {
-    //             this.setState({
-    //                 buttonDisabled: true,
-    //                 buttonHidden: "0.5"
-    //             })
-    //         }
+            // console.log("Quiz is available")
 
-    //         return userIsLoggedIn;
+            return quiz;
+        } catch (e){
 
-    //     } catch (e) {
-    //         console.log("ERROR", e);
-    //         this.setState({
-    //             loginStatus: e.status,
-    //             loginUrl: e.urlWithRedirect,
-    //             displayLoggedInAvatar: `${userLoggedOut}`,
-    //             loginOrLogout: "Login",
-
-    //             // REAL ONES 
-    //             loginHref: "https://dev.wavemakerfutureproof.co.uk/login",
-    //             userProfileLink: "https://dev.wavemakerfutureproof.co.uk/login",
-
-    //             // userProfileLink: "https://wm-educational-pwa-dev.web.app/login",
-    //             // loginHref: "https://wm-educational-pwa-dev.web.app/login",
-    //             buttonDisabled: true,
-    //             buttonHidden: "0.5",
-    //             buttonCursor: "cursor"
-    //         });
-            
-    //         this.setState({
-    //             buttonDisabled: false,
-    //             buttonHidden: "1"
-    //         })
-
-    //         console.log(this.state.loginStatus);
-    //     }
-    // }
-    // async displayUserInformation(){
-    //     const sdk = window.futureproofSdk();
-    //     const user = await sdk.user.profile();
-
-    //     if(user.data.profilePicture.length >= 1){
-    //         this.setState({
-    //             userProfilePicture: user.data.profilePicture,
-    //         })
-    //     } else {
-    //         this.setState({
-    //             userProfilePicture: {userLoggedOut}
-    //         })  
-    //     }
-    //     this.setState({
-    //         userName: user.data.nickname,
-    //         quizzesCompleted: user.data.quizzesCompleted
-    //     });
-    //     setTimeout(() => {
-    //         this.setState({
-    //             userProfilePicture: user.data.profilePicture
-    //         })
-    //     }, 2000)
-
-    //     return user;
-    // }
+            // this.setState({
+            //     quizDescription: "It doesn't look like this section has a quiz! Sorry about that",
+            //     buttonDisabled: true,
+            //     buttonHidden: "0.5"
+            // });
+            console.log("ERROR! quiz not available");
+        }
+    }
+    disableQuiz = () => {
+        this.setState({
+            buttonHidden: "0.5",
+            buttonDisabled: true
+        });
+    }
     render(){
         return (
             <div className = "main_container" style = {{display: this.state.is404PagePresent}}>
@@ -234,6 +231,7 @@ class Template extends React.Component {
                 <Why {...this.props} />
                 <How {...this.props} />
                 <Quiz 
+                    topicQuiz = {this.state.quiz}
                     onFinished = {this.handleFinish} 
                     style = {{overflowY: "scroll"}} 
                     // quiz = {this.props.quiz} 

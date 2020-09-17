@@ -74,73 +74,84 @@ class Quiz extends React.Component {
         }
         this.interval = null
     }
-    async componentDidMount(){
-        const quizData = await (await (fetch("/quiz-web.json"))).json();
-        // Check if quiz exists
-        if(quizData.status === 200){
-            this.setState({
-                quizData: quizData.data,
-                questions: quizData.data.questions,
-                quizId: quizData.data.id
-            });
-            if(this.state.currentQuestionIndex !== 0){
+    async componentDidUpdate(prevProps){
+        if(prevProps.topicQuiz !== this.props.topicQuiz){
+
+            const quizData = this.props.topicQuiz;
+
+             // Check if quiz exists
+            if(quizData.status === 200){
                 this.setState({
-                    currentQuestionIndex: 0,
-                    score: 0
+                    quizData: quizData.data,
+                    questions: quizData.data.questions,
+                    quizId: quizData.data.id
                 });
-                showOptions(".option");
-            }
-            displayQuestions(
-                this.state.questions,
-                this.state.currentQuestion,
-                this.state.nextQuestion,
-                this.state.previousQuestion,
-                this
-            )
-            if(this.state.isSummaryDisplayed !== "dissapear .6s linear forwards"){
-                this.setState({
-                    isSummaryDisplayed: "dissapear .6s linear forwards"
-                })
+                if(this.state.currentQuestionIndex !== 0){
+                    this.setState({
+                        currentQuestionIndex: 0,
+                        score: 0
+                    });
+                    showOptions(".option");
+                }
+                displayQuestions(
+                    this.state.questions,
+                    this.state.currentQuestion,
+                    this.state.nextQuestion,
+                    this.state.previousQuestion,
+                    this
+                )
+                if(this.state.isSummaryDisplayed !== "dissapear .6s linear forwards"){
+                    this.setState({
+                        isSummaryDisplayed: "dissapear .6s linear forwards"
+                    })
+                } else {
+                    // this.setState({
+                    //     entireQuizVisibility: "none"
+                    // });
+                }
             } else {
+                console.log("QUIZ DOES NOT EXIST");
                 this.setState({
                     entireQuizVisibility: "none"
                 });
             }
-        } else {
-            console.log("QUIZ DOES NOT EXIST");
-            this.setState({
-                entireQuizVisibility: "none"
-            })
-        }         
-
-        setTimeout(() => {
-            this.setState({
-                isSummaryDisplayed: "visible"
-            })
-        }, 2200);
+    
+            // setTimeout(() => {
+            //     this.setState({
+            //         isSummaryDisplayed: "visible"
+            //     })
+            // }, 2200);
+        }
     }
     componentWillUnmount(){
         clearInterval(this.interval);
     }
     openAbout = () => {
-        let quizScaleSize;
-        if(window.innerWidth < 580){
-            quizScaleSize = "100%"
-        } else if(window.innerWidth >= 580 && window.innerWidth <= 1400) {
-            quizScaleSize = "94%"
-        }else {
-            quizScaleSize = "88%"
-        }
+        console.log("QUIZ STARTED");
         this.setState({
-            showSummary: "dissapear .6s linear forwards",
+            displayAbout: "100%",
+            quizScale: "100%"
         });
-        setTimeout(() => {
-            this.setState({
-                isSummaryDisplayed: "hidden",
-                quizScale: quizScaleSize,
-                displayAbout: "100%",
-            })
-        }, 500)
+
+
+        // let quizScaleSize;
+        // if(window.innerWidth < 580){
+        //     quizScaleSize = "100%"
+        // } else if(window.innerWidth >= 580 && window.innerWidth <= 1400) {
+        //     quizScaleSize = "94%"
+        // }else {
+        //     quizScaleSize = "88%"
+        // }
+        // this.setState({
+        //     showSummary: "dissapear .6s linear forwards",
+        // });
+        // setTimeout(() => {
+        //     this.setState({
+        //         isSummaryDisplayed: "hidden",
+        //         quizScale: quizScaleSize,
+        //         displayAbout: "100%",
+        //     });
+        // }, 500);
     }
     startQuiz = () => {
         setTimeout(() => {
@@ -151,7 +162,9 @@ class Quiz extends React.Component {
 
                 overlayVisibility: "visible",
                 overlayOpacity: 0.7,
-                displayAbout: "0%"
+                displayAbout: "0%",
+                
+                isSummaryDisplayed: "hidden"
             }); 
         }, 800);
         showTargetElement(this);
@@ -344,7 +357,7 @@ class Quiz extends React.Component {
                     quizColour = {this.props.quizColour}
                     quizDescription = {this.props.quizDescription}
                 />
-                <ContentWrapper onScroll = {this.handleScroll} style = {{animation: this.state.doesQuizExist, display:this.state.entireQuizVisibility}}>
+                <ContentWrapper className = "content-wrapper" onScroll = {this.handleScroll} style = {{animation: this.state.doesQuizExist, display:this.state.entireQuizVisibility}}>
                     <QuizAndSummaryContainer id = "quizAndSummary" style = {{height: this.state.quizScale}}>
                         <AboutTemplate
                             quizColour = {this.props.quizColour}

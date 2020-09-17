@@ -51,7 +51,7 @@ class App extends React.Component{
   }
   async componentDidMount(){
     // USER LOGIN STUFF
-    this.checkIfUserIsLoggedIn();
+    // this.checkIfUserIsLoggedIn();
     // this.checkIfUserIsLoggedIn();
     // this.quizHasNotBeenCompleted();
 
@@ -228,107 +228,105 @@ class App extends React.Component{
   //     }
   // }
   // Check to see if user is logged in or not
-  refreshPage = () => {
-    window.location.reload();
-  }
-  async checkIfUserIsLoggedIn(){
-    // USER IS LOGGED IN
-    try {
-        const sdk = window.futureproofSdk();
-        const userIsLoggedIn = await sdk.auth.session(); 
-
-        this.displayUserInformation();
+//   async checkIfUserIsLoggedIn(){
+//     // USER IS LOGGED IN
+//     try {
+//         const sdk = window.futureproofSdk();
+//         const userIsLoggedIn = await sdk.auth.session(); 
 
 
-        console.log("USER LOGGED IN", userIsLoggedIn);
+//         this.displayUserInformation();
 
 
-        this.setState({         
-            displayLoginMessage: "none",
-            displayLoginContent: "block",
-            loginOrLogout: "Logout",
-            loginHref: "https://dev.wavemakerfutureproof.co.uk/",
-            userProfileLink: " https://dev.wavemakerfutureproof.co.uk/",
+//         console.log("USER LOGGED IN", userIsLoggedIn);
 
-            buttonHidden: "1",
-            buttonCursor: "pointer"
-        });
 
-        setTimeout(() => {
-            this.setState({
-                displayLoggedInAvatar: this.state.userProfilePicture
-            })
-        }, 1000);
+//         this.setState({         
+//             displayLoginMessage: "none",
+//             displayLoginContent: "block",
+//             loginOrLogout: "Logout",
+//             loginHref: "https://dev.wavemakerfutureproof.co.uk/",
+//             userProfileLink: " https://dev.wavemakerfutureproof.co.uk/",
 
-        if(this.state.quizDescription !== "It doesn't look like this section has a quiz! Sorry about that"){
-            this.setState({
-                buttonDisabled: false,
-                buttonHidden: "1"
-            })
-        } else {
-            this.setState({
-                buttonDisabled: true,
-                buttonHidden: "0.5"
-            })
-        }
+//             buttonHidden: "1",
+//             buttonCursor: "pointer"
+//         });
 
-        return userIsLoggedIn;
+//         setTimeout(() => {
+//             this.setState({
+//                 displayLoggedInAvatar: this.state.userProfilePicture
+//             })
+//         }, 1000);
 
-    } catch (e) {
-        console.log("ERROR", e);
-        console.log("USER IS NOT LOGGED IN");
-        this.setState({
-            loginStatus: e.status,
-            loginUrl: e.urlWithRedirect,
-            displayLoggedInAvatar: `${userLoggedOut}`,
-            loginOrLogout: "Login",
+//         if(this.state.quizDescription !== "It doesn't look like this section has a quiz! Sorry about that"){
+//             this.setState({
+//                 buttonDisabled: false,
+//                 buttonHidden: "1"
+//             })
+//         } else {
+//             this.setState({
+//                 buttonDisabled: true,
+//                 buttonHidden: "0.5"
+//             })
+//         }
 
-            // REAL ONES 
-            loginHref: e.urlWithRedirect,
-            userProfileLink: e.urlWithRedirect,
+//         return userIsLoggedIn;
 
-            // userProfileLink: "https://wm-educational-pwa-dev.web.app/login",
-            // loginHref: "https://wm-educational-pwa-dev.web.app/login",
-            buttonDisabled: true,
-            buttonHidden: "0.5",
-            buttonCursor: "auto"
-        });
+//     } catch (e) {
+//         console.log("ERROR", e);
+//         console.log("USER IS NOT LOGGED IN");
+//         this.setState({
+//             loginStatus: e.status,
+//             loginUrl: e.urlWithRedirect,
+//             displayLoggedInAvatar: `${userLoggedOut}`,
+//             loginOrLogout: "Login",
+
+//             // REAL ONES 
+//             loginHref: e.urlWithRedirect,
+//             userProfileLink: e.urlWithRedirect,
+
+//             // userProfileLink: "https://wm-educational-pwa-dev.web.app/login",
+//             // loginHref: "https://wm-educational-pwa-dev.web.app/login",
+//             buttonDisabled: true,
+//             buttonHidden: "0.5",
+//             buttonCursor: "auto"
+//         });
         
-        this.setState({
-            buttonDisabled: false,
-            buttonHidden: "1"
-        })
+//         this.setState({
+//             buttonDisabled: false,
+//             buttonHidden: "1"
+//         })
 
-        console.log(this.state.loginStatus);
-    }
-}
-async displayUserInformation(){
-  const sdk = window.futureproofSdk();
-  const user = await sdk.user.profile();
+//         console.log(this.state.loginStatus);
+//     }
+// }
+// async displayUserInformation(){
+//   const sdk = window.futureproofSdk();
+//   const user = await sdk.user.profile();
 
-  if(user.data.profilePicture.length >= 1){
-      this.setState({
-          userProfilePicture: user.data.profilePicture,
-      })
-  } else {
-      this.setState({
-          userProfilePicture: {userLoggedOut}
-      })  
-  }
-  this.setState({
-      userName: user.data.nickname,
-      quizzesCompleted: user.data.quizzesCompleted
-  });
-  setTimeout(() => {
-      this.setState({
-          userProfilePicture: user.data.profilePicture
-      })
-  }, 2000);
+//   if(user.data.profilePicture.length >= 1){
+//       this.setState({
+//           userProfilePicture: user.data.profilePicture,
+//       })
+//   } else {
+//       this.setState({
+//           userProfilePicture: {userLoggedOut}
+//       })  
+//   }
+//   this.setState({
+//       userName: user.data.nickname,
+//       quizzesCompleted: user.data.quizzesCompleted
+//   });
+//   setTimeout(() => {
+//       this.setState({
+//           userProfilePicture: user.data.profilePicture
+//       })
+//   }, 2000);
 
-  // this.refreshPage();
+//   // this.refreshPage();
 
-  return user;
-}
+//   return user;
+// }
   render(){
     return(
       <div className="App">
