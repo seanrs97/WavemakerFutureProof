@@ -189,17 +189,13 @@ class Template extends React.Component {
                     quizDescription: "You haven't completed the quiz yet! press the start button to start button to begin!",
                 })
             }
-
-            // console.log("Quiz is available")
-
             return quiz;
         } catch (e){
-
-            // this.setState({
-            //     quizDescription: "It doesn't look like this section has a quiz! Sorry about that",
-            //     buttonDisabled: true,
-            //     buttonHidden: "0.5"
-            // });
+            this.setState({
+                quizDescription: "It doesn't look like this section has a quiz! Sorry about that",
+                buttonDisabled: true,
+                buttonHidden: "0.5"
+            });
             console.log("ERROR! quiz not available");
         }
     }

@@ -39,7 +39,7 @@ export const startTimer = (component) => {
                     seconds: 0
                 }
             }, () => {
-                component.end();
+                // component.end();
             });
         } else {
             component.setState({
@@ -90,6 +90,46 @@ export const startGame = (component) => {
             numberOfQuestions: questions.length,
             answer:  answer
         });
+    }
+}
+
+// submitQuiz = () => {
+//     // SEND THIS TO BACKEND TO BE CHECKED 
+//     console.log("answered questions", this.state.answeredQuestions);
+
+//     fetch("http://backendServer/api/quiz/answers", {
+//         method: "POST",
+//         headers: {
+//             "Content-type": "application/json"
+//         },
+//         body: JSON.stringify(this.state.answeredQuestions)
+//         .then((result) => {
+//             if(result.json().wonQuiz === true){
+//                 this.setState({
+//                     quizWon: true
+//                 })
+//             } else {
+//                 this.setState({
+//                     quizWon: false
+//                 });
+//             }
+//         })
+//     })
+// }
+export const submitQuiz = async (component) => {
+    const {state} = component;
+
+    // console.log(component.state.answeredQuestions);
+
+    try {
+        const sdk = window.futureproofSdk();
+        const submit = await sdk.quizzes.submit(component.state.quizId, component.state.answeredQuestions);
+
+        console.log(submit);
+
+        return submit;
+    } catch (e) {
+        console.log("ERROR", e);
     }
 }
 export const end  = (component) => {

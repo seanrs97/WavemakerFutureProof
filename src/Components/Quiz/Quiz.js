@@ -15,7 +15,7 @@ import {ContentWrapper, QuizAndSummaryContainer, QuizContainer, DialogContainer,
 
 // METHODS
 import {showOptions, showTargetElement, hideTargetElement, startTimer, displayQuestions,
-        startGame, end} from "./QuizMethods.js";
+        startGame, end, submitQuiz} from "./QuizMethods.js";
 import HomeTemplate from "./Templates/HomeTemplate.js";
 import AboutTemplate from "./Templates/AboutTemplate.js";
 import QuizFeatures from "./Templates/QuizFeatures.js";
@@ -73,6 +73,9 @@ class Quiz extends React.Component {
              isSummaryDisplayed: "hidden"
         }
         this.interval = null
+    }
+    submitQuiz = () => {
+
     }
     async componentDidUpdate(prevProps){
         if(prevProps.topicQuiz !== this.props.topicQuiz){
@@ -218,7 +221,8 @@ class Quiz extends React.Component {
                     this.setState({
                         questionDisplay: "translateX(900%)"
                     });
-                    end(this);
+                    // end(this);
+                    submitQuiz(this);
                 } else {
                     displayQuestions(
                         this.state.questions,
@@ -279,7 +283,7 @@ class Quiz extends React.Component {
                         seconds: 0
                     }
                 }, () => {
-                    end(this);
+                    // end(this);
                 });
             } else {
                 this.setState({
