@@ -8,6 +8,7 @@
 // To find any styles, check the Styled components at the bottom of the page
 
 import React from "react";
+import styled from "styled-components";
 
 // STYLESHEET 
 import {ContentWrapper, QuizAndSummaryContainer, QuizContainer, DialogContainer, 
@@ -15,7 +16,8 @@ import {ContentWrapper, QuizAndSummaryContainer, QuizContainer, DialogContainer,
 
 // METHODS
 import {showOptions, showTargetElement, hideTargetElement, startTimer, displayQuestions,
-        startGame, end, submitQuiz} from "./QuizMethods.js";
+        startGame, end, submitQuiz, getBadge, quizBadgeWon, submitBadge} from "./QuizMethods.js";
+
 import HomeTemplate from "./Templates/HomeTemplate.js";
 import AboutTemplate from "./Templates/AboutTemplate.js";
 import QuizFeatures from "./Templates/QuizFeatures.js";
@@ -70,17 +72,19 @@ class Quiz extends React.Component {
 
 
              entireQuizVisibility: "",
-             isSummaryDisplayed: "hidden"
+             isSummaryDisplayed: "hidden",
+
+             quizBadgeShowHeight: "scaleY(0)",
+             quizBadgeShowVisibility: "hidden"
         }
         this.interval = null
-    }
-    submitQuiz = () => {
-
     }
     async componentDidUpdate(prevProps){
         if(prevProps.topicQuiz !== this.props.topicQuiz){
 
             const quizData = this.props.topicQuiz;
+
+            console.log("THE QUIZ", this.props.topicQuiz);
 
              // Check if quiz exists
             if(quizData.status === 200){
@@ -126,6 +130,12 @@ class Quiz extends React.Component {
             // }, 2200);
         }
     }
+    componentDidMount = () => {
+       getBadge(this, "7lBmXyuXcmXXiL0BDaeP");
+       this.setState({
+           badgeId: "7lBmXyuXcmXXiL0BDaeP"
+       })
+    }
     componentWillUnmount(){
         clearInterval(this.interval);
     }
@@ -156,6 +166,44 @@ class Quiz extends React.Component {
         //     });
         // }, 500);
     }
+    startTimer = () => {
+        const countdownTime = Date.now() + 60000;
+        this.interval = setInterval(() => {
+            const now = new Date();
+            const distance = countdownTime - now;
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) /  (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000 );
+            
+            if(seconds <= 15){
+                this.setState({
+                    showTimeMessage: "translateX(0)"
+                });
+                setTimeout(() => {
+                    this.setState({
+                        showTimeMessage: "translateX(-100%)"
+                    })
+                }, 3000);
+            }
+            if(distance < 0){
+                clearInterval(this.interval);
+                this.setState({
+                    time: {
+                        minutes: 0,
+                        seconds: 0
+                    }
+                }, () => {
+                    end(this);
+                }); 
+            } else {
+                this.setState({
+                    time: {
+                        minutes,
+                        seconds
+                    }
+                })
+            }
+        }, 1000);
+    }
     startQuiz = () => {
         setTimeout(() => {
             this.setState({
@@ -172,7 +220,7 @@ class Quiz extends React.Component {
         }, 800);
         showTargetElement(this);
         startGame(this);
-        startTimer(this);
+        this.startTimer();
         if(this.state.currentQuestionIndex !== 0){
             this.resetQuiz();
         }
@@ -200,12 +248,12 @@ class Quiz extends React.Component {
             questionDisplay: "translateX(0)"
 
         });
-        startTimer(this);
+        this.startTimer();
     }
     handleOptionClick = (e) => {
         this.setState({
             questionDisplay: "translateX(350%)",
-            answeredQuestions: [...this.state.answeredQuestions, e.target.innerHTML.toLowerCase()]
+            // answeredQuestions: [...this.state.answeredQuestions, e.target.innerHTML.toLowerCase()]
         });
         setTimeout(() => {
             this.setState({
@@ -221,8 +269,12 @@ class Quiz extends React.Component {
                     this.setState({
                         questionDisplay: "translateX(900%)"
                     });
-                    // end(this);
+                    end(this);
                     submitQuiz(this);
+                    quizBadgeWon(this);
+                    setTimeout(() => {
+                        submitBadge(this);
+                    }, 2000);
                 } else {
                     displayQuestions(
                         this.state.questions,
@@ -236,29 +288,29 @@ class Quiz extends React.Component {
         }, 1000)
     }
     // THIS IS WHERE WE LIKELY SEND THE QUESTIONS BACK TO THE BACKEND
-    submitQuiz = () => {
-        // SEND THIS TO BACKEND TO BE CHECKED 
-        console.log("answered questions", this.state.answeredQuestions);
+    // submitQuiz = () => {
+    //     // SEND THIS TO BACKEND TO BE CHECKED 
+    //     console.log("answered questions", this.state.answeredQuestions);
 
-        fetch("http://backendServer/api/quiz/answers", {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(this.state.answeredQuestions)
-            .then((result) => {
-                if(result.json().wonQuiz === true){
-                    this.setState({
-                        quizWon: true
-                    })
-                } else {
-                    this.setState({
-                        quizWon: false
-                    });
-                }
-            })
-        })
-    }
+    //     fetch("http://backendServer/api/quiz/answers", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-type": "application/json"
+    //         },
+    //         body: JSON.stringify(this.state.answeredQuestions)
+    //         .then((result) => {
+    //             if(result.json().wonQuiz === true){
+    //                 this.setState({
+    //                     quizWon: true
+    //                 })
+    //             } else {
+    //                 this.setState({
+    //                     quizWon: false
+    //                 });
+    //             }
+    //         })
+    //     })
+    // }
     // Used when the user selects 'no' from the dialog menu to resume the quiz
     resumeQuiz = () => {
         this.setState({
@@ -342,6 +394,13 @@ class Quiz extends React.Component {
         });
         hideTargetElement(this);
     }
+    closeBadgeWon = () => {
+        this.setState({
+            quizBadgeShowHeight: "scaleY(1)",
+            quizBadgeShowVisibility: "hidden"
+        });
+    }
+    
     render(){
         const {
             endScore,
@@ -394,7 +453,8 @@ class Quiz extends React.Component {
                             </Container>
                         </div>
                         </QuizContainer>
-                        <SummaryContainer style = {{animation: this.state.showSummary, visibility: this.state.isSummaryDisplayed}}>
+                        {/* visibility: this.state.isSummaryDisplayed */}
+                        <SummaryContainer style = {{animation: this.state.showSummary,  visibility: this.state.isSummaryDisplayed}}>
                             <Summary
                                 quizColour = {this.props.quizColour}
                                 score = {endScore}
@@ -407,6 +467,16 @@ class Quiz extends React.Component {
 
                                 style = {{background: this.props.quizColour}}
                             />
+                            <BadgeUnlocked style = {{visibility: this.state.quizBadgeShowVisibility, transform: this.state.quizBadgeShowHeight, zIndex: "99999999999"}}>
+                                <div className = "content-container">
+                                    <img src = {this.state.badgeUrl} alt = {this.state.badgeUrl} />
+                                    <div className = "text-container">
+                                        <h3> Congratulations, you have unlocked the badge </h3>
+                                        <p> {this.state.badgeName} </p>
+                                        <button onClick = {this.closeBadgeWon}> Okay </button>
+                                    </div>
+                                </div>
+                            </BadgeUnlocked>
                         </SummaryContainer>
                     </QuizAndSummaryContainer>
                 </ContentWrapper>
@@ -414,4 +484,72 @@ class Quiz extends React.Component {
         )
     }
 }
+
+const BadgeUnlocked = styled.div`
+    height: 50%;
+    width: 50%;
+    margin: 0 auto;
+    position: absolute;
+    left: 25%;
+    top: 0%;
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+
+    @media only screen and (max-width: 1150px) and (min-width: 700px){
+        width: 75%;
+    }
+    @media only screen and (max-width: 700px){
+        width: 85%;
+    }
+    img{
+        height: 50%;
+        width: 50%;
+        display: block;
+        margin: 0 auto;
+    }
+    .content-container{
+        background: white;
+        transform: translateY(10%);
+        padding: 40px;
+        border-radius: 20px;
+        border: 2px solid #abb8c5;
+        transition: .6s linear;
+
+        @media only screen and (max-width: 1150px) and (min-width: 700px){
+            transform: translateX(-15%) translateY(20%);
+        }
+        @media only screen and (max-width: 700px){
+            transform: translateX(-20.5%) translateY(25%);
+        }
+    }
+    .text-container{
+        text-align: center;
+        h3{
+            font-weight: 800;
+            font-size: 2em;
+            color: #33cdff;
+        }
+        p{
+            font-size: 2em;
+            font-style: italic;
+            font-weight: 800;
+            color: #bcbcbc;
+        }
+        button{ 
+            background: #33cdff;
+            border: none;
+            border-radius: 10px;
+            padding: 20px 40px;
+            font-size: 2em;
+            color: white;
+            font-weight: 600;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+    }
+`
 export default Quiz;

@@ -13,44 +13,6 @@ export const showTargetElement = (component) => {
 export const hideTargetElement = (component) => {
     enableBodyScroll(component.targetElement);
 };
-export const startTimer = (component) => {
-    const countdownTime = Date.now() + 60000;
-    component.interval = setInterval(() => {
-        const now = new Date();
-        const distance = countdownTime - now;
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) /  (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000 );
-        
-        if(seconds <= 15){
-            component.setState({
-                showTimeMessage: "translateX(0)"
-            });
-            setTimeout(() => {
-                component.setState({
-                    showTimeMessage: "translateX(-100%)"
-                })
-            }, 3000);
-        }
-        if(distance < 0){
-            clearInterval(component.interval);
-            component.setState({
-                time: {
-                    minutes: 0,
-                    seconds: 0
-                }
-            }, () => {
-                // component.end();
-            });
-        } else {
-            component.setState({
-                time: {
-                    minutes,
-                    seconds
-                }
-            })
-        }
-    }, 1000);
-}
 export const displayQuestions = (questions, currentQuestion, nextQuestion, previousQuestion, component) => {
     let { currentQuestionIndex } = component.state;
 
@@ -116,6 +78,61 @@ export const startGame = (component) => {
 //         })
 //     })
 // }
+
+export const getBadge = async (component, id) => {
+    const {state} = component;
+
+    try {
+        const sdk = window.futureproofSdk();
+    
+        const getBadge = await sdk.badges.get(id);
+
+        component.setState({
+            badgeUrl: getBadge.data.imgUrl,
+            badgeName: getBadge.data.name
+        });
+
+        console.log(component.state);
+        return getBadge;
+    } catch (e) {
+        console.log("ERROR FETCHING BADGE", e);
+    }
+}
+
+export const quizBadgeWon = (component) => {
+
+    console.log("LOOKY HERE", component.state);
+
+    component.setState({
+        isSummaryDisplayed: "visible",
+        showSummary: "appear .6s linear forwards",
+    });
+    
+    setTimeout(() => {
+        component.setState({
+            quizBadgeShowHeight: "scaleY(1)",
+            quizBadgeShowVisibility: "visible"
+        });
+    }, 2000)
+}
+export const closeBadgeWon = (component) => {
+    component.setState({
+        quizBadgeShowHeight: "scaleY(0)",
+        quizBadgeShowVisibility: "hidden"
+    });
+}
+export const submitBadge = async (component) => {
+    try {
+        const sdk = window.futureproofSdk();
+        const submitBadge = await sdk.badges.submit(component.state.badgeId);
+
+        console.log(submitBadge);
+
+        return submitBadge
+    } catch (e) {
+        console.log("ERROR SUBMITTING BADGE", e);
+    }
+}
 export const submitQuiz = async (component) => {
     const {state} = component;
 
@@ -125,24 +142,25 @@ export const submitQuiz = async (component) => {
         const sdk = window.futureproofSdk();
         const submit = await sdk.quizzes.submit(component.state.quizId, component.state.answeredQuestions);
 
-        console.log(submit);
+        console.log("SUBMIT COMPLETE", submit);
 
         return submit;
     } catch (e) {
-        console.log("ERROR", e);
+        console.log("ERROR SUBMITTING QUIZ", e);
     }
 }
+
 export const end  = (component) => {
-    const { state } = component;
+
     let playerResult = "failed";
     let successMessage = "Please try again!";
 
     console.log("answered questions", component.state.answeredQuestions);
 
     const playerStats = {
-        score: state.score,
-        numberOfQuestions: state.numberOfQuestions,
-        numberOfAnsweredQuestions: state.numberOfAnsweredQuestions,
+        score: component.state.score,
+        numberOfQuestions: component.state.numberOfQuestions,
+        numberOfAnsweredQuestions: component.state.numberOfAnsweredQuestions,
     };
 
     if(playerStats.score === playerStats.numberOfQuestions){
