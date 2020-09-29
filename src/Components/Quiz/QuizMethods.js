@@ -101,8 +101,6 @@ export const getBadge = async (component, id) => {
 
 export const quizBadgeWon = (component) => {
 
-    console.log("LOOKY HERE", component.state);
-
     component.setState({
         isSummaryDisplayed: "visible",
         showSummary: "appear .6s linear forwards",
@@ -126,8 +124,6 @@ export const submitBadge = async (component) => {
         const sdk = window.futureproofSdk();
         const submitBadge = await sdk.badges.submit(component.state.badgeId);
 
-        console.log(submitBadge);
-
         return submitBadge
     } catch (e) {
         console.log("ERROR SUBMITTING BADGE", e);
@@ -136,20 +132,36 @@ export const submitBadge = async (component) => {
 export const submitQuiz = async (component) => {
     const {state} = component;
 
-    // console.log(component.state.answeredQuestions);
-
     try {
         const sdk = window.futureproofSdk();
         const submit = await sdk.quizzes.submit(component.state.quizId, component.state.answeredQuestions);
 
-        console.log("SUBMIT COMPLETE", submit);
+        console.log("Points gained", submit.data.points);
+
+        component.setState({
+            quizPoints: submit.data.points
+        });
+
+        setTimeout(() => {
+            const pointsWon = component.state.quizPoints;
+            const numOfQuestions = component.state.questions;
+            const pointsNeededToWin = numOfQuestions * 10;
+
+            console.log("points needed", pointsNeededToWin);
+            console.log("points won", pointsNeededToWin - pointsWon);
+
+            if(pointsNeededToWin - pointsWon === 0){
+                console.log("Congratulations you have passed");
+            } else {
+                console.log("Unlucky better luck next time");
+            }
+        }, 300);
 
         return submit;
     } catch (e) {
         console.log("ERROR SUBMITTING QUIZ", e);
     }
 }
-
 export const end  = (component) => {
 
     let playerResult = "failed";

@@ -62,8 +62,6 @@ class Template extends React.Component {
             this.displayUserInformation();
             this.fetchQuiz();
     
-            console.log("USER LOGGED IN", userIsLoggedIn);
-    
             this.setState({         
                 displayLoginMessage: "none",
                 displayLoginContent: "block",
@@ -159,8 +157,8 @@ class Template extends React.Component {
             })
         }, 2000);
 
-        console.log("USER INFORMATION", user);
-        console.log("quizzes available", this.state.quizzesCompleted);
+        // console.log("USER INFORMATION", user);
+        // console.log("quizzes available", this.state.quizzesCompleted);
 
         return user;
     }
@@ -178,7 +176,17 @@ class Template extends React.Component {
                 quizId: quiz.data.id,
                 quizName: quiz.data.name,
                 quizQuestions: quiz.data.questions,
+                // answerId: quiz.data.questions
             });
+
+            // {!!this.state.quizQuestions && this.state.quizQuestions.map((question) => {
+            //     {!!question.answers && question.answers.map((answer) => {
+            //         console.log("ANSWER", answer.id);
+            //         this.setState({
+            //             quizAnswerIds: answer.id
+            //         })
+            //     })}
+            // })}
 
             if(this.state.quizzesCompleted.includes(this.state.quizId)){
                 this.setState({

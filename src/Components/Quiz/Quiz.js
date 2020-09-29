@@ -84,8 +84,6 @@ class Quiz extends React.Component {
 
             const quizData = this.props.topicQuiz;
 
-            console.log("THE QUIZ", this.props.topicQuiz);
-
              // Check if quiz exists
             if(quizData.status === 200){
                 this.setState({
@@ -93,6 +91,7 @@ class Quiz extends React.Component {
                     questions: quizData.data.questions,
                     quizId: quizData.data.id
                 });
+                console.log("QUESTION LENGTH", this.state.questions.length);
                 if(this.state.currentQuestionIndex !== 0){
                     this.setState({
                         currentQuestionIndex: 0,
@@ -192,7 +191,8 @@ class Quiz extends React.Component {
                         seconds: 0
                     }
                 }, () => {
-                    end(this);
+                    // end(this);
+                    submitQuiz(this);
                 }); 
             } else {
                 this.setState({
@@ -253,7 +253,7 @@ class Quiz extends React.Component {
     handleOptionClick = (e) => {
         this.setState({
             questionDisplay: "translateX(350%)",
-            // answeredQuestions: [...this.state.answeredQuestions, e.target.innerHTML.toLowerCase()]
+            answeredQuestions: [...this.state.answeredQuestions, parseInt(e.target.id)]
         });
         setTimeout(() => {
             this.setState({
@@ -269,9 +269,9 @@ class Quiz extends React.Component {
                     this.setState({
                         questionDisplay: "translateX(900%)"
                     });
-                    end(this);
+                    // end(this);
                     submitQuiz(this);
-                    quizBadgeWon(this);
+                    // quizBadgeWon(this);
                     setTimeout(() => {
                         submitBadge(this);
                     }, 2000);
@@ -336,6 +336,7 @@ class Quiz extends React.Component {
                     }
                 }, () => {
                     // end(this);
+                    submitQuiz(this);
                 });
             } else {
                 this.setState({

@@ -23,7 +23,7 @@ class QuizFeatures extends React.Component {
                     <H5 style = {{transform: this.props.questionDisplay}}> {currentQuestion.text} </H5>
                     <OptionsContainer style = {{transform: this.props.questionDisplay}}>
                         {!!currentQuestion.answers && currentQuestion.answers.map((ans) =>
-                            <button key = {ans.text} style = {{transform: this.props.questionDisplay}} disabled = {!this.props.optionDisabled} className = "option" onClick = {this.props.handleOptionClick}> {ans.text}</button>
+                            <button id = {ans.id} key = {ans.text} style = {{transform: this.props.questionDisplay}} disabled = {!this.props.optionDisabled} className = "option" onClick = {this.props.handleOptionClick}> {ans.text}</button>
                         )}
                     </OptionsContainer>
                     <LifelineContainer style = {{transform: this.props.questionDisplay}}>
