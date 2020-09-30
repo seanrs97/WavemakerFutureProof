@@ -99,20 +99,20 @@ export const getBadge = async (component, id) => {
     }
 }
 
-export const quizBadgeWon = (component) => {
+// export const quizBadgeWon = (component) => {
 
-    component.setState({
-        isSummaryDisplayed: "visible",
-        showSummary: "appear .6s linear forwards",
-    });
+//     component.setState({
+//         isSummaryDisplayed: "visible",
+//         showSummary: "appear .6s linear forwards",
+//     });
     
-    setTimeout(() => {
-        component.setState({
-            quizBadgeShowHeight: "scaleY(1)",
-            quizBadgeShowVisibility: "visible"
-        });
-    }, 2000)
-}
+//     setTimeout(() => {
+//         component.setState({
+//             quizBadgeShowHeight: "scaleY(1)",
+//             quizBadgeShowVisibility: "visible"
+//         });
+//     }, 2000)
+// }
 export const closeBadgeWon = (component) => {
     component.setState({
         quizBadgeShowHeight: "scaleY(0)",
@@ -136,25 +136,82 @@ export const submitQuiz = async (component) => {
         const sdk = window.futureproofSdk();
         const submit = await sdk.quizzes.submit(component.state.quizId, component.state.answeredQuestions);
 
-        console.log("Points gained", submit.data.points);
-
         component.setState({
-            quizPoints: submit.data.points
+            quizPoints: submit.data.points  
         });
 
         setTimeout(() => {
+            // PLAYER STATS
             const pointsWon = component.state.quizPoints;
-            const numOfQuestions = component.state.questions;
+            const numOfQuestions = component.state.questions.length;
             const pointsNeededToWin = numOfQuestions * 10;
 
-            console.log("points needed", pointsNeededToWin);
-            console.log("points won", pointsNeededToWin - pointsWon);
+            console.log("You scored " + submit.data.points)
+            let playerResult = "failed";
+            let successMessage = "Please try again!";
+
+            const playerStats = { numberOfQuestions: component.state.numberOfQuestions };        
 
             if(pointsNeededToWin - pointsWon === 0){
-                console.log("Congratulations you have passed");
+                playerResult = "passed"
+                successMessage = "Well done, you can now move on!"
+                setTimeout(() => {
+                    component.setState({
+                        showConfetti: "block",
+                        quizPassed: true
+                    });
+                }, 400);
+
+                // BADGE
+                // console.log(component.props.doesBadgeExist);
+                if(component.props.doesBadgeExist.includes(component.state.badgeId)){
+                    console.log("Badge has already been awarded to this user")
+                    component.setState({
+                        quizBadgeShowHeight: "scaleY(0)",
+                        quizBadgeShowVisibility: "hidden"
+                    });
+                } else {
+                    console.log("First time user has achieved badge!")
+                    setTimeout(() => {
+                        component.setState({
+                            quizBadgeShowHeight: "scaleY(1)",
+                            quizBadgeShowVisibility: "visible"
+                        });
+                    }, 1200);
+                }
+                component.setState({
+                    isSummaryDisplayed: "visible",
+                    showSummary: "appear .6s linear forwards",
+                });
             } else {
                 console.log("Unlucky better luck next time");
+                component.setState({
+                    quizPassed: false
+                });
             }
+            component.setState({
+                endScore: component.state.quizPoints,
+                endNumOfQuestions: numOfQuestions * 10,
+                endNumOfAnsweredQuestions: playerStats.numberOfAnsweredQuestions,
+                success: playerResult,
+                successMessage: successMessage,
+            });
+
+            component.setState({
+                isSummaryDisplayed: "visible"
+            })
+            component.setState({
+                showQuestions: "none",
+                numberOfAnsweredQuestions: 0,
+                currentQuestionIndex: playerStats.numberOfQuestions - 1,
+                time: {
+                    minutes: 0,
+                    seconds: 0
+                },
+                showSummary: "appear .6s linear forwards",
+                displayQuiz: "translateX(-100%) scale(0)",
+            });
+            clearInterval(component.interval);
         }, 300);
 
         return submit;
@@ -164,58 +221,73 @@ export const submitQuiz = async (component) => {
 }
 export const end  = (component) => {
 
-    let playerResult = "failed";
-    let successMessage = "Please try again!";
+    // let playerResult = "failed";
+    // let successMessage = "Please try again!";
 
-    console.log("answered questions", component.state.answeredQuestions);
+    // console.log("answered questions", component.state.answeredQuestions);
 
-    const playerStats = {
-        score: component.state.score,
-        numberOfQuestions: component.state.numberOfQuestions,
-        numberOfAnsweredQuestions: component.state.numberOfAnsweredQuestions,
-    };
-
-    if(playerStats.score === playerStats.numberOfQuestions){
-        playerResult = "passed"
-        successMessage = "Well done, you can now move on!"
-        setTimeout(() => {
-            component.setState({
-                showConfetti: "block"
-            });
-        }, 800)
-    }
-    component.setState({
-        endScore: playerStats.score,
-        endNumOfQuestions: playerStats.numberOfQuestions,
-        endNumOfAnsweredQuestions: playerStats.numberOfAnsweredQuestions,
-        endNumberOfCorrectAnswers: playerStats.correctAnswers,
-        endNumberOfWrongAnswers: playerStats.wrongAnswers,
-        success: playerResult,
-        successMessage: successMessage,
-
-    });
-    component.setState({
-        isSummaryDisplayed: "visible"
-    })
-    component.setState({
-        showQuestions: "none",
-        numberOfAnsweredQuestions: 0,
-        currentQuestionIndex: playerStats.numberOfQuestions - 1,
-        time: {
-            minutes: 0,
-            seconds: 0
-        },
-        showSummary: "appear .6s linear forwards",
-        displayQuiz: "translateX(-100%) scale(0)",
-    });
-    clearInterval(component.interval);
+    // const playerStats = {
+    //     score: component.state.score,
+    //     numberOfQuestions: component.state.numberOfQuestions,
+    //     numberOfAnsweredQuestions: component.state.numberOfAnsweredQuestions,
+    // };
 
 
-    if(component.state.successMessage === undefined || component.state.successMessage === "passed"){
-        component.setState({
-            unlockContent: "block"
-        })
-    }
+
+
+// NEEEEEED
+
+    // if(playerStats.score === playerStats.numberOfQuestions){
+    //     playerResult = "passed"
+    //     successMessage = "Well done, you can now move on!"
+    //     setTimeout(() => {
+    //         component.setState({
+    //             showConfetti: "block"
+    //         });
+    //     }, 800)
+    // }
+    // component.setState({
+    //     endScore: playerStats.score,
+    //     endNumOfQuestions: playerStats.numberOfQuestions,
+    //     endNumOfAnsweredQuestions: playerStats.numberOfAnsweredQuestions,
+    //     endNumberOfCorrectAnswers: playerStats.correctAnswers,
+    //     endNumberOfWrongAnswers: playerStats.wrongAnswers,
+    //     success: playerResult,
+    //     successMessage: successMessage,
+
+    // });
+
+
+
+
+
+
+
+    // component.setState({
+    //     isSummaryDisplayed: "visible"
+    // })
+    // component.setState({
+    //     showQuestions: "none",
+    //     numberOfAnsweredQuestions: 0,
+    //     currentQuestionIndex: playerStats.numberOfQuestions - 1,
+    //     time: {
+    //         minutes: 0,
+    //         seconds: 0
+    //     },
+    //     showSummary: "appear .6s linear forwards",
+    //     displayQuiz: "translateX(-100%) scale(0)",
+    // });
+    // clearInterval(component.interval);
+
+
+
+    // NEEEEEEEEEEEEEEEEEEEEEEED
+
+    // if(component.state.successMessage === undefined || component.state.successMessage === "passed"){
+    //     component.setState({
+    //         unlockContent: "block"
+    //     })
+    // }
 }
 export const returnHome = (component) => {
     component.setState({

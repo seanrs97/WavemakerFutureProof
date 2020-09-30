@@ -24,7 +24,7 @@ class Summary extends React.Component {
                         <Confetti/>
                     </div>
                     <h1> Summary </h1>
-                    <h2> You scored {this.props.score} out of {this.props.numOfQuestions} </h2>
+                    <h2> You scored {this.props.quizPoints} out of {this.props.numOfQuestions} points </h2>
 
                     <SuccessContainer>
                         <p> You have {this.props.success} </p>

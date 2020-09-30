@@ -75,11 +75,22 @@ class Quiz extends React.Component {
              isSummaryDisplayed: "hidden",
 
              quizBadgeShowHeight: "scaleY(0)",
-             quizBadgeShowVisibility: "hidden"
+             quizBadgeShowVisibility: "hidden",
+             quizPassed: false,
+
+             quizPoints: 0
         }
         this.interval = null
     }
-    async componentDidUpdate(prevProps){
+    async componentDidUpdate(prevProps, prevState){
+
+        if(prevState.quizPassed !== this.state.quizPassed){
+            if(this.state.quizPassed === true){
+                console.log("quiz has been passed, badge submitted");
+                submitBadge(this);
+            }
+        }
+
         if(prevProps.topicQuiz !== this.props.topicQuiz){
 
             const quizData = this.props.topicQuiz;
@@ -91,7 +102,6 @@ class Quiz extends React.Component {
                     questions: quizData.data.questions,
                     quizId: quizData.data.id
                 });
-                console.log("QUESTION LENGTH", this.state.questions.length);
                 if(this.state.currentQuestionIndex !== 0){
                     this.setState({
                         currentQuestionIndex: 0,
@@ -215,7 +225,8 @@ class Quiz extends React.Component {
                 overlayOpacity: 0.7,
                 displayAbout: "0%",
                 
-                isSummaryDisplayed: "hidden"
+                isSummaryDisplayed: "hidden",
+                quizPoints: 0
             }); 
         }, 800);
         showTargetElement(this);
@@ -226,6 +237,7 @@ class Quiz extends React.Component {
         }
     }
     resetQuiz = () => { 
+
         clearInterval(this.interval);
         showOptions(".option");
         this.setState({
@@ -245,10 +257,15 @@ class Quiz extends React.Component {
             isSummaryDisplayed: "visible",
             displayQuiz: "translateX(0) scale(1)",
             showConfetti: "none",
-            questionDisplay: "translateX(0)"
+            questionDisplay: "translateX(0)",
+
+            quizPoints: 0,
+            answeredQuestions: []
 
         });
+
         this.startTimer();
+
     }
     handleOptionClick = (e) => {
         this.setState({
@@ -458,7 +475,7 @@ class Quiz extends React.Component {
                         <SummaryContainer style = {{animation: this.state.showSummary,  visibility: this.state.isSummaryDisplayed}}>
                             <Summary
                                 quizColour = {this.props.quizColour}
-                                score = {endScore}
+                                quizPoints = {this.state.quizPoints}
                                 numOfQuestions = {endNumOfQuestions}
                                 success = {success}
                                 successMessage = {successMessage}

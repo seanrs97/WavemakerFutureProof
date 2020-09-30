@@ -58,13 +58,13 @@ class NavBar extends React.Component{
                 <MenuContainer onClick = {this.handleClickOutside}>
                     <ContentContainer>
                         <NavImgContainer>
-                            <a href = "home.html"><NavImg src = {logo} alt = "wavemaker home page" /></a>
+                            <a href = "https://dev.wavemakerfutureproof.co.uk/"><NavImg src = {logo} alt = "wavemaker home page" /></a>
                         </NavImgContainer>
                         <MenuList>
-                            <a href = "/?navPage=coding"><li> <img src = {BadgeBlue} alt = "coding"/></li></a>
-                            <a href = "/?navPage=essential"><li> <img src = {BadgeRed} alt = "essential skills"/></li></a>
-                            <a href = "/?navPage=design"><li> <img src = {BadgeGreen} alt = "2D and 3D Design"/></li></a>
-                            <a href = "/?navPage=digitalEnt"><li> <img src = {BadgeOrange} alt = "Digital Entertainment"/></li></a>
+                            <a href = "https://dev.wavemakerfutureproof.co.uk/key-areas/BE85aPQIdNe7uG4CselG"><li> <img src = {BadgeBlue} alt = "coding"/></li></a>
+                            <a href = "https://dev.wavemakerfutureproof.co.uk/key-areas/hQeVilbLPC0kzD3wuapp"><li> <img src = {BadgeRed} alt = "essential skills"/></li></a>
+                            <a href = "https://dev.wavemakerfutureproof.co.uk/key-areas/dlI8UlxycfslHM8lOifw"><li> <img src = {BadgeGreen} alt = "2D and 3D Design"/></li></a>
+                            <a href = "https://dev.wavemakerfutureproof.co.uk/key-areas/G8toi227SXQKL5SnLbLJ"><li> <img src = {BadgeOrange} alt = "Digital Entertainment"/></li></a>
                             <a href = {this.props.userProfileLink}><li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li></a>
                         </MenuList>
                             <a className = "loginLink" href = {this.props.loginHref}> {this.props.loginOrLogout} </a>
@@ -81,10 +81,10 @@ class NavBar extends React.Component{
                                 <a className = "loginLinkHamburger" href = {this.props.loginHref}> {this.props.loginOrLogout} </a>
 
                                 <li> <img src = {this.props.showLoggedInImage} alt = "User Profile"/> </li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=coding">Coding & Programming</a></li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=essential"> Essential Digital Skills </a></li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "/?navPage=design"> 3D Design & 2D Design </a></li>
-                                <li onClick = {this.closeMenu} className = "listElementText"><div></div> <a href = "/?navPage=digitalEnt"> Digital Entertainment </a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "https://dev.wavemakerfutureproof.co.uk/key-areas/BE85aPQIdNe7uG4CselG">Coding & Programming</a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "https://dev.wavemakerfutureproof.co.uk/key-areas/hQeVilbLPC0kzD3wuapp"> Essential Digital Skills </a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><div></div><a href = "https://dev.wavemakerfutureproof.co.uk/key-areas/dlI8UlxycfslHM8lOifw"> 2D Design & 3D Design </a></li>
+                                <li onClick = {this.closeMenu} className = "listElementText"><div></div> <a href = "https://dev.wavemakerfutureproof.co.uk/key-areas/G8toi227SXQKL5SnLbLJ"> Digital Entertainment </a></li>
                             </ul>
                         </MenuListText>
                         

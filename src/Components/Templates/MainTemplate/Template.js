@@ -36,11 +36,6 @@ class Template extends React.Component {
             isLoggedIn: localStorage.getItem("isLoggedIn") || 0
         }
     }
-
-    async componentDidMount(){
-        console.log("STATE", this.state);
-    }
-
     componentDidUpdate(prevProps, prevState){
         sal({
             once: false
@@ -51,6 +46,14 @@ class Template extends React.Component {
                 pageQuizId: this.props.quizId
             });   
             this.checkIfUserIsLoggedIn();
+        }
+    }
+    async logUserOut(){
+        try {
+            const sdk = window.futureproofSdk();
+            const logoutUser = await sdk.auth.stopSession(); 
+        } catch (e) {
+            console.log("ERROR LOGGING USER OUT", e);
         }
     }
     async checkIfUserIsLoggedIn(){
@@ -143,33 +146,23 @@ class Template extends React.Component {
         }
         this.setState({
             userName: user.data.nickname,
-            quizzesCompleted: [user.data.quizzesCompleted]
+            quizzesCompleted: [user.data.quizzesCompleted],
+            userBadges: [... user.data.badges]
         });
 
-        // HARDCODED DATA 
-        // let hardcodedQuizId = "xa00pio61tyc";
-        // this.setState({
-        //     quizzesCompleted: [hardcodedQuizId]
-        // });
         setTimeout(() => {
             this.setState({
                 userProfilePicture: user.data.profilePicture
             })
         }, 2000);
 
-        // console.log("USER INFORMATION", user);
-        // console.log("quizzes available", this.state.quizzesCompleted);
 
         return user;
     }
     async fetchQuiz(){
         try {
             const sdk = window.futureproofSdk();
-            const quiz = await sdk.quizzes.get("UT6AWAtNWf6HUpjGJjeS"); 
-
-            // this.setState({
-            //     quiz: quiz
-            // });
+            const quiz = await sdk.quizzes.get(this.props.quizId); 
 
             this.setState({
                 quiz: quiz,
@@ -178,17 +171,9 @@ class Template extends React.Component {
                 quizQuestions: quiz.data.questions,
                 // answerId: quiz.data.questions
             });
-
-            // {!!this.state.quizQuestions && this.state.quizQuestions.map((question) => {
-            //     {!!question.answers && question.answers.map((answer) => {
-            //         console.log("ANSWER", answer.id);
-            //         this.setState({
-            //             quizAnswerIds: answer.id
-            //         })
-            //     })}
-            // })}
-
-            if(this.state.quizzesCompleted.includes(this.state.quizId)){
+            console.log("QUIZID", "'" + this.state.quizId + "'", " PROPS ID", this.props.quizId, " Quizzes complete ",  this.state.quizzesCompleted);
+            if(this.state.quizzesCompleted.includes('"' + this.state.quizId + '"')){
+                // CHECK THIS HERE MATEY
                 this.setState({
                     quizDescription: "Well done, it looks like you've completed the quiz!",
                 });
@@ -245,6 +230,7 @@ class Template extends React.Component {
                     buttonHidden = {this.state.buttonHidden}
                     buttonCursor = {this.state.buttonCursor}
                     quizNotFound = {this.state.quizNotFound}
+                    doesBadgeExist = {this.state.userBadges}
                 />
 
                 <DisplayContent style = {{background: this.props.headerColour, display: this.state.displayLoginMessage}}>
