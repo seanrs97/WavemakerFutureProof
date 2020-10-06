@@ -120,7 +120,8 @@ class Template extends React.Component {
     
                 // buttonDisabled: true,
                 // buttonHidden: "0.5",
-                buttonCursor: "auto"
+                buttonCursor: "auto",
+                quizDescription: "Please login to play the quiz and earn a badge and XP!"
             });
             this.setState({
                 userIsLoggedIn: "false"
@@ -171,16 +172,15 @@ class Template extends React.Component {
                 quizQuestions: quiz.data.questions,
                 // answerId: quiz.data.questions
             });
-            console.log("QUIZID", "'" + this.state.quizId + "'", " PROPS ID", this.props.quizId, " Quizzes complete ",  this.state.quizzesCompleted);
-            if(this.state.quizzesCompleted.includes('"' + this.state.quizId + '"')){
-                // CHECK THIS HERE MATEY
+            
+            if(this.state.quizzesCompleted[0].indexOf(this.state.quizId) >  -1){
                 this.setState({
-                    quizDescription: "Well done, it looks like you've completed the quiz!",
+                    quizDescription: "Well done, it looks like you've completed the quiz! You can play again if you want, but you won't get any more points!",
                 });
             } else {
                 this.setState({
-                    quizDescription: "You haven't completed the quiz yet! press the start button to start button to begin!",
-                })
+                    quizDescription: "You haven't completed the quiz yet! press the start button to begin!",
+                });
             }
             return quiz;
         } catch (e){

@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+import NavBar from "../Components/NavBar/NavBar.js";
+import userLoggedOut from "../Images/userLoggedOut.svg";
+
 import logo from "../Images/logo.svg";
 import BadgeBlue from "../Images/BadgeBlue.svg";
 import BadgeOrange from "../Images/BadgeOrange.svg";
@@ -30,9 +33,104 @@ class Home extends React.Component{
         const random = Math.floor(Math.random() * imagesArray.length);
         this.setState({currentImageIndex: random});
     }
+    async checkIfUserIsLoggedIn(){
+        // USER IS LOGGED IN
+        try {
+            const sdk = window.futureproofSdk();
+            const userIsLoggedIn = await sdk.auth.session(); 
+    
+            this.displayUserInformation();
+            this.fetchQuiz();
+    
+            this.setState({         
+                displayLoginMessage: "none",
+                displayLoginContent: "block",
+                loginOrLogout: "Logout",
+                loginHref: "https://dev.wavemakerfutureproof.co.uk/",
+                userProfileLink: " https://dev.wavemakerfutureproof.co.uk/",
+    
+                buttonDisabled: false,
+                buttonHidden: "1",
+                buttonCursor: "pointer"
+            });
+    
+            setTimeout(() => {
+                this.setState({
+                    displayLoggedInAvatar: this.state.userProfilePicture
+                })
+            }, 1000);
+
+            this.setState({
+                userIsLoggedIn: "true"
+            });
+    
+            return userIsLoggedIn;
+    
+        } catch (e) {
+            console.log("ERROR", e);
+            console.log("USER IS NOT LOGGED IN");
+
+            this.disableQuiz();
+            console.log(this.state);
+
+            this.setState({
+                loginStatus: e.status,
+                loginUrl: e.urlWithRedirect,
+                displayLoggedInAvatar: `${userLoggedOut}`,
+                loginOrLogout: "Login",
+    
+                // REAL ONES 
+                loginHref: e.urlWithRedirect,
+                userProfileLink: e.urlWithRedirect,
+    
+                buttonCursor: "auto",
+                quizDescription: "Please login to play the quiz and earn a badge and XP!"
+            });
+            this.setState({
+                userIsLoggedIn: "false"
+            });
+    
+            console.log(this.state.loginStatus);
+        }
+    }
+    async displayUserInformation(){
+        const sdk = window.futureproofSdk();
+        const user = await sdk.user.profile();
+
+
+        if(user.data.profilePicture.length >= 1){
+            this.setState({
+                userProfilePicture: user.data.profilePicture,
+            })
+        } else {
+            this.setState({
+                userProfilePicture: {userLoggedOut}
+            })  
+        }
+        this.setState({
+            userName: user.data.nickname,
+            quizzesCompleted: [user.data.quizzesCompleted],
+            userBadges: [... user.data.badges]
+        });
+
+        setTimeout(() => {
+            this.setState({
+                userProfilePicture: user.data.profilePicture
+            })
+        }, 2000);
+
+
+        return user;
+    }
     render(){
         return (
             <Container>
+                <NavBar
+                    showLoggedInImage = {this.state.displayLoggedInAvatar}
+                    loginOrLogout = {this.state.loginOrLogout}
+                    loginHref = {this.state.loginHref}
+                    userProfileLink = {this.state.userProfileLink}
+                />
                 <IntroContainer>
                     <LogoImage src = {logo} alt = {logo} />
                     <MeaningContainer>
@@ -69,6 +167,7 @@ const Container = styled.div`
     width: 100%;
     margin: 0 auto;
     color: #414042;
+    z-index: 150;
     img{
         margin-top: 20px;
     }

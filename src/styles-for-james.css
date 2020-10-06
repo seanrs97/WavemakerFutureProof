@@ -1,0 +1,556 @@
+/* HEADER STYLES */
+
+.headerImage{
+    overflow: hidden;
+    color: white;
+    position: relative;
+    height: 80vh;
+    @media only screen and (min-width: 2000px){
+        height: 90vh;
+    }
+    background: "(background image that is provided)";
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    @media only screen and (max-width: 760px){
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    @media only screen and (max-width: 500px){
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+}
+.imageTextContainer{
+    text-shadow: 5px 5px 5px #545454;
+    animation: slideIn 2s ease-in-out;
+    color: white;
+    width: 90%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    bottom: 0;
+    
+    @media only screen and (min-width: 2000px){
+        width: 70%;
+    }
+    @media only screen and (min-width: 1700px) and (max-width: 2000px){
+        width: 78%;
+    }
+    @media only screen and (min-width: 1280px) and (max-width: 1700px){
+        width: 78%;
+    }
+    h1{
+        font-size: 3.4em;
+        text-transform: uppercase;
+        line-height: 1em;
+        margin-left: -1px;
+        font-size: 4em;
+        color: white;
+    }
+    p {
+        color: white;
+        font-weight: 400;
+        line-height: 1.3em;
+    }
+    @media only screen and (min-width: 2500px){
+        h1{
+            font-size: 9em !important;
+        }
+        p{
+            font-size: 3em !important;
+        }
+    }
+    @media only screen and (min-width: 1400px){
+        h1{
+            font-size: 6em;
+        }
+        p{
+            font-size: 1.6em;
+        }
+    }
+    @media only screen and (max-width: 760px){
+        width: 90%;
+    }
+    @media only screen and (max-width: 500px){
+        width: 80%;
+        animation: slideInMobile 2s ease-in-out;
+        h1{
+            font-size: 2.6em;
+        }
+        p{
+            font-size: 1.05em;
+        }
+    }
+
+
+    @keyframes slideIn{
+        0%{
+            left: -170%;
+        }
+        65%{
+            left: 80%;
+        }
+        100%{
+            left: 50%;
+        }
+    }
+    @keyframes slideInMobile{
+        0%{
+            left: -170%;
+        }
+        65%{
+            left: 80%;
+        }
+        100%{
+            left: 50%;
+        }
+    }
+}
+.stripe {
+    width: 115%;
+    height: 6px;
+    margin: 10px 0;
+    margin-left: -15%;
+    background: "color of topic area";
+}
+
+
+
+
+
+
+
+/* HOME PAGE STYLES */
+
+.container{ 
+    width: 100%;
+    margin: 0 auto;
+    color: #414042;
+    img{
+        margin-top: 20px;
+    }
+}
+
+/* SITS INSIDE THE MAIN CONTAINER */ 
+.introContainer {
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 160px;
+    @media only screen and (max-width: 650px){
+        padding-top: 120px;
+    }
+}
+
+
+/* You are currently using text at the moment, i believe, this needs to be an image" */
+.logoImage {
+    width: 65%;
+    margin-bottom: 40px;
+    @media only screen and (min-width: 900px){
+        width: 56% !important;
+    }
+}
+
+
+/* For noun & adjective */ 
+.meaningContainer{
+    padding: 14px 0;
+}
+
+/* For noun & adjective */ 
+h5 {
+    text-transform: lowercase;
+    margin-bottom: -10px;
+    font-weight: 800;
+    font-size: 1.8em;
+}
+
+/* For description of noun & adjective */
+p {
+    text-transform: lowercase;
+    font-size: 1.8em;
+    line-height: 1.4em;
+}
+
+/* for text that says “start by selecting a topic */ 
+h3{
+    font-weight: 200;
+    font-size: 2.5em;
+    padding-bottom: 30px;
+    @media only screen and (max-width: 1500px) and (min-width: 800px){
+        font-size: 3em;
+        padding-bottom: 16px;
+    }
+    @media only screen and (max-width: 2000px) and (min-width: 1500px){
+        font-size: 4em;
+        padding-bottom: 24px;
+    }
+    @media only screen and (min-width: 2000px){
+        font-size: 5em;
+    }
+}
+
+.banner{
+    width: 100%;
+    height: 300px;
+    background: url(${props => props.backgroundImage});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 50px 0;
+}
+
+.badgesContainer{
+    color: darkgrey;
+    font-weight: 100;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    img{
+        width: 50%;
+        padding: 30px;
+        @media only screen and (max-width: 570px){
+            width: 40% !important;
+            padding: 10px;
+        }
+    }
+    @media only screen and (max-width: 570px){
+        display: block !important;
+    }
+}
+
+
+
+/* BUTTON STYLES */ 
+
+.buttonsContainer {
+    div{
+        div{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border-top: 1px solid grey;
+            padding: 80px 0;
+            position: relative;
+            width: 90%;
+            margin: 0 auto;
+            &:nth-child(1){
+                border-top: none;
+            }
+            @media only screen and (max-width: 500px){
+                display: block;
+            }
+            @media only screen and (min-width: 2000px){
+                width: 70%;
+            }
+            @media only screen and (min-width: 1700px) and (max-width: 2000px){
+                width: 78%;
+            }
+            @media only screen and (min-width: 1280px) and (max-width: 1700px){
+                width: 78%;
+            }
+        }
+
+        /* NOTE: this is the actual button, I'm currently using an image for this, so styles will be different */
+        img{
+            width: 300px;
+            padding: 5% 0;
+            @media only screen and (min-width: 2200px) {
+                width: 500px;
+            }
+            @media only screen and (min-width: 1800px) and (max-width: 2200px){
+                width: 460px;
+            }
+            @media only screen and (max-width: 800px){
+                width: 340px;
+            }
+            @media only screen and (max-width: 540px){
+                width: 90%;
+            }
+        }
+        p{
+            margin-top: 20px;
+            @media only screen and (min-width: 2200px){
+                font-size: 1.8em;
+            }
+            @media only screen and (min-width: 1800px) and (max-width: 2200px){
+                font-size: 1.5em;
+            }
+        }
+        @media only screen and (max-width: 950px){
+            grid-gap: 30px;
+        }
+        @media only screen and (max-width: 800px){
+            display: block;
+            text-align: center;
+        }
+    }
+}
+
+
+
+
+
+
+/* NAVIGATION STYLES */
+
+.contentContainer {
+    margin: 0 auto;
+    background: black;
+    color: white;
+    padding: 16px 0;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    @media only screen and (min-width: 2000px){
+        width: 70%;
+        padding: 24px 0;
+    }
+    @media only screen and (min-width: 1280px) and (max-width: 2000px){
+        width: 78%;
+    }
+    @media only screen and (max-width: 700px){
+        width: 100%;
+        grid-template-areas: "nothing";
+    }
+    @media only screen and (max-width: 700px){
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* // Text that displays the login / logout text */
+
+    .loginLink{
+        text-decoration: none;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        right: -5px;
+        @media only screen and (max-width: 700px){
+            display: none;
+        }
+    }
+    .loginLinkHamburger{
+        text-decoration: none;
+        color: white;
+        position: absolute;
+        top: 20%;
+        right: 5%;
+    
+
+        @media only screen and (min-width: 700px){
+            display: none;
+        }
+    }
+}
+.navImgContainer{
+    position: relative;
+    @media only screen and (min-width: 700px) and (max-width: 1200px){
+        margin-left: 0;
+    }
+    @media only screen and (max-width: 700px){
+        text-align: center;
+        margin-left: 0;
+    }
+}
+.navImg{
+    height: auto;
+    width: 210px;
+    filter: invert(102%) sepia(103%) saturate(1352%) hue-rotate(87deg) brightness(11119%) contrast(119%);
+    @media only screen and (min-width: 2000px){
+        width: 320px;
+    }
+    @media only screen and (min-width: 1650px) and (max-width: 2000px){
+        width: 255px;
+    }
+}
+
+/* DESKTOP MENU */
+.menuList{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 25px;
+    list-style: none;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    transition: 1s all;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: -120px;
+
+        &:last-child{
+            margin-left: 0;
+        }
+        @media only screen and (min-width: 1650px) and (max-width: 2000px){
+            // margin-left: -180px;
+            margin-left: -10px;
+        }
+        @media only screen and (min-width: 2000px){
+            margin-left: -240px;
+        }
+    }
+    li{
+        display: flex;
+    }
+    li img{
+        height: auto;
+        width: 50px;
+        border-radius: 100%;
+        @media only screen and (min-width: 2000px){
+            width: 110px;
+        }
+        @media only screen and (min-width: 1650px) and (max-width: 2000px){
+            width: 84px;
+        }
+    }
+    @media only screen and (min-width: 2000px){
+        grid-gap: 36px;
+    }
+    @media only screen and (max-width: 700px){
+        display: none;
+    }
+}
+
+/* MOBILE MENU LIST */
+.menuListText{
+    ul{
+        display: none;
+        padding-left: 0;
+        transition: 1s all;
+        
+        .loggedInAvatar{
+            li{
+                text-align: center;
+                padding-bottom: 0;
+            }
+            img{
+                height: 150px;
+                width: 150px;
+            }
+        }
+        li{
+            text-decoration: none;
+            padding: 20px 0;
+            border-bottom: 2px solid white;
+            width: 90%;
+            margin: 0 auto;
+            img{
+                height: 150px;
+                width: 150px;
+                display: block;
+                margin: 0 auto;
+                border-radius: 100px;
+            }
+            div{
+                height: 14px;
+                width: 14px;
+                background: white;
+                border-radius: 100px;
+                display: inline-block;
+                margin-right: 22px;
+                // transform: translateY(2px);
+            }
+            a{
+                color: white;
+                text-decoration: none;
+                display: inline-block;
+            }
+            &:last-child{
+                {
+                    border-bottom: none;
+                }
+            }
+            &:nth-child(3){
+                div{
+                    background: linear-gradient(#2ab5e3, #0b92bf);
+                }
+            }
+            &:nth-child(4){
+                div{
+                    background: linear-gradient(#fb1842, #d00056);
+                }
+            }
+            &:nth-child(5){
+                div{
+                    background: linear-gradient(#57b28e, #3c9d52);
+                }
+            }
+            &:nth-child(6){
+                div{
+                    background: linear-gradient(#ffd32b, #f39200);
+                }
+            }
+        }
+        @media only screen and (max-width: 700px){
+            display: block;
+            text-decoration: none;
+            list-style: none;
+            width: 100%;
+            margin: 0 auto;
+            position: absolute;
+            background: black;
+            left: 0;
+            z-index: -10;
+        }
+    }
+}
+
+.hamburger{
+    display: none;
+    cursor: pointer;
+    transition: .8s all;
+    @media only screen and (max-width: 700px){
+        display: block;
+    }
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    transform: translateY(-50%);
+    .bar1, .bar2, .bar3{
+        width: 34px;
+        height: 4px;
+        background-color: white;
+        margin: 8px 0;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+    }
+    .change .bar1{
+        -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+        transform: rotate(-45deg) translate(-9px, 6px);
+    }
+    .change .bar2{
+        opacity: 0;
+    }
+    .change .bar3{
+        -webkit-transform: rotate(45deg) translate(-8px -8px);
+        transform: rotate(45deg) translate(-8px, -8px);
+    }
+}
+
+.cross {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 0%;
+    left: 4%;
+    transition: .8s all;
+    transform: translateY(-50%);
+
+    h1{
+        font-size: 3.4em;
+    }
+    @media only screen and (max-width: 700px){
+        display: block;
+    }
+}

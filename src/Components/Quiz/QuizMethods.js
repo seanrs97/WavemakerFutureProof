@@ -147,13 +147,13 @@ export const submitQuiz = async (component) => {
             const pointsNeededToWin = numOfQuestions * 10;
 
             console.log("You scored " + submit.data.points)
-            let playerResult = "failed";
+            let playerResult = "Sorry you didn't earn any points this time, please try again!";
             let successMessage = "Please try again!";
 
             const playerStats = { numberOfQuestions: component.state.numberOfQuestions };        
 
             if(pointsNeededToWin - pointsWon === 0){
-                playerResult = "passed"
+                playerResult = "Well done you have passed! You have now unlocked a badge and XP!"
                 successMessage = "Well done, you can now move on!"
                 setTimeout(() => {
                     component.setState({

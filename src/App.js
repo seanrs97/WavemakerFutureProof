@@ -50,6 +50,12 @@ class App extends React.Component{
     
   }
   async componentDidMount(){
+
+    // if(window.location.pathname = "/"){
+    //   setTimeout(() => {
+    //     window.open("https://dev.wavemakerfutureproof.co.uk/");
+    //   })
+    // }
     // USER LOGIN STUFF
     // this.checkIfUserIsLoggedIn();
     // this.checkIfUserIsLoggedIn();

@@ -129,6 +129,8 @@ const ImageTextContainer = styled.div`
         text-transform: uppercase;
         line-height: 1em;
         margin-left: -1px;
+        font-size: 4em;
+        color: white;
     }
     p {
         color: white;

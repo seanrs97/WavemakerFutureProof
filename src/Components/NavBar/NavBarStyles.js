@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 
+// Main Parent Container
 export const MenuContainer = styled.div`
     background: black;
     width: 100%;
@@ -10,6 +11,8 @@ export const MenuContainer = styled.div`
         position: initial;
     }
 `
+
+// Inner Container used for content
 export const ContentContainer = styled.nav`
     margin: 0 auto;
     background: black;
@@ -36,6 +39,8 @@ export const ContentContainer = styled.nav`
         display: flex;
         justify-content: center;
     }
+
+    // Text that displays the login / logout text
 
     .loginLink{
         text-decoration: none;

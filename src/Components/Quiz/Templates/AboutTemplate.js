@@ -14,10 +14,11 @@ class AboutTemplate extends React.Component {
                     <h1> Time to take the quiz! </h1>
                     <h3> What are the rules? </h3>
                     <ul>
-                        <li>You must complete the quiz before the timer runs out or you fail</li>
-                        <li>All answers are multiple choice, you can only select one answer</li>
+                        <li>You must complete the quiz before the timer runs out or you fail.</li>
+                        <li>All answers are multiple choice.</li>
+                        <li>You can only select one answer.</li>
                         <li>To unlock more content you need full marks! </li>
-                        <li>You can exit the quiz at anytime by clicking the 'X' in the top left corner of the quiz</li>
+                        <li>You can exit the quiz at anytime by clicking the 'X' in the top left corner of the quiz.</li>
                     </ul>
                     <button style = {{background: this.props.quizColour}} onClick = {this.props.startQuiz}> Play! </button>
                 </div>
